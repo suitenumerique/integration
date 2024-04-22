@@ -1,0 +1,42 @@
+{
+  "email": {
+    "placeholder": "Entrez votre adresse e-mail",
+    "srLabel": "Adresse e-mail",
+    "submit": "Suivant",
+    "title": "Connexion avec votre adresse e-mail"
+  },
+  "footer": {
+    "homepageLinkTitle": {
+      "withoutService": "Retour à l'accueil",
+      "withService": "Retour à l'accueil - {serviceName}"
+    },
+    "license": "Sauf mention explicite de propriété intellectuelle détenue par des tiers, les contenus de ce site sont proposés sous {license}",
+    "licenseEtalab": "licence etalab-2.0",
+    "links": {
+      "a11y": {
+        "perfect": "Accessibilité : conforme",
+        "partial": "Accessibilité : partiellement conforme",
+        "bad": "Accessibilité : non conforme"
+      },
+      "privacy": "Données personnelles",
+      "sitemap": "Plan du site",
+      "terms": "Mentions légales"
+    }
+  },
+  "gaufre": {
+    "label": "Les services de La Suite numérique"
+  },
+  "header": {
+    "homepageLinkTitle": "Accueil - {serviceName}"
+  },
+  "links": {
+    "newWindow": "{title} - nouvelle fenêtre"
+  },
+  "proconnect": {
+    "help": "Qu'est-ce que ProConnect ?",
+    "loginWith": "S’identifier avec",
+    "loginWithProconnect": "{loginWith} {proconnect}",
+    "or": "ou",
+    "title": "Connexion avec ProConnect"
+  }
+}

@@ -1,0 +1,158 @@
+:root {
+  --prism-color: #c9d1d9;
+  --prism-bg: #24292e;
+  --prism-inline-bg: #343942;
+  --prism-selection: #234879;
+  --prism-highlight-bg: #2f2a1e;
+  --prism-highlight-shadow: #674c16;
+  --prism-token-comment: #8b949e;
+  --prism-token-punctuation: #c9d1d9;
+  --prism-token-tag: #79c0ff;
+  --prism-token-string: #a5d6ff;
+  --prism-token-operator: #a5d6ff;
+  --prism-token-keyword: #a5d6ff;
+  --prism-token-function: #d2a8ff;
+  --prism-token-regex: #a8daff;
+}
+
+:root[data-theme="light"] {
+  --prism-selection: #9fc6e9;
+  --prism-color: #24292f;
+  --prism-bg: #f5f5fe;
+  --prism-inline-bg: #eff1f3;
+  --prism-highlight-bg: #fff8c5;
+  --prism-highlight-shadow: #eed888;
+  --prism-token-comment: #6e7781;
+  --prism-token-punctuation: #24292f;
+  --prism-token-tag: #0550ae;
+  --prism-token-string: #0a3069;
+  --prism-token-operator: #0550ae;
+  --prism-token-keyword: #cf222e;
+  --prism-token-function: #8250df;
+  --prism-token-regex: #0a3069;
+}
+
+.expressive-code .frame pre {
+  background-color: var(--prism-bg) !important;
+}
+
+/**
+ * Github Light/Dark theme for Prism.js
+ * Based on Github: https://github.com
+ * @author Katorly
+ */
+pre[class*="language-"],
+code[class*="language-"] {
+  color: var(--prism-color);
+  box-shadow: rgba(0, 0, 0, 0.157) 1.8px 1.8px 3.6px 0px;
+  border: 1px solid rgb(225, 228, 232);
+}
+pre[class*="language-"]::selection,
+code[class*="language-"]::selection,
+pre[class*="language-"]::mozselection,
+code[class*="language-"]::mozselection {
+  text-shadow: none;
+  background: var(--prism-selection);
+}
+@media print {
+  pre[class*="language-"],
+  code[class*="language-"] {
+    text-shadow: none;
+  }
+}
+pre[class*="language-"] {
+  padding: 1em;
+  overflow: auto;
+  background: var(--prism-bg);
+}
+.language-fixedheight pre[class*="language-"] {
+  max-height: 500px;
+}
+
+:not(pre) > code[class*="language-"] {
+  padding: 0.1em 0.3em;
+  border-radius: 0.3em;
+  color: #24292f;
+  background: var(--prism-inline-bg);
+}
+/* Line highlighting */
+pre[data-line] {
+  position: relative;
+}
+pre[class*="language-"] > code[class*="language-"] {
+  position: relative;
+  z-index: 1;
+}
+.line-highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding: inherit 0;
+  margin-top: 1em;
+  background: var(--prism-highlight-bg);
+  box-shadow: inset 5px 0 0 var(--prism-highlight-shadow);
+  z-index: 0;
+  pointer-events: none;
+  line-height: inherit;
+  white-space: pre;
+}
+/* Tokens */
+.namespace {
+  opacity: 0.7;
+}
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: var(--prism-token-comment);
+}
+.token.punctuation {
+  color: var(--prism-token-punctuation);
+}
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: var(--prism-token-tag);
+}
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: var(--prism-token-string);
+}
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: var(--prism-token-operator);
+}
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: var(--prism-token-keyword);
+}
+.token.function {
+  color: var(--prism-token-function);
+}
+.token.regex,
+.token.important,
+.token.variable {
+  color: var(--prism-token-regex);
+}
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+.token.italic {
+  font-style: italic;
+}
+.token.entity {
+  cursor: help;
+}

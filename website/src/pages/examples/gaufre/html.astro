@@ -1,0 +1,94 @@
+---
+import gaufreCssUrl from "@gouvfr-lasuite/integration/dist/css/gaufre.css?url"
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Exemple intégration bouton La Gaufre - La Suite numérique</title>
+    <style is:inline>
+      .wrapper {
+        margin: 2rem auto;
+        font-family: sans-serif;
+        width: 100%;
+        max-width: 800px;
+      }
+      .example {
+        margin: 2rem auto;
+        border: 1px solid #999;
+        padding: 2rem;
+        border-radius: 0.5rem;
+      }
+      .example > div {
+        display: flex;
+        justify-content: space-between;
+      }
+      .example > div > h1 {
+        margin-top: 0;
+      }
+      .example > p {
+        margin-top: 0;
+      }
+    </style>
+
+    <!-- code à ajouter pour faire marcher le bouton Gaufre -->
+    <!-- ce fichier buildé correspond à @gouvfr-lasuite/integration/dist/css/gaufre.css -->
+    <link rel="stylesheet" href={gaufreCssUrl} />
+    <script
+      is:inline
+      id="lasuite-gaufre-script"
+      async
+      defer
+      src={`${import.meta.env.PUBLIC_LASUITE_API_URL}/api/v1/gaufre.js`}></script>
+    <!-- fin du code à ajouter -->
+  </head>
+  <body>
+    <div class="wrapper">
+      <p><a href="/guides/gaufre">Retour à la documentation</a></p>
+      <div class="example">
+        <div>
+          <h1>Test de la Gaufre</h1>
+
+          <!-- code à copier pour faire marcher le bouton Gaufre -->
+          <button
+            type="button"
+            class="lasuite-gaufre-btn lasuite-gaufre-btn--vanilla js-lasuite-gaufre-btn"
+            title="Les services de La Suite numérique"
+          >
+            Les services de La Suite numérique
+          </button>
+          <!-- fin du code à copier -->
+        </div>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac diam a libero posuere
+          ornare facilisis in mi. Nullam eu vulputate augue, in auctor nibh. Praesent ac tempus dui.
+          Integer vel enim non purus facilisis mattis et vel dolor. Aliquam lacinia elit et massa
+          faucibus, at dictum risus ornare. Vivamus ultricies magna et gravida consequat. Donec ac
+          odio finibus, lobortis purus vel, consequat purus. Maecenas convallis vel enim eu
+          malesuada. Vestibulum elementum maximus massa, a porta erat congue quis. Nunc neque quam,
+          euismod et malesuada in, bibendum ac ex. Phasellus felis elit, egestas a convallis nec,
+          malesuada a est. Donec ac urna venenatis lorem aliquet rhoncus in accumsan ipsum.
+        </p>
+        <p>
+          Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi sed augue elementum,
+          tempus diam in, euismod purus. Fusce interdum, leo nec blandit eleifend, sapien ligula
+          egestas quam, quis aliquam ex turpis ut augue. Nullam a neque consectetur, feugiat eros a,
+          lacinia tortor. Proin imperdiet vehicula justo, eget bibendum tortor gravida a.
+          Pellentesque sit amet fermentum urna. Ut rutrum eros a ligula dapibus pharetra. In
+          porttitor arcu in euismod dictum. Aenean vestibulum mi et dignissim rutrum. Phasellus
+          ultrices ex justo, eu tincidunt metus efficitur non. Curabitur ac lorem ornare, aliquet
+          neque et, tristique elit. Donec quis turpis sodales, interdum massa fermentum, dictum
+          magna.
+        </p>
+        <p>
+          Mauris elit risus, facilisis at magna quis, interdum tempor nulla. Ut ac erat eget tellus
+          ultricies semper. Ut at dictum ante. Lorem ipsum dolor sit amet, consectetur adipiscing
+          elit. Nam placerat lacinia eros ac convallis. Sed ultricies lectus et pharetra aliquet.
+          Vestibulum feugiat pulvinar fermentum. Vivamus imperdiet dapibus ornare. Donec venenatis,
+          lectus id faucibus tempus, sapien urna molestie augue, at egestas enim lectus quis nisi.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>

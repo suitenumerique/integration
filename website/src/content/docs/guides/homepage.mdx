@@ -1,0 +1,159 @@
+---
+title: Gabarit de page d'accueil
+sidebar:
+  order: 10
+---
+
+import { Image } from "astro:assets"
+import { Code, Tabs, TabItem } from "@astrojs/starlight/components"
+import assetHomepage from "./homepage.png"
+import homepageHtml from "@gouvfr-lasuite/integration/dist/html/homepage.html?raw"
+
+<p>
+  <a href={assetHomepage.src} target="_blank">
+    <Image
+      src={assetHomepage}
+      alt="Voir le gabarit de page d'accueil en grand (nouvelle fenêtre)"
+    />
+  </a>
+</p>
+
+Le gabarit de page d'accueil vous permet de rapidement intégrer dans le code de votre service une
+page d'accueil suivant un visuel commun avec tous les autres services de La Suite.
+
+## Règles d'utilisation
+
+Le gabarit de page d'accueil est un guide à utiliser pour intégrer votre page d'accueil de service.
+Si pour des raisons techniques quelconques vous ne pouvez pas reprendre les templates proposés à la
+lettre, voici les points importants à retenir :
+
+- la page d'accueil doit contenir [le bouton Gaufre](../gaufre) dans son coin supérieur droit,
+- elle doit présenter le nom de votre service à travers une phrase d'accroche suivant un minimum le
+  visuel proposé,
+- elle doit permettre à l'utilisateur de se connecter à votre application,
+- elle doit afficher en fond de page
+  [une des photos communes de La Suite](/reference/api#background)
+
+## Installation
+
+### 1. CSS
+
+Le gabarit se base sur une partie du [DSFR](https://www.systeme-de-design.gouv.fr/). Suivant que
+vous l'utilisiez déjà ou non dans votre projet, un fichier CSS différent est à charger.
+
+<Tabs>
+  <TabItem label="Vous n'utilisez pas le DSFR">
+    Le fichier CSS à utiliser est :
+
+    ```
+    @gouvfr-lasuite/integration/dist/css/homepage-gaufre-dsfr.css
+    ```
+
+    Si durant l'installation vous avez décidé de
+    [copier les assets](../getting-started/#gestion-des-assets), assurez-vous que la police de
+    caractères Marianne a bien été copiée en suivant le chemin noté dans le CSS.
+
+  </TabItem>
+  <TabItem label="Vous utilisez déjà le DSFR">
+    Le fichier CSS à utiliser est :
+
+    ```
+    @gouvfr-lasuite/integration/dist/css/homepage-gaufre.css
+    ```
+
+  </TabItem>
+</Tabs>
+
+### 2. JS
+
+Pour faire fonctionner le bouton Gaufre présent en haut à droite de la page, il est nécessaire de
+charger un fichier JS externe qui s'occupe d'afficher le widget au clic du bouton.
+
+Vous pouvez ajouter ce code dans le `<head>` de votre page d'accueil uniquement, ou dans le `<head>`
+commun à toutes vos pages si vous décidez d'intégrer [La Gaufre](../gaufre) de façon globale sur
+votre site :
+
+<Code
+  code={`<script id="lasuite-gaufre-script" async defer src="${import.meta.env.PUBLIC_LASUITE_API_URL}/api/v1/gaufre.js"></script>`}
+  lang="html"
+/>
+
+:::note
+
+Pour que le script fonctionne il est nécessaire qu'il ait un id `lasuite-gaufre-script`, ne
+l'enlevez pas !
+
+:::
+
+### 3. HTML
+
+:::tip
+
+Pour facilement générer le code nécessaire, utilisez
+[le générateur de gabarit de page d'accueil](../homepage-generator).
+
+Sinon, suivez les conseils ci-dessous.
+
+:::
+
+#### Avec React
+
+Si vous utilisez React, utilisez le composant `Homepage` fourni par le paquet. Il faut lui passer
+plusieurs _props_ pour adapter le contenu à votre service. Et lui passer en enfant le contenu à
+afficher dans la partie droite de la page d'accueil.
+
+Plusieurs composants prêt-à-l'emploi sont disponibles pour vous aider à construire rapidement ce
+contenu :
+
+- `HomepageEmail` affiche un bloc contenant un formulaire de connexion par e-mail,
+- `HomepageEmailOrProconnect` affiche un bloc contenant un formulaire de connexion par e-mail et un
+  bouton Proconnect,
+- `HomepageProconnect` affiche un bloc contenant un bouton de connexion par Proconnect,
+
+Tous les composants sont typés avec TypeScript avec des props commentées. En attendant une
+documentation plus complète, vous pouvez vous aider de l'autocomplétion de votre éditeur pour en
+savoir plus sur chaque composant.
+
+##### Traduction
+
+Si vous utilisez les composants React et que vous avez besoin de traduire votre page d'accueil,
+vous pouvez envelopper les composants avec le provider `LaSuiteTranslationsProvider` provenant du
+paquet, et lui passer en props vos `translations`. Les traductions françaises sont exportées en
+tant que `frTranslations`.
+
+#### Sans React
+
+Si vous n'utilisez pas React, utilisez le HTML présent dans
+`@gouvfr-lasuite/integration/dist/html/homepage.html` :
+
+<details>
+  <summary>Voir le code HTML</summary>
+  <Code
+    code={homepageHtml}
+    lang="html"
+    title="@gouvfr-lasuite/integration/dist/html/homepage.html"
+  />
+</details>
+
+Remplacez le contenu de la div `.lasuite-homepage__form-inner` par le contenu propre à votre page
+d'accueil. Vous pouvez utiliser du HTML prêt à l'emploi pour construire rapidement ce contenu :
+
+- `@gouvfr-lasuite/integration/dist/html/email.html` affiche un bloc contenant un formulaire de
+  connexion par e-mail,
+- `@gouvfr-lasuite/integration/dist/html/email-or-proconnect.html` affiche un bloc contenant un
+  formulaire de connexion par e-mail et un bouton Proconnect,
+- `@gouvfr-lasuite/integration/dist/html/proconnect.html` affiche un bloc contenant un bouton de
+  connexion par Proconnect.
+
+:::caution
+
+Dans les gabarits HTML fournis, toutes les parties `~~replace~~` sont à remplacer avec vos données !
+
+:::
+
+:::tip
+
+Vous pouvez récupérer le logo de votre service au format svg dans le paquet npm :
+`@gouvfr-lasuite/integration/dist/logos`.
+
+:::

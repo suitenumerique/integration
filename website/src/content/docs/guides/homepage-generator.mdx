@@ -1,0 +1,29 @@
+---
+title: Générateur de page d'accueil
+sidebar:
+  order: 20
+---
+
+import HomepageGenerator from "@/components/HomepageGenerator.tsx"
+
+Après avoir [installé le JS et le CSS nécessaires de la page d'accueil](../homepage), vous pouvez
+utiliser ce formulaire pour générer facilement la partie HTML.
+
+Séléctionnez votre service dans la liste pour automatiquement générer le template prévu. Vous pouvez
+aussi générer un template sans service pré-défini si besoin.
+
+:::caution
+
+Dans les exemples fournis, toutes les parties marquées <code>\~\~replace\~\~</code> sont à remplacer
+avec vos données !
+
+:::
+
+:::tip
+
+Le logo à afficher en entête peut être récupéré dans le dossier `dist/logos` du paquet npm si
+besoin.
+
+:::
+
+<HomepageGenerator client:load />

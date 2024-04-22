@@ -1,0 +1,72 @@
+/**
+ * This is the DSFR-like styling for the Gaufre button.
+ * Styles are marked important to ensure they override correctly any other global styles.
+ *
+ * If they happen to be a nuisance, you can totally decide to *not* use this CSS and implement your own.
+ */
+
+/* this mask-image rule is set on additional classes, in case you don't want to apply
+ * the "lasuite-gaufre-btn--vanilla" class to your button, but still want to easily
+ * apply the mask on your own custom button.
+ */
+.lasuite-gaufre-btn--vanilla::before,
+.lasuite-gaufre-btn--vanilla::after,
+.lasuite-gaufre-mask-element,
+.lasuite-gaufre-mask::before,
+.lasuite-gaufre-mask::after {
+  mask-image: url("data:image/svg+xml,%3Csvg width%3D%2224%22 height%3D%2224%22 viewBox%3D%220 0 24 24%22 xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E  %3Cpath d%3D%22m11.931261 8.1750088 3.362701 1.9413282v3.882529l-3.362701 1.941262-3.3627003-1.941262v-3.882529zm3.785275-6.8155706 3.362701 1.9412995v3.8825496l-3.362701 1.9412783-3.362701-1.9412783V3.3007377Zm0 13.5159968 3.362701 1.941263v3.882529l-3.362701 1.941335-3.362701-1.941335v-3.882529ZM4.3627012 8.1750088l3.3627014 1.9413282v3.882529l-3.3627014 1.941262L1 13.998866v-3.882529Zm3.7841385-6.8155706 3.3627023 1.9412995v3.8825496L8.1468397 9.1245656 4.7841172 7.1832873V3.3007377Zm0 13.5159968 3.3627023 1.941263v3.882529l-3.3627023 1.941335-3.3627225-1.941335v-3.882529ZM19.637299 8.1750088 23 10.116337v3.882529l-3.362701 1.941262-3.362702-1.941262v-3.882529z%22%2F%3E%3C%2Fsvg%3E") !important;
+}
+
+.lasuite-gaufre-btn--vanilla {
+  all: unset;
+  overflow-wrap: break-word !important;
+  box-sizing: border-box !important;
+  appearance: none !important;
+  border: none !important;
+  margin: 0 !important;
+  font-family: inherit !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent !important;
+  display: inline-flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  width: -moz-fit-content !important;
+  width: fit-content !important;
+  font-weight: 500 !important;
+  font-size: 1.125rem !important;
+  line-height: 1.75rem !important;
+  min-height: 3rem !important;
+  padding: 0.5rem 1.5rem !important;
+  background-color: transparent !important;
+  color: #000091 !important;
+  box-shadow: inset 0 0 0 1px #000091 !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+  max-width: 3rem !important;
+  max-height: 3rem !important;
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
+}
+
+.lasuite-gaufre-btn--vanilla::before {
+  content: "" !important;
+  flex: 0 0 auto !important;
+  display: block !important;
+  background-color: currentColor !important;
+  width: var(--icon-size) !important;
+  height: var(--icon-size) !important;
+  -webkit-mask-size: 100% 100% !important;
+  mask-size: 100% 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0.5rem !important;
+  --icon-size: 2rem !important;
+}
+
+.lasuite-gaufre-btn--vanilla:hover,
+.lasuite-gaufre-btn--vanilla:focus-visible {
+  background-color: #f6f6f6 !important;
+}
+
+.lasuite-gaufre-btn--vanilla:active {
+  background-color: #ededed !important;
+}

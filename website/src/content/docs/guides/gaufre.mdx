@@ -1,0 +1,103 @@
+---
+title: La Gaufre
+sidebar:
+  order: 30
+---
+
+import { Aside } from "@astrojs/starlight/components"
+import assetGaufre from "./gaufre.png"
+import { Code } from "@astrojs/starlight/components"
+import gaufreHtml from "@gouvfr-lasuite/integration/dist/html/gaufre.html?raw"
+
+![](./gaufre.png)
+
+Le bouton "Gaufre" est un élément d'interface commun à tous les services de La Suite numérique. Il
+permet aux internautes de facilement passer d'un service de La Suite à un autre.
+
+Pour intégrer la Gaufre, il y a trois étapes :
+
+- intégrer le HTML du bouton
+- ajouter le fichier CSS nécessaire
+- ajouter le fichier JS chargeant le widget au clic du bouton
+
+:::note
+
+Ce guide est à suivre pour intégrer la Gaufre sur toute page autre que
+[votre page d'accueil](../homepage). Le gabarit de page d'accueil inclut déjà le bouton.
+
+:::
+
+## Règles d'utilisation
+
+Le bouton Gaufre est destiné à être présent dans le coin supérieur droit de la page de votre page
+web afin d'être toujours placé au même endroit quelque soit le service.
+
+## Installation
+
+### 1. HTML
+
+#### Avec React
+
+Si vous utilisez React, utilisez le composant `Gaufre` fourni par le paquet :
+
+```jsx
+import { Gaufre } from "@gouvfr-lasuite/integration"
+
+function MonComposant() {
+  return <Gaufre />
+}
+```
+
+:::note
+
+Même en utilisant React, vous devrez charger le CSS et le JS manuellement. Ce petit travail
+supplémentaire est fait pour vous donner plus de contrôle sur le chargement des assets suivant votre
+stack technique.
+
+:::
+
+#### Sans React
+
+Si vous n'utilisez pas React, utilisez le HTML présent dans le paquet :
+
+<Code code={gaufreHtml} lang="html" title="@gouvfr-lasuite/integration/dist/html/gaufre.html" />
+
+### 2. CSS
+
+Le CSS nécessaire est présent dans `@gouvfr-lasuite/integration/dist/css/gaufre.css`. Il est à
+inclure dans votre projet comme n'importe quel fichier CSS.
+
+Suivant votre stack technique, vous pouvez peut-être inclure directement le CSS depuis les
+dépendances. Par exemple avec _vite_ :
+
+<Code
+  code={`@import "@gouvfr-lasuite/integration/dist/css/gaufre.css";`}
+  lang="css"
+  title="vos/styles/globaux/app.css"
+/>
+
+Si vous n'utilisez pas de _bundler_ particulier et que avez plutôt décidé à l'installation de
+[copier les assets](/guides/getting-started/#gestion-des-assets), vous pouvez inclure le CSS
+directement via une balise `link` comme tout fichier CSS.
+
+### 3. JS
+
+Après avoir ajouté le bouton, il est nécessaire de le faire fonctionner. Pour ça, chargez ce fichier
+JS externe qui s'occupe d'afficher le widget au clic du bouton. Vous pouvez ajouter ce code dans
+votre `<head>` :
+
+<Code
+  code={`<script id="lasuite-gaufre-script" async defer src="${import.meta.env.PUBLIC_LASUITE_API_URL}/api/v1/gaufre.js"></script>`}
+  lang="html"
+/>
+
+:::note
+
+Pour que le script fonctionne il est nécessaire qu'il ait un id `lasuite-gaufre-script`. Ne
+l'enlevez pas en copiant l'exemple !
+
+:::
+
+## Exemple
+
+[La Gaufre : exemple HTML](/examples/gaufre/html).

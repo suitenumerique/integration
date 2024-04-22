@@ -1,0 +1,42 @@
+[
+  {
+    "id": "equipes",
+    "name": "Equipes",
+    "url": "https://desk-staging.beta.numerique.gouv.fr/",
+    "tagline": "**Equipes**, la gestion de groupes <br>centralisée pour tous vos projets",
+    "homepageType": "proconnect",
+    "entity": "Gouvernement"
+  },
+  {
+    "id": "france-transfert",
+    "name": "France Transfert",
+    "url": "https://francetransfert.numerique.gouv.fr/upload",
+    "tagline": "**France Transfert** permet d’envoyer des fichiers <br>volumineux non sensibles de manière sécurisée <br>à un agent de l’Etat ou entre agents",
+    "homepageType": "custom",
+    "entity": "Gouvernement"
+  },
+  {
+    "id": "messagerie",
+    "name": "Messagerie",
+    "url": "https://webmail.numerique.gouv.fr/appsuite/",
+    "tagline": "**Messagerie** de l'État <br>le mail simple, centralisé et sécurisé",
+    "homepageType": "email",
+    "entity": "Gouvernement"
+  },
+  {
+    "id": "resana",
+    "name": "Resana",
+    "url": "https://resana.numerique.gouv.fr/public/",
+    "tagline": "**Resana** <br>groupes de travail <br>et suite collaborative en ligne",
+    "homepageType": "email-or-proconnect",
+    "entity": "Gouvernement"
+  },
+  {
+    "id": "tchap",
+    "name": "Tchap",
+    "url": "https://www.tchap.gouv.fr/",
+    "tagline": "**Tchap** <br>la messagerie <br>instantanée du Secteur Public",
+    "homepageType": "email",
+    "entity": "Gouvernement"
+  }
+]

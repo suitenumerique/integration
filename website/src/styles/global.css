@@ -1,0 +1,129 @@
+@import "./prism.css";
+
+@font-face {
+  font-family: Marianne;
+  src: url(../assets/fonts/Marianne-Regular.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Marianne;
+  src: url(../assets/fonts/Marianne-Medium.woff2) format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Marianne;
+  src: url(../assets/fonts/Marianne-Bold.woff2) format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: Marianne_cls_fallback;
+  src: local("Arial");
+  ascent-override: 103.16%;
+  descent-override: 23.35%;
+  line-gap-override: 0%;
+  size-adjust: 109.64%;
+}
+
+:root {
+  --sl-font: "Marianne", "Marianne_cls_fallback", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --sl-text-code-sm: var(--sl-text-code);
+  font-size: 1.125rem;
+}
+
+/* Light mode colors. */
+:root[data-theme="light"] {
+  --sl-color-accent-low: #e3e3fd;
+  --sl-color-accent: #000091;
+  --sl-color-accent-high: #8585f6;
+  --sl-color-white: #17181c;
+  --sl-color-gray-1: #24272f;
+  --sl-color-gray-2: #353841;
+  --sl-color-gray-3: #545861;
+  --sl-color-gray-4: #888b96;
+  --sl-color-gray-5: #c0c2c7;
+  --sl-color-gray-6: #edeef3;
+  --sl-color-gray-7: #f5f6f8;
+  --sl-color-black: #ffffff;
+  --sl-color-blue-low: #ececfe;
+  --sl-color-blue-middle: #cacafb;
+  --sl-color-blue: #000091;
+  --sl-color-bg-inline-code: var(--sl-color-blue-low);
+}
+
+.action {
+  border-radius: 0;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+}
+
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6) > a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6) > a:hover {
+  text-decoration: underline;
+}
+
+.starlight-aside--note {
+  border-top: 1px solid var(--sl-color-blue-middle, var(--sl-color-blue));
+  border-bottom: 1px solid var(--sl-color-blue-middle, var(--sl-color-blue));
+  border-right: 1px solid var(--sl-color-blue-middle, var(--sl-color-blue));
+}
+
+.sl-markdown-content p img {
+  display: block;
+  margin: auto;
+  box-shadow: var(--sl-shadow-sm);
+  border: 1px solid var(--sl-color-gray-5);
+}
+
+.react-form label {
+  display: block;
+}
+
+.react-form label span {
+  font-size: 0.875rem;
+  opacity: 0.75;
+  margin-left: 0.5rem;
+}
+
+.react-form-input {
+  margin-bottom: 1rem;
+}
+
+.react-form :is(input, select) {
+  width: 100%;
+}
+
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6):target {
+  background-color: #fef7da;
+}
+
+.react-code {
+  position: relative;
+}
+
+.react-code button {
+  position: absolute;
+  top: 20px;
+  background-color: var(--sl-color-bg);
+  color: var(--sl-color-text);
+  margin: 0 !important;
+  right: 20px;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+}

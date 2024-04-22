@@ -1,0 +1,260 @@
+:root {
+  --lasuite-primary: #000091;
+}
+
+@media (min-width: 78em) {
+  .lasuite-container,
+  .fr-container.lasuite-container {
+    max-width: 120rem;
+  }
+}
+
+.lasuite-homepage {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  border-top: 5px solid #e1000f;
+}
+
+.lasuite-text-center {
+  text-align: center;
+}
+
+.lasuite-header__brand {
+  filter: none;
+}
+
+.lasuite-header__brand-top,
+.lasuite-header__service {
+  width: fit-content;
+}
+
+.lasuite-header__service {
+  box-shadow: none;
+  padding-bottom: 0;
+  margin-left: 0;
+}
+
+.lasuite-header__service-title {
+  display: none;
+  margin: 0;
+  color: var(--lasuite-primary);
+  font-size: 1.25rem;
+  margin-left: 0.5rem;
+}
+
+@media screen and (min-width: 48em) {
+  .lasuite-header__service {
+    margin-left: 3.75rem;
+  }
+  .lasuite-header__service-title {
+    display: block;
+    font-size: 1.75rem;
+    margin-left: 1rem;
+  }
+}
+
+.lasuite-header__service-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.lasuite-header__service-logo {
+  width: 2.375rem;
+  height: 2.375rem;
+}
+
+.lasuite-header__tools-links {
+  display: block;
+  margin-right: 1.5rem;
+}
+
+@media screen and (min-width: 62em) {
+  .lasuite-header__tools-links {
+    margin-right: 0;
+  }
+}
+
+.lasuite-homepage__wrapper {
+  flex: 1;
+  background: #1c135e no-repeat center center;
+  background-image: linear-gradient(135deg, rgba(0, 0, 145, 0.6) 0%, rgba(225, 0, 15, 0.6) 100%);
+  background-size: cover;
+  position: relative;
+}
+
+/* background is set like this to profit from the <picture> element
+ * (the image-set css alternative has less browser support) */
+.lasuite-homepage__bg img {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.lasuite-homepage__content {
+  position: relative;
+  z-index: 2;
+}
+
+.lasuite-homepage__tagline {
+  margin: 0;
+  font-weight: 400;
+  background-color: white;
+  color: var(--lasuite-primary);
+  margin-bottom: 1rem;
+  font-size: 1.375rem;
+  padding: 1rem 1.5rem;
+}
+
+.lasuite-homepage__tagline-strong {
+  font-weight: 700;
+}
+
+@media screen and (min-width: 36em) {
+  .lasuite-homepage__tagline {
+    width: fit-content;
+  }
+}
+
+@media screen and (min-width: 48em) {
+  .lasuite-homepage__tagline {
+    padding: 2rem;
+    font-size: 1.875rem;
+  }
+  .lasuite-homepage__tagline br {
+    display: block;
+  }
+}
+
+.lasuite-homepage__form-container {
+  display: flex;
+}
+
+.lasuite-homepage__form {
+  width: 100%;
+}
+
+.lasuite-homepage__form-inner {
+  background: white;
+  margin: auto;
+  max-width: 33rem;
+  padding: 4rem 1.5rem 3rem;
+  /* fr-px-4w fr-pt-8w fr-pb-6w fr-px-md-6w */
+}
+
+@media screen and (min-width: 48em) {
+  .lasuite-homepage__form-inner {
+    margin-left: auto;
+    margin-right: 1.5rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media screen and (min-width: 90em) {
+  .lasuite-homepage__form {
+    margin-right: 7rem;
+  }
+}
+
+.lasuite-btn {
+  justify-content: center;
+  text-transform: uppercase;
+  width: 100%;
+  line-height: 1.75rem;
+  padding: 1rem;
+  display: block;
+}
+
+.lasuite-input-width {
+  width: 100%;
+  max-width: 23rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (min-width: 36em) {
+  .lasuite-btn {
+    font-size: 1.125rem;
+    padding: 1.125rem 1.5rem;
+    min-height: 3rem;
+  }
+}
+
+.lasuite-hr-or {
+  color: var(--lasuite-primary);
+}
+.lasuite-hr-or::before,
+.lasuite-hr-or::after {
+  height: 2px;
+  background-color: var(--lasuite-primary);
+}
+
+.lasuite-connect__brand {
+  font-weight: 700;
+}
+
+.lasuite-connect :is(.fr-connect__brand, .fr-connect__login) {
+  line-height: inherit;
+}
+
+.lasuite-connect__icon {
+  width: 48px;
+  height: 52px;
+}
+
+.lasuite-connect__inner {
+  display: inline-flex;
+  align-items: center;
+}
+
+.lasuite-connect__text {
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 36em) {
+  .lasuite-connect__icon {
+    width: 62px;
+    height: 67px;
+  }
+  .lasuite-connect__text {
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.fr-input.lasuite-input {
+  background-color: white;
+  border-radius: 0;
+  border: 1px solid #959595;
+  box-shadow: none;
+  padding: 0.75rem 1rem;
+  max-height: none;
+  width: 100%;
+}
+
+.fr-input.lasuite-input::placeholder {
+  font-style: normal;
+}
+
+.lasuite-link:not(:hover) {
+  background-image: none;
+}
+
+@media screen and (min-width: 62em) {
+  .lasuite-py-lg-16w {
+    padding-top: 8rem !important;
+    padding-bottom: 8rem !important;
+  }
+  .lasuite-mt-lg-0 {
+    margin-top: 0 !important;
+  }
+}
