@@ -18,7 +18,7 @@
     "@astrojs/markdown-remark": "^5.1.0",
     "@astrojs/react": "^3.3.1",
     "@astrojs/starlight": "^0.21.5",
-    "@gouvfr-lasuite/integration": "file:../packages/integration",
+    "@gouvfr-lasuite/integration": "^0.1.0",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "@types/react-syntax-highlighter": "^15.5.11",
