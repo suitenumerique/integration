@@ -32,7 +32,7 @@ lettre, voici les points importants à retenir :
   visuel proposé,
 - elle doit permettre à l'utilisateur de se connecter à votre application,
 - elle doit afficher en fond de page
-  [une des photos communes de La Suite](/reference/api#arrière-plan-de-page-daccueil)
+  [une des photos communes de La Suite](/reference/api#arrière-plan-de-page-daccueil).
 
 ## Installation
 
@@ -46,7 +46,7 @@ vous l'utilisiez déjà ou non dans votre projet, un fichier CSS différent est 
     Le fichier CSS à utiliser est :
 
     ```
-    @gouvfr-lasuite/integration/dist/css/homepage-gaufre-dsfr.css
+    @gouvfr-lasuite/integration/dist/css/homepage-full.css
     ```
 
     Si durant l'installation vous avez décidé de
@@ -63,6 +63,14 @@ vous l'utilisiez déjà ou non dans votre projet, un fichier CSS différent est 
 
   </TabItem>
 </Tabs>
+
+Si vous voulez finement gérer vos styles car vous utilisez le bouton Gaufre sur tout votre site, vous pouvez choisir parmi tous les fichiers CSS présents :
+
+- `css/homepage-full.css` : contient l'extrait de DSFR nécessaire + les styles de la homepage + les styles de la gaufre,
+- `css/homepage-gaufre.css` : contient les styles de la homepage + les styles de la gaufre (sans DSFR),
+- `css/homepage.css` : contient les styles de la homepage (sans DSFR ni gaufre),
+- `css/gaufre.css` : contient les styles de la gaufre (sans DSFR ni homepage),
+- `css/required-dsfr.css` : contient l'extrait de DSFR nécessaire (rien d'autre),
 
 ### 2. JS
 
