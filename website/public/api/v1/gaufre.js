@@ -66,11 +66,10 @@
     iframe.width = "304"
     iframe.height = "360"
     iframe.style.cssText = "display: none !important"
-    const { host, protocol } = new URL(scriptTag.src)
-    const searchParams = new URLSearchParams(scriptTag.src)
-    const anct = searchParams.get("type") === "anct"
+    const { host, protocol, searchParams } = new URL(scriptTag.src)
+    const local = searchParams.get("type") === "local"
     const lang = ["en"].includes(searchParams.get("lang")) ? searchParams.get("lang") : null
-    iframe.src = `${protocol}//${host}/api/v1/${(!!lang && `${lang}/`) || ""}gaufre${(!!anct && "?type=anct") || ""}`
+    iframe.src = `${protocol}//${host}/api/v1/${(!!lang && `${lang}/`) || ""}gaufre${(!!local && "/local") || ""}`
     document.body.appendChild(iframe)
   }
 

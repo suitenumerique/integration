@@ -1,5 +1,5 @@
 import type { APIContext } from "astro"
-import services from "@/data/services.json"
+import services from "@/data/services-local.json"
 
 export async function GET({ url }: APIContext) {
   const response = new Response(

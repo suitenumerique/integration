@@ -74,13 +74,17 @@ https://integration.lasuite.numerique.gouv.fr/api/v1/gaufre.js
 - Méthode : GET
 - Retourne : le JavaScript s'occupant d'afficher la popup listant les services de La Suite au clic
   sur le bouton [Gaufre](/guides/gaufre)
+- Ajouter `?type=local` en paramètre pour afficher la liste des services de La Suite territoriale
 
 ## Liste des services de La Suite
 
-`https://integration.lasuite.numerique.gouv.fr/api/v1/services.json`
+```
+https://integration.lasuite.numerique.gouv.fr/api/v1/services.json
+https://integration.lasuite.numerique.gouv.fr/api/v1/services-local.json
+```
 
-Retourne un tableau JSON listant les services de La Suite numérique. Chaque service a cette
-structure :
+Retourne un tableau JSON listant les services de La Suite numérique ou de La Suite territoriale.
+Chaque service a cette structure :
 
 - `id` l'identifiant du service, utilisé par d'autres APIs,
 - `name` le nom du service,

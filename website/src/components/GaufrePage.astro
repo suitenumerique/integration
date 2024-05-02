@@ -1,0 +1,224 @@
+---
+import { Image } from "astro:assets"
+const logos = import.meta.glob<{ default: ImageMetadata }>("/src/assets/logos/*.{svg,png,jpg}")
+const { services } = Astro.props
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>Services de La Suite numérique</title>
+    <style is:inline>
+      @font-face {
+        font-family: Marianne;
+        src: url("/fonts/Marianne-Regular-subset.woff2") format("woff2");
+        font-weight: 400;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: "Marianne fallback";
+        src: local("Arial");
+        ascent-override: 103.16%;
+        descent-override: 23.35%;
+        line-gap-override: 0%;
+        size-adjust: 109.64%;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body,
+      .lasuite-Services {
+        height: 100vh;
+        max-height: 22rem;
+      }
+
+      html {
+        font-size: 100%;
+        font-family: Marianne, "Marianne fallback", BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+      }
+
+      body {
+        margin: 0 0 0.5rem;
+        background: transparent;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .fr-sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap; /* added line */
+        border: 0;
+        display: block;
+      }
+
+      .fr-enlarge-link {
+        position: relative;
+      }
+
+      .fr-enlarge-link a {
+        background-image: none;
+        outline-width: 0;
+      }
+
+      .fr-enlarge-link a::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        outline-offset: 2px;
+        outline-style: inherit;
+        outline-color: inherit;
+        outline-width: 2px;
+        z-index: 1;
+      }
+
+      .lasuite-Services {
+        background-color: #01018fcc;
+        padding: 3px;
+        width: 19rem;
+        border-radius: 8px;
+        filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+        overflow: hidden;
+      }
+
+      .lasuite-Services-outer {
+        height: 100%;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+
+      .lasuite-Services-inner {
+        border-radius: 2px;
+        background-color: white;
+        height: 100%;
+        overflow: auto;
+      }
+
+      .lasuite-Service {
+        display: flex;
+        align-items: center;
+        padding: 1rem 2rem;
+        border-top: 1px solid transparent;
+        border-bottom: 1px solid transparent;
+      }
+
+      .lasuite-Service:hover,
+      .lasuite-Service:focus-within {
+        background-color: #f0f0fa;
+        border-top: 1px solid #8989cd;
+        border-bottom: 1px solid #8989cd;
+      }
+
+      .lasuite-Service-icon {
+        display: flex;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+      }
+
+      .lasuite-Service-name {
+        margin-left: 1.5rem;
+        text-decoration: none;
+        color: #161616;
+      }
+
+      .lasuite-Service-name:focus {
+        outline: 0;
+      }
+
+      .scrollbars {
+        scrollbar-width: thin;
+        scrollbar-color: #aaa transparent;
+      }
+      .scrollbars::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+      }
+      .scrollbars::-webkit-scrollbar-track {
+        background: 0 0;
+      }
+      .scrollbars::-webkit-scrollbar-thumb {
+        background-color: #ddd;
+        border-radius: 6px;
+      }
+      .scrollbars:not(:hover, :focus) {
+        scrollbar-color: transparent transparent;
+      }
+      .scrollbars:not(:hover, :focus):-webkit-scrollbar-thumb {
+        background-color: transparent;
+      }
+
+      #lasuite-service-suite-numerique {
+        font-size: 0.85rem;
+        opacity: 0.75;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="lasuite-Services">
+      <div class="lasuite-Services-outer">
+        <h1 class="fr-sr-only">Liste des services de La Suite numérique</h1>
+        <ul class="lasuite-Services-inner scrollbars">
+          {
+            services
+              .filter(({ enabled }) => !!enabled)
+              .map(({ id, name, url }, i) => {
+                const logo =
+                  logos[`/src/assets/logos/${id}.svg`] ||
+                  logos[`/src/assets/logos/${id}.jpg`] ||
+                  logos[`/src/assets/logos/${id}.png`]
+                return (
+                  <li>
+                    <div class="lasuite-Services-item lasuite-Service fr-enlarge-link">
+                      <div class="lasuite-Service-icon">
+                        {!!logo ? (
+                          <Image src={logo()} width="40" height="40" alt="" loading="eager" />
+                        ) : null}
+                      </div>
+                      <a
+                        target="_parent"
+                        class="lasuite-Service-name"
+                        href={url}
+                        id={`lasuite-service-${id}`}
+                        {...((i === 0 && { autofocus: true }) || {})}
+                      >
+                        {name}
+                      </a>
+                    </div>
+                  </li>
+                )
+              })
+          }
+        </ul>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("keyup", (event) => {
+        if (event.key === "Escape") {
+          window.parent.postMessage("lasuite-close-services-iframe", "*")
+        }
+      })
+    </script>
+  </body>
+</html>

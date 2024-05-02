@@ -91,6 +91,10 @@ votre `<head>` :
   lang="html"
 />
 
+Si vous voulez afficher la liste des services de La Suite territoriale, remplacez `src` par :
+
+<Code code={`${import.meta.env.PUBLIC_LASUITE_API_URL}/api/v1/gaufre.js?type=local`} lang="text" />
+
 :::note
 
 Pour que le script fonctionne il est nécessaire qu'il ait un id `lasuite-gaufre-script`. Ne
