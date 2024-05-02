@@ -8,6 +8,8 @@ website/src/assets/logos/*
 # this folder contains shutterstock photos to resize/compress
 website/src/assets/backgrounds/sources/*
 
+packages/integration/*.tgz
+
 # generated types
 .astro/
 

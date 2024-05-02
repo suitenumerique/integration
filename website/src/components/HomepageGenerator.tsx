@@ -91,11 +91,13 @@ export default function HomepageGenerator() {
             }}
           >
             <option value="">Choisir votre service pour pré-remplir les champs</option>
-            {services.map((service) => (
-              <option key={service.id} value={service.id}>
-                {service.name}
-              </option>
-            ))}
+            {services
+              .filter(({ enabled }) => !!enabled)
+              .map((service) => (
+                <option key={service.id} value={service.id}>
+                  {service.name}
+                </option>
+              ))}
             <option value="other">Autre…</option>
           </select>
         </div>
@@ -199,11 +201,7 @@ const getHTMLMarkup = (codeData: any) => {
       tagline={codeData.tagline}
       serviceName={codeData.serviceName}
       serviceId={codeData.serviceId}
-      logo={
-        codeData.serviceId
-          ? `${import.meta.env.PUBLIC_LASUITE_API_URL}/api/logos/v1/${codeData.serviceId}.svg`
-          : "~~replace~~"
-      }
+      logo={"~~replace~~"}
       homepageUrl="/"
       footerOptions={{
         description: "Un service de la Direction interministérielle du numérique",
