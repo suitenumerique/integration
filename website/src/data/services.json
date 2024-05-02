@@ -1,11 +1,30 @@
 [
   {
+    "id": "audioconf",
+    "name": "AudioConf",
+    "url": "https://audioconf.numerique.gouv.fr",
+    "tagline": "**AudioConf**, conférences téléphoneiques <br>pour les agents de l'État",
+    "homepageType": "custom",
+    "entity": "Gouvernement",
+    "enabled": false
+  },
+  {
+    "id": "demarches",
+    "name": "Démarches simplifiées",
+    "url": "https://www.demarches-simplifiees.fr/",
+    "tagline": "",
+    "homepageType": "proconnect",
+    "entity": "Gouvernement",
+    "enabled": true
+  },
+  {
     "id": "equipes",
     "name": "Equipes",
     "url": "https://desk-staging.beta.numerique.gouv.fr/",
     "tagline": "**Equipes**, la gestion de groupes <br>centralisée pour tous vos projets",
     "homepageType": "proconnect",
-    "entity": "Gouvernement"
+    "entity": "Gouvernement",
+    "enabled": false
   },
   {
     "id": "france-transfert",
@@ -13,7 +32,16 @@
     "url": "https://francetransfert.numerique.gouv.fr/upload",
     "tagline": "**France Transfert** permet d’envoyer des fichiers <br>volumineux non sensibles de manière sécurisée <br>à un agent de l’Etat ou entre agents",
     "homepageType": "custom",
-    "entity": "Gouvernement"
+    "entity": "Gouvernement",
+    "enabled": true
+  },
+  {
+    "id": "grist",
+    "name": "Grist",
+    "url": "https://grist.incubateur.net/",
+    "tagline": "**Grist**, une feuille de calcul simple, <br>flexible, moderne et open source <br>qui va au-delà de la grille.",
+    "homepageType": "proconnect",
+    "enabled": true
   },
   {
     "id": "messagerie",
@@ -21,7 +49,26 @@
     "url": "https://webmail.numerique.gouv.fr/appsuite/",
     "tagline": "**Messagerie** de l'État <br>le mail simple, centralisé et sécurisé",
     "homepageType": "email",
-    "entity": "Gouvernement"
+    "entity": "Gouvernement",
+    "enabled": true
+  },
+  {
+    "id": "pad",
+    "name": "Notepad de l'État",
+    "url": "https://pad.numerique.gouv.fr/",
+    "tagline": "**Notepad de l’État** <br>Le meilleur moyen d’écrire <br> et partager votre savoir <br>en markdown",
+    "homepageType": "proconnect",
+    "entity": "Gouvernement",
+    "enabled": true
+  },
+  {
+    "id": "rdv",
+    "name": "RDV Service Public",
+    "url": "https://rdv.anct.gouv.fr/",
+    "tagline": "**RDV Service Public** <br>facilitez la gestion <br>et la prise de rendez-vous en ligne",
+    "homepageType": "email",
+    "entity": "Gouvernement",
+    "enabled": true
   },
   {
     "id": "resana",
@@ -29,7 +76,8 @@
     "url": "https://resana.numerique.gouv.fr/public/",
     "tagline": "**Resana** <br>groupes de travail <br>et suite collaborative en ligne",
     "homepageType": "email-or-proconnect",
-    "entity": "Gouvernement"
+    "entity": "Gouvernement",
+    "enabled": true
   },
   {
     "id": "tchap",
@@ -37,6 +85,25 @@
     "url": "https://www.tchap.gouv.fr/",
     "tagline": "**Tchap** <br>la messagerie <br>instantanée du Secteur Public",
     "homepageType": "email",
-    "entity": "Gouvernement"
+    "entity": "Gouvernement",
+    "enabled": true
+  },
+  {
+    "id": "webconf",
+    "name": "WebConférence de l'État",
+    "url": "https://webconf.numerique.gouv.fr",
+    "tagline": "**Webconférence** de l’État, <br>Audio, vidéo, chat, partage d’écran <br>et de documents",
+    "homepageType": "custom",
+    "entity": "Gouvernement",
+    "enabled": true
+  },
+  {
+    "id": "webinaire",
+    "name": "Webinaire de l'État",
+    "url": "https://webinaire.numerique.gouv.fr/welcome",
+    "tagline": "**Webinaire**. Vous organisez régulièrement <br>des séminaires, vous êtes agent de l’État, <br>créez un compte pour organiser <br>et conserver vos séminaires.",
+    "homepageType": "custom",
+    "entity": "Gouvernement",
+    "enabled": true
   }
 ]
