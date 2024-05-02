@@ -8,8 +8,6 @@ import {
   HomepageEmailOrProconnect,
   HomepageProconnect,
 } from "@gouvfr-lasuite/integration"
-import * as prettier from "prettier/standalone"
-import prettierHtml from "prettier/plugins/html"
 
 const defaultFormData = {
   serviceId: "",
@@ -53,12 +51,6 @@ const homepageTypes = {
 
 export default function HomepageGenerator() {
   const [codeData, setCodeData] = useState<any>(defaultFormData)
-  const [htmlMarkup, setHtmlMarkup] = useState<string>("")
-  useEffect(() => {
-    getHTMLMarkup(codeData).then((html) => {
-      setHtmlMarkup(html)
-    })
-  }, [codeData])
 
   return (
     <div style={{ margin: "1.5rem 0" }}>
@@ -154,7 +146,7 @@ export default function HomepageGenerator() {
           <div>
             <h2 style={{ marginTop: "1.5em" }}>Code HTML correspondant</h2>
             <Code language="html" fixedHeight>
-              {htmlMarkup}
+              {getHTMLMarkup(codeData)}
             </Code>
           </div>
         </>
@@ -226,12 +218,31 @@ const getHTMLMarkup = (codeData: any) => {
     </Homepage>
   )
   const markup = renderToStaticMarkup(Component)
-  return prettier.format(markup, {
-    parser: "html",
-    plugins: [prettierHtml],
-    printWidth: 100,
-    tabWidth: 4,
-    bracketSameLine: false,
-    htmlWhitespaceSensitivity: "ignore",
-  })
+  if (typeof window === "undefined") {
+    return markup
+  }
+  const div = document.createElement("div")
+  div.innerHTML = markup
+  return reIndent(div, 0).innerHTML.trim()
+}
+
+// https://stackoverflow.com/a/26361620/257559
+const reIndent = (node: Element, level: number) => {
+  const indentBefore = new Array(level++ + 1).join("  ")
+  const indentAfter = new Array(level - 1).join("  ")
+  let textNode: Text
+
+  for (let i = 0; i < node.children.length; i++) {
+    textNode = document.createTextNode("\n" + indentBefore)
+    node.insertBefore(textNode, node.children[i])
+
+    reIndent(node.children[i], level)
+
+    if (node.lastElementChild == node.children[i]) {
+      textNode = document.createTextNode("\n" + indentAfter)
+      node.appendChild(textNode)
+    }
+  }
+
+  return node
 }
