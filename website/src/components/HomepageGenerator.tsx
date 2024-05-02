@@ -163,7 +163,7 @@ export default function HomepageGenerator() {
   )
 }
 
-const getReactMarkup = (codeData) => {
+const getReactMarkup = (codeData: any) => {
   return `import { Homepage${
     codeData.homepageType && homepageTypes[codeData.homepageType].importCode
       ? `, ${homepageTypes[codeData.homepageType].importCode}`
@@ -199,7 +199,7 @@ export default function MyHomepage() {
 }`
 }
 
-const getHTMLMarkup = (codeData) => {
+const getHTMLMarkup = (codeData: any) => {
   const Component = (
     <Homepage
       lasuiteApiUrl={import.meta.env.PUBLIC_LASUITE_API_URL}

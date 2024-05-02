@@ -1,11 +1,14 @@
 import { join } from "path"
 import Fastify from "fastify"
-import staticMiddleware from "@fastify/static"
+import fsfStatic from "@fastify/static"
+import fsfCompress from "@fastify/compress"
 const fastify = Fastify({
   logger: true,
 })
 
-fastify.register(staticMiddleware, {
+fastify.register(fsfCompress)
+
+fastify.register(fsfStatic, {
   root: join(import.meta.dirname, process.env.STATIC_DIR || "dist"),
 })
 

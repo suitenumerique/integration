@@ -12,7 +12,7 @@ https://integration.lasuite.numerique.gouv.fr
 
 C'est par exemple l'URL à passer comme `lasuiteApiUrl` aux composants React.
 
-## Fond d'écran de page d'accueil
+## Arrière-plan de page d'accueil
 
 ```text "{id}" "{avif,jpg}"
 https://integration.lasuite.numerique.gouv.fr/api/backgrounds/v1/{id}.avif
@@ -20,7 +20,7 @@ https://integration.lasuite.numerique.gouv.fr/api/backgrounds/v1/{id}.jpg
 ```
 
 - Méthode : GET
-- Retourne : une image en AVIF ou JPG en 1920x1080
+- Retourne : une image en AVIF ou JPG en 1920x1200
 - Passer l'[id d'un service](#liste-des-services-de-la-suite) à la place de `{id}`.  
   💡 Si votre service n'est pas (encore) supporté, vous pouvez utiliser l'id `default`.
 

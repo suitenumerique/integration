@@ -45,7 +45,7 @@ export default defineConfig({
   integrations: [
     react(),
     starlight({
-      title: "La Suite Integrations",
+      title: "La Suite : intégrations",
       social: {
         github: "https://github.com/withastro/starlight",
       },
