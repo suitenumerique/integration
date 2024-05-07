@@ -226,7 +226,6 @@
   width: 100%;
   line-height: 1.75rem;
   padding: 1rem;
-  display: block;
 }
 
 .lasuite-input-width {
@@ -251,6 +250,12 @@
 .lasuite-hr-or::after {
   height: 2px;
   background-color: var(--lasuite-primary);
+}
+
+.lasuite-connect {
+  justify-content: space-between;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 .lasuite-connect__brand {
