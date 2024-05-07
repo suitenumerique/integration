@@ -107,6 +107,19 @@
 .lasuite-homepage__content {
   position: relative;
   z-index: 2;
+  padding-top: 4rem;
+  padding-bottom: 3rem;
+}
+
+@media screen and (min-width: 36em) {
+  .lasuite-homepage__content {
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+  }
+}
+
+.lasuite-homepage__main-col {
+  margin-bottom: 2rem;
 }
 
 .lasuite-homepage__tagline-container {
@@ -141,6 +154,7 @@
   .lasuite-homepage__tagline-container {
     padding: 1rem 2rem;
     padding-left: 4rem;
+    margin-top: 2rem;
   }
 
   .lasuite-homepage__tagline {
@@ -160,6 +174,7 @@
 .lasuite-homepage__secondary-col {
   display: flex;
   width: 100%;
+  margin: 4rem auto 2rem;
 }
 
 @media screen and (min-width: 36em) {
@@ -168,11 +183,23 @@
   }
 }
 
-.lasuite-homepage__form {
+@media screen and (min-width: 48em) {
+  .lasuite-homepage__secondary-col {
+    margin-left: auto;
+    margin-right: 1.5rem;
+  }
+}
+@media screen and (min-width: 62em) {
+  .lasuite-homepage__secondary-col {
+    margin-top: 0 !important;
+  }
+}
+
+.lasuite-homepage__form-container {
   width: 100%;
 }
 
-.lasuite-homepage__form-inner {
+.lasuite-homepage__form {
   background: white;
   margin: auto;
   max-width: 33rem;
@@ -180,7 +207,7 @@
 }
 
 @media screen and (min-width: 48em) {
-  .lasuite-homepage__form-inner {
+  .lasuite-homepage__form {
     margin-left: auto;
     padding-left: 3rem;
     padding-right: 3rem;
@@ -278,14 +305,4 @@
 
 .lasuite-link:not(:hover) {
   background-image: none;
-}
-
-@media screen and (min-width: 62em) {
-  .lasuite-py-lg-16w {
-    padding-top: 8rem !important;
-    padding-bottom: 8rem !important;
-  }
-  .lasuite-mt-lg-0 {
-    margin-top: 0 !important;
-  }
 }

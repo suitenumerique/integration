@@ -66,17 +66,17 @@ export const HomepageContent = ({ tagline, lasuiteApiUrl, serviceId, children }:
   return (
     <div className="lasuite-homepage__wrapper">
       <div className="fr-container fr-p-0 lasuite-container">
-        <div className="lasuite-homepage__content fr-pt-8w fr-pb-6w lasuite-py-lg-16w">
+        <div className="lasuite-homepage__content">
           <div className="fr-container--fluid">
             <div className="fr-grid-row">
-              <div className="lasuite-homepage__main-col fr-mb-4w">
-                <div className="lasuite-homepage__tagline-container fr-mt-md-4w">
+              <div className="lasuite-homepage__main-col">
+                <div className="lasuite-homepage__tagline-container">
                   <h1 className="lasuite-homepage__tagline">{parsedTagline}</h1>
                 </div>
               </div>
-              <div className="lasuite-homepage__secondary-col fr-mx-auto fr-ml-md-auto fr-mr-md-3w fr-mt-8w fr-mb-4w lasuite-mt-lg-0 lasuite-homepage__form-container">
-                <div className="lasuite-homepage__form">
-                  <div className="lasuite-homepage__form-inner">{children}</div>
+              <div className="lasuite-homepage__secondary-col">
+                <div className="lasuite-homepage__form-container">
+                  <div className="lasuite-homepage__form">{children}</div>
                 </div>
               </div>
             </div>
