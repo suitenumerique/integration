@@ -3,7 +3,7 @@
     "placeholder": "Entrez votre adresse e-mail",
     "srLabel": "Adresse e-mail",
     "submit": "Suivant",
-    "title": "Connexion avec votre adresse e-mail"
+    "title": "Connexion avec {linebreak}votre adresse e-mail"
   },
   "footer": {
     "homepageLinkTitle": {
