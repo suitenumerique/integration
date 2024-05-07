@@ -150,7 +150,11 @@ const routes = [
           }}
         >
           <div style={{ display: "flex", justifyContent: "space-between" }}>
-            <h1>Test de la Gaufre</h1>
+            <h1>À droite</h1>
+            <Gaufre />
+          </div>
+          <div style={{ display: "flex" }}>
+            <h1>À gauche</h1>
             <Gaufre />
           </div>
           <p>

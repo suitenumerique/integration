@@ -78,6 +78,8 @@
   const getPopupPositionStyle = (button) => {
     const buttonCoords = button.getBoundingClientRect()
     const isSmallScreen = window.innerWidth <= 400
+    let leftPos = buttonCoords.right - 304 + document.documentElement.scrollLeft
+    leftPos = leftPos < 5 ? 5 : leftPos
     return `
       position: absolute !important;
       top: ${buttonCoords.top + buttonCoords.height + 8}px;
@@ -89,7 +91,8 @@
         margin: 0 auto;
       `
           : `
-      left: ${buttonCoords.right - 304 + document.documentElement.scrollLeft}px;`
+      left: ${leftPos}px;
+      width: 304px;`
       }
       border: 0 !important;
       display: block !important;
