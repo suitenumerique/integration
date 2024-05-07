@@ -4,76 +4,78 @@
 
   if ("requestIdleCallback" in window) {
     requestIdleCallback(() => {
-      appendIframe()
+      appendPopup()
     })
   }
 
   document.body.addEventListener("click", (event) => {
     if (!event.target.classList || !event.target.classList.contains(BUTTON_CLASS)) {
       const buttons = document.querySelectorAll(`.${BUTTON_CLASS}`)
-      buttons.forEach((b) => b.classList.remove("lasuite--opened"))
-      hideIframe()
+      buttons.forEach((b) => b.classList.remove("lasuite--gaufre-opened"))
+      hidePopup()
       return
     }
 
     const button = event.target
-    button.classList.toggle("lasuite--opened")
-    if (button.classList.contains("lasuite--opened")) {
-      showIframe(button)
+    button.classList.toggle("lasuite--gaufre-opened")
+    if (button.classList.contains("lasuite--gaufre-opened")) {
+      showPopup(button)
     } else {
-      hideIframe()
+      hidePopup()
     }
   })
 
   document.addEventListener("keyup", (event) => {
-    if (event.key === "Escape") {
-      hideIframe()
-    }
-  })
-
-  window.addEventListener("message", (event) => {
-    if (event.data === "lasuite-close-services-iframe") {
-      hideIframe()
+    if (event.key === "Escape" && document.activeElement.closest(".lagaufre")) {
+      hidePopup()
     }
   })
 
   window.addEventListener("resize", () => {
-    const iframe = document.querySelector(`#lasuite-gaufre-iframe.lasuite--opened`)
-    if (!iframe) {
+    const popup = document.querySelector(`#lasuite-gaufre-popup.lasuite--gaufre-opened`)
+    if (!popup) {
       return
     }
-    const button = document.querySelector(`.${BUTTON_CLASS}.lasuite--opened`)
+    const button = document.querySelector(`.${BUTTON_CLASS}.lasuite--gaufre-opened`)
     if (!button) {
       return
     }
-    iframe.style.cssText = getIframePositionStyle(button)
+    popup.style.cssText = getPopupPositionStyle(button)
   })
 
-  const appendIframe = () => {
-    if (document.querySelector(`#lasuite-gaufre-iframe`)) {
+  const appendPopup = () => {
+    if (document.querySelector(`#lasuite-gaufre-popup`)) {
       return
     }
     const scriptTag = document.querySelector(`#lasuite-gaufre-script`)
     if (!scriptTag) {
       console.log(
-        "La Suite numérique: Gaufre script tag not found, please check out the documentation",
+        "La Suite numérique: Gaufre script tag not found, make sure the script has id 'lasuite-gaufre-script'.",
       )
       return
     }
-    const iframe = document.createElement("iframe")
-    iframe.title = "Services de La Suite numérique"
-    iframe.id = "lasuite-gaufre-iframe"
-    iframe.width = "304"
-    iframe.height = "360"
-    iframe.style.cssText = "display: none !important"
-    const { host, protocol, searchParams } = new URL(scriptTag.src)
+    const popup = document.createElement("div")
+    popup.id = "lasuite-gaufre-popup"
+    popup.width = "304"
+    popup.height = "360"
+    popup.style.cssText = "display: none !important"
+    const { host, protocol, searchParams, origin } = new URL(scriptTag.src)
     const local = searchParams.get("type") === "local"
     const lang = ["en"].includes(searchParams.get("lang")) ? searchParams.get("lang") : null
-    iframe.src = `${protocol}//${host}/api/v1/${(!!lang && `${lang}/`) || ""}gaufre${(!!local && "/local") || ""}`
-    document.body.appendChild(iframe)
+    fetch(
+      `${protocol}//${host}/api/v1/${(!!lang && `${lang}/`) || ""}gaufre${(!!local && "/local") || ""}`,
+    )
+      .then((res) => res.text())
+      .then((html) => {
+        html = html.replace(/(src=|href=|url\()"\//g, `$1"${origin}/`)
+        const parser = new DOMParser()
+        const popupDocument = parser.parseFromString(html, "text/html")
+        popup.innerHTML = popupDocument.body.innerHTML
+        document.body.appendChild(popup)
+      })
   }
 
-  const getIframePositionStyle = (button) => {
+  const getPopupPositionStyle = (button) => {
     const buttonCoords = button.getBoundingClientRect()
     const isSmallScreen = window.innerWidth <= 400
     return `
@@ -95,27 +97,27 @@
     `
   }
 
-  const showIframe = (button) => {
-    const iframe = document.querySelector(`#lasuite-gaufre-iframe`)
-    if (!iframe) {
-      appendIframe()
+  const showPopup = (button) => {
+    const popup = document.querySelector(`#lasuite-gaufre-popup`)
+    if (!popup) {
+      appendPopup()
     }
-    iframe.style.cssText = getIframePositionStyle(button)
-    iframe.classList.add("lasuite--opened")
+    popup.style.cssText = getPopupPositionStyle(button)
+    popup.classList.add("lasuite--gaufre-opened")
     lastFocusedButton = button
     setTimeout(() => {
-      iframe.focus()
+      popup.querySelector(".js-lagaufre-keyboard-anchor").focus()
     }, 0)
   }
 
-  const hideIframe = () => {
-    const iframe = document.querySelector(`#lasuite-gaufre-iframe`)
-    if (iframe) {
-      iframe.style.cssText = "display: none !important"
-      iframe.classList.remove("lasuite--opened")
+  const hidePopup = () => {
+    const popup = document.querySelector(`#lasuite-gaufre-popup`)
+    if (popup) {
+      popup.style.cssText = "display: none !important"
+      popup.classList.remove("lasuite--gaufre-opened")
     }
     if (lastFocusedButton) {
-      lastFocusedButton.classList.remove("lasuite--opened")
+      lastFocusedButton.classList.remove("lasuite--gaufre-opened")
       lastFocusedButton.focus()
       lastFocusedButton = null
     }

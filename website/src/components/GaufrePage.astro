@@ -1,4 +1,10 @@
 ---
+/**
+ * this page is meant to be directly included on a service page via the gaufre script tag
+ *
+ * This is not rendered in an iframe! it's included directly in the host page with a fetch request.
+ * Every css rule is scoped and marked as important to avoid style conflicts with the host page.
+ */
 import { Image } from "astro:assets"
 const logos = import.meta.glob<{ default: ImageMetadata }>("/src/assets/logos/*.{svg,png,jpg}")
 const { services } = Astro.props
@@ -9,177 +15,167 @@ const { services } = Astro.props
   <head>
     <meta charset="utf-8" />
     <title>Services de La Suite numérique</title>
-    <style is:inline>
-      @font-face {
-        font-family: Marianne;
-        src: url("/fonts/Marianne-Regular-subset.woff2") format("woff2");
-        font-weight: 400;
-        font-display: swap;
-      }
-
-      @font-face {
-        font-family: "Marianne fallback";
-        src: local("Arial");
-        ascent-override: 103.16%;
-        descent-override: 23.35%;
-        line-gap-override: 0%;
-        size-adjust: 109.64%;
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body,
-      .lasuite-Services {
-        height: 100vh;
-        max-height: 22rem;
-      }
-
-      html {
-        font-size: 100%;
-        font-family: Marianne, "Marianne fallback", BlinkMacSystemFont, "Segoe UI", "Noto Sans",
-          Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-      }
-
-      body {
-        margin: 0 0 0.5rem;
-        background: transparent;
-      }
-
-      ul {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .fr-sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        margin: -1px;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap; /* added line */
-        border: 0;
-        display: block;
-      }
-
-      .fr-enlarge-link {
-        position: relative;
-      }
-
-      .fr-enlarge-link a {
-        background-image: none;
-        outline-width: 0;
-      }
-
-      .fr-enlarge-link a::before {
-        content: "";
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        outline-offset: 2px;
-        outline-style: inherit;
-        outline-color: inherit;
-        outline-width: 2px;
-        z-index: 1;
-      }
-
-      .lasuite-Services {
-        background-color: #01018fcc;
-        padding: 3px;
-        width: 19rem;
-        border-radius: 8px;
-        filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
-        overflow: hidden;
-      }
-
-      .lasuite-Services-outer {
-        height: 100%;
-        border-radius: 6px;
-        overflow: hidden;
-      }
-
-      .lasuite-Services-inner {
-        border-radius: 2px;
-        background-color: white;
-        height: 100%;
-        overflow: auto;
-      }
-
-      .lasuite-Service {
-        display: flex;
-        align-items: center;
-        padding: 1rem 2rem;
-        border-top: 1px solid transparent;
-        border-bottom: 1px solid transparent;
-      }
-
-      .lasuite-Service:hover,
-      .lasuite-Service:focus-within {
-        background-color: #f0f0fa;
-        border-top: 1px solid #8989cd;
-        border-bottom: 1px solid #8989cd;
-      }
-
-      .lasuite-Service-icon {
-        display: flex;
-        align-items: center;
-        width: 40px;
-        height: 40px;
-      }
-
-      .lasuite-Service-name {
-        margin-left: 1.5rem;
-        text-decoration: none;
-        color: #161616;
-      }
-
-      .lasuite-Service-name:focus {
-        outline: 0;
-      }
-
-      .scrollbars {
-        scrollbar-width: thin;
-        scrollbar-color: #aaa transparent;
-      }
-      .scrollbars::-webkit-scrollbar {
-        width: 5px;
-        height: 5px;
-      }
-      .scrollbars::-webkit-scrollbar-track {
-        background: 0 0;
-      }
-      .scrollbars::-webkit-scrollbar-thumb {
-        background-color: #ddd;
-        border-radius: 6px;
-      }
-      .scrollbars:not(:hover, :focus) {
-        scrollbar-color: transparent transparent;
-      }
-      .scrollbars:not(:hover, :focus):-webkit-scrollbar-thumb {
-        background-color: transparent;
-      }
-
-      #lasuite-service-suite-numerique {
-        font-size: 0.85rem;
-        opacity: 0.75;
-      }
-    </style>
   </head>
   <body>
-    <div class="lasuite-Services">
-      <div class="lasuite-Services-outer">
-        <h1 class="fr-sr-only">Liste des services de La Suite numérique</h1>
-        <ul class="lasuite-Services-inner scrollbars">
+    <div id="lagaufre-popup" class="lagaufre">
+      <style is:inline>
+        @font-face {
+          font-family: "La Gaufre";
+          src: url("/fonts/Marianne-Regular-subset.woff2") format("woff2");
+          font-weight: 400;
+          font-display: swap;
+        }
+
+        @font-face {
+          font-family: "La Gaufre fallback";
+          src: local("Arial");
+          ascent-override: 103.16%;
+          descent-override: 23.35%;
+          line-gap-override: 0%;
+          size-adjust: 109.64%;
+        }
+
+        .lagaufre,
+        :where(.lagaufre) * {
+          all: revert !important;
+          box-sizing: border-box !important;
+        }
+
+        .lagaufre {
+          height: 22rem !important;
+          max-height: 22rem !important;
+          font-size: 100% !important;
+          font-family: "La Gaufre", "La Gaufre fallback", BlinkMacSystemFont, "Segoe UI",
+            "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji" !important;
+          margin: 0 0 0.5rem !important;
+          background-color: #01018fcc !important;
+          padding: 3px !important;
+          width: 19rem !important;
+          border-radius: 8px !important;
+          filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06)) !important;
+          overflow: hidden !important;
+        }
+
+        .lagaufre-sr-only {
+          position: absolute !important;
+          width: 1px !important;
+          height: 1px !important;
+          padding: 0 !important;
+          margin: -1px !important;
+          overflow: hidden !important;
+          clip: rect(0, 0, 0, 0) !important;
+          white-space: nowrap !important;
+          border: 0 !important;
+          display: block !important;
+        }
+
+        .lagaufre-border {
+          height: 100% !important;
+          border-radius: 6px !important;
+          overflow: hidden !important;
+        }
+
+        .lagaufre-list {
+          margin: 0 !important;
+          padding: 0 !important;
+          list-style: none !important;
+          border-radius: 2px !important;
+          background-color: white !important;
+          height: 100% !important;
+          overflow: auto !important;
+        }
+
+        .lagaufre-service {
+          position: relative !important;
+          display: flex !important;
+          align-items: center !important;
+          padding: 1rem 2rem !important;
+          border-top: 1px solid transparent !important;
+          border-bottom: 1px solid transparent !important;
+        }
+
+        .lagaufre-service a {
+          background-image: none !important;
+          outline-width: 0 !important;
+        }
+
+        .lagaufre-service a::before {
+          content: "" !important;
+          display: block !important;
+          position: absolute !important;
+          top: 0 !important;
+          right: 0 !important;
+          bottom: 0 !important;
+          left: 0 !important;
+          width: 100% !important;
+          height: 100% !important;
+          outline-offset: 2px !important;
+          outline-style: inherit !important;
+          outline-color: inherit !important;
+          outline-width: 2px !important;
+          z-index: 1 !important;
+        }
+
+        .lagaufre-service:hover,
+        .lagaufre-service:focus-within {
+          background-color: #f0f0fa !important;
+          border-top: 1px solid #8989cd !important;
+          border-bottom: 1px solid #8989cd !important;
+        }
+
+        .lagaufre-service__icon {
+          display: flex !important;
+          align-items: center !important;
+          width: 40px !important;
+          height: 40px !important;
+        }
+
+        .lagaufre-service__name {
+          margin-left: 1.5rem !important;
+          text-decoration: none !important;
+          color: #161616 !important;
+        }
+
+        .lagaufre-service__name:focus {
+          outline: 0 !important;
+        }
+
+        .lagaufre-scrollbars {
+          scrollbar-width: thin !important;
+          scrollbar-color: #aaa transparent !important;
+        }
+
+        .lagaufre-scrollbars::-webkit-scrollbar {
+          width: 5px !important;
+          height: 5px !important;
+        }
+
+        .lagaufre-scrollbars::-webkit-scrollbar-track {
+          background: 0 0 !important;
+        }
+
+        .lagaufre-scrollbars::-webkit-scrollbar-thumb {
+          background-color: #ddd !important;
+          border-radius: 6px !important;
+        }
+
+        .lagaufre-scrollbars:not(:hover, :focus) {
+          scrollbar-color: transparent transparent !important;
+        }
+
+        .lagaufre-scrollbars:not(:hover, :focus):-webkit-scrollbar-thumb {
+          background-color: transparent !important;
+        }
+      </style>
+      <div class="lagaufre-border">
+        <h1 id="lagaufre-title" class="lagaufre-sr-only">
+          Liste des services de La Suite numérique
+        </h1>
+        <ul
+          class="lagaufre-list lagaufre-scrollbars js-lagaufre-keyboard-anchor"
+          aria-labelledby="lagaufre-title"
+          tabindex="-1"
+        >
           {
             services
               .filter(({ enabled }) => !!enabled)
@@ -190,17 +186,17 @@ const { services } = Astro.props
                   logos[`/src/assets/logos/${id}.png`]
                 return (
                   <li>
-                    <div class="lasuite-Services-item lasuite-Service fr-enlarge-link">
-                      <div class="lasuite-Service-icon">
+                    <div class="lagaufre-service lagaufre-enlarge-link">
+                      <div class="lagaufre-service__icon">
                         {!!logo ? (
                           <Image src={logo()} width="40" height="40" alt="" loading="eager" />
                         ) : null}
                       </div>
                       <a
                         target="_parent"
-                        class="lasuite-Service-name"
+                        class="lagaufre-service__name"
                         href={url}
-                        id={`lasuite-service-${id}`}
+                        id={`lagaufre-service-${id}`}
                         {...((i === 0 && { autofocus: true }) || {})}
                       >
                         {name}
@@ -213,12 +209,5 @@ const { services } = Astro.props
         </ul>
       </div>
     </div>
-    <script>
-      document.addEventListener("keyup", (event) => {
-        if (event.key === "Escape") {
-          window.parent.postMessage("lasuite-close-services-iframe", "*")
-        }
-      })
-    </script>
   </body>
 </html>
