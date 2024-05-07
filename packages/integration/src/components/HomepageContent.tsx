@@ -94,7 +94,7 @@ export const HomepageContent = ({ tagline, lasuiteApiUrl, serviceId, children }:
             src={`${lasuiteApiUrl}/api/backgrounds/v1/${serviceId || "default"}.jpg`}
             alt=""
             width="1920"
-            height="1080"
+            height="1200"
           />
         </picture>
       )}
