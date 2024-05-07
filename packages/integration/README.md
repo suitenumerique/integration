@@ -31,7 +31,7 @@ To start, `npm install` a first time and copy the example env file: `cp .env.exa
 
 Then, run the local dev server with `npm run dev`.
 
-The main dev file is `src/dev.tsx` where a small testing React router is used to render the different React components while developing.
+The main dev file is `src/dev/dev.tsx` where a small testing React router is used to render the different React components while developing.
 
 ### Building
 

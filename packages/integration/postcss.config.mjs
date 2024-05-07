@@ -5,7 +5,10 @@ import autoprefixer from "autoprefixer"
 export default {
   plugins: [
     purgecss({
-      content: ["./src/**/*.{js,jsx,ts,tsx,html}"],
+      content:
+        process.env.NODE_ENV === "production"
+          ? ["./src/html.tsx", "./src/components/**/*.tsx"]
+          : ["./src/**/*.{js,jsx,ts,tsx,html}"],
       css: ["./src/**/*.css"],
       variables: true,
     }),
