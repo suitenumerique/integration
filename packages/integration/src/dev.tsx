@@ -8,14 +8,19 @@ import { Gaufre } from "./components/Gaufre"
 import { EmailOrProconnect } from "./components/Homepage/EmailOrProconnect"
 import { Email } from "./components/Homepage/Email"
 import { Proconnect } from "./components/Homepage/Proconnect"
+import { StylesFull } from "./components/StylesFull"
+import { StylesStandalone } from "./components/StylesStandalone"
 import services from "../../../website/src/data/services.json"
 
-import "./styles/dsfr.css"
-import "./styles/homepage.css"
-import "./styles/gaufre.css"
-import "./styles/dev.css"
-
-const serviceHomepage = ({ id, content }: { content?: ReactNode; id: string }) => {
+const serviceHomepage = ({
+  id,
+  content,
+  styles = "standalone",
+}: {
+  content?: ReactNode
+  id: string
+  styles: "standalone" | "full"
+}) => {
   const service = services.find(({ id: itemId }) => itemId === id)
   if (!service) {
     console.log(`Service ${id} not found, exiting`)
@@ -23,29 +28,33 @@ const serviceHomepage = ({ id, content }: { content?: ReactNode; id: string }) =
   }
   const { name, tagline } = service
 
+  const StylesProvider = styles === "standalone" ? StylesStandalone : StylesFull
+
   return {
     path: `/homepage-template-${id}`,
     label: `Homepage ${name}`,
     component: (
-      <Homepage
-        lasuiteApiUrl={import.meta.env.VITE_LASUITE_API_URL}
-        entity="Gouvernement"
-        tagline={tagline}
-        serviceName={name}
-        serviceId={id}
-        logo={`/logos/${id}.svg`}
-        homepageUrl="/"
-        footerOptions={{
-          description: "Un service de la Direction interministérielle du numérique",
-          sitemapUrl: "/sitemap",
-          a11yUrl: "/accessibilite",
-          a11yLevel: "non compliant",
-          termsUrl: "/mentions-legales",
-          privacyUrl: "/donnees-personnelles",
-        }}
-      >
-        {content || <Proconnect url="#" />}
-      </Homepage>
+      <StylesProvider>
+        <Homepage
+          lasuiteApiUrl={import.meta.env.VITE_LASUITE_API_URL}
+          entity="Gouvernement"
+          tagline={tagline}
+          serviceName={`${name} - styles ${styles}`}
+          serviceId={id}
+          logo={`/logos/${id}.svg`}
+          homepageUrl="/"
+          footerOptions={{
+            description: "Un service de la Direction interministérielle du numérique",
+            sitemapUrl: "/sitemap",
+            a11yUrl: "/accessibilite",
+            a11yLevel: "non compliant",
+            termsUrl: "/mentions-legales",
+            privacyUrl: "/donnees-personnelles",
+          }}
+        >
+          {content || <Proconnect url="#" />}
+        </Homepage>
+      </StylesProvider>
     ),
   }
 }
@@ -54,14 +63,17 @@ const routes = [
   serviceHomepage({
     id: "resana",
     content: <EmailOrProconnect proconnectUrl="#" />,
+    styles: "full",
   }),
   serviceHomepage({
     id: "messagerie",
     content: <Email />,
+    styles: "full",
   }),
   serviceHomepage({
     id: "tchap",
     content: <Email />,
+    styles: "standalone",
   }),
   serviceHomepage({
     id: "france-transfert",
@@ -75,9 +87,11 @@ const routes = [
         </p>
       </div>
     ),
+    styles: "standalone",
   }),
   serviceHomepage({
     id: "equipes",
+    styles: "standalone",
   }),
   {
     path: "/gaufre",

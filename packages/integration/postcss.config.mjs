@@ -1,4 +1,5 @@
 import purgecss from "@fullhuman/postcss-purgecss"
+import prefixSelector from "postcss-prefix-selector"
 import autoprefixer from "autoprefixer"
 
 export default {
@@ -9,5 +10,20 @@ export default {
       variables: true,
     }),
     autoprefixer(),
+    prefixSelector({
+      prefix: ":where(.lasuite)",
+      transform: function (prefix, selector, prefixedSelector, filePath, rule) {
+        if (filePath.includes("dev.css") || filePath.includes("raw-dsfr.css")) {
+          return selector
+        }
+        if (selector.includes(".lasuite") || selector === "html" || selector === ":root") {
+          return selector
+        }
+        if (selector === "body") {
+          return `.lasuite`
+        }
+        return prefixedSelector
+      },
+    }),
   ],
 }

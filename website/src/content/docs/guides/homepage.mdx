@@ -64,13 +64,21 @@ vous l'utilisiez déjà ou non dans votre projet, un fichier CSS différent est 
   </TabItem>
 </Tabs>
 
-Si vous voulez finement gérer vos styles car vous utilisez le bouton Gaufre sur tout votre site, vous pouvez choisir parmi tous les fichiers CSS présents :
+Si vous voulez finement gérer vos styles car vous utilisez le bouton Gaufre sur tout votre site,
+vous pouvez choisir parmi tous les fichiers CSS présents :
 
-- `css/homepage-full.css` : contient l'extrait de DSFR nécessaire + les styles de la homepage + les styles de la gaufre,
-- `css/homepage-gaufre.css` : contient les styles de la homepage + les styles de la gaufre (sans DSFR),
+- `css/homepage-full.css` : contient l'extrait de DSFR nécessaire + les styles de la homepage + les
+  styles de la gaufre,
+- `css/homepage-gaufre.css` : contient les styles de la homepage + les styles de la gaufre (sans
+  DSFR),
 - `css/homepage.css` : contient les styles de la homepage (sans DSFR ni gaufre),
 - `css/gaufre.css` : contient les styles de la gaufre (sans DSFR ni homepage),
-- `css/required-dsfr.css` : contient l'extrait de DSFR nécessaire (rien d'autre),
+- `css/prefixed-dsfr.css` : contient l'extrait de DSFR nécessaire (rien d'autre),
+
+Note : l'extrait de DSFR est toujours transformé pour que tous les sélecteurs soient derrière un
+sélecteur `:where(.lasuite)`. Ceci permet d'intégrer le DSFR sans risque de conflit avec d'autres
+styles, et sans impacter la spécifité du sélecteur. Si vous préférez utiliser un extrait de DSFR non
+transformé, utilisez `css/raw-dsfr.css`.
 
 ### 2. JS
 
@@ -124,10 +132,10 @@ savoir plus sur chaque composant.
 
 ##### Traduction
 
-Si vous utilisez les composants React et que vous avez besoin de traduire votre page d'accueil,
-vous pouvez envelopper les composants avec le provider `LaSuiteTranslationsProvider` provenant du
-paquet, et lui passer en props vos `translations`. Les traductions françaises sont exportées en
-tant que `frTranslations`.
+Si vous utilisez les composants React et que vous avez besoin de traduire votre page d'accueil, vous
+pouvez envelopper les composants avec le provider `LaSuiteTranslationsProvider` provenant du paquet,
+et lui passer en props vos `translations`. Les traductions françaises sont exportées en tant que
+`frTranslations`.
 
 #### Sans React
 

@@ -15,7 +15,8 @@ export default defineConfig({
     emptyOutDir: false,
     rollupOptions: {
       input: {
-        "css-required-dsfr": resolve(__dirname, "src/styles/required-dsfr.css"),
+        "css-prefixed-dsfr": resolve(__dirname, "src/styles/prefixed-dsfr.css"),
+        "css-raw-dsfr": resolve(__dirname, "src/styles/raw-dsfr.css"),
         "css-homepage": resolve(__dirname, "src/styles/homepage.css"),
         "css-gaufre": resolve(__dirname, "src/styles/gaufre.css"),
         "css-homepage-full": resolve(__dirname, "src/styles/homepage-full.css"),

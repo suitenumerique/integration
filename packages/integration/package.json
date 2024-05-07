@@ -50,6 +50,7 @@
     "import-single-ts": "^1.0.3",
     "patch-package": "^8.0.0",
     "postcss": "^8.4.38",
+    "postcss-prefix-selector": "^1.16.1",
     "prettier": "^3.2.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

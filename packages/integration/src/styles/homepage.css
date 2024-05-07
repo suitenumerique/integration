@@ -2,6 +2,10 @@
   --lasuite-primary: #000091;
 }
 
+.lasuite {
+  box-sizing: border-box;
+}
+
 @media (min-width: 78em) {
   .lasuite-container,
   .fr-container.lasuite-container {
