@@ -53,10 +53,10 @@ export const HomepageContent = ({ tagline, lasuiteApiUrl, serviceId, children }:
               }
             })
           })
-          .map((part, index) => (
+          .map((part, index, arr) => (
             <Fragment key={index}>
               {part}
-              <br />
+              {index !== arr.length - 1 ? <br /> : null}
             </Fragment>
           ))}
       </>
