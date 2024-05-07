@@ -57,7 +57,7 @@ export const Header = ({
 }: Props) => {
   const { t } = useTranslate()
   return (
-    <header role="banner" className="fr-header">
+    <header role="banner" className="fr-header lasuite-header">
       <div className="fr-header__body">
         <div className="fr-container lasuite-container">
           <div className="fr-header__body-row">

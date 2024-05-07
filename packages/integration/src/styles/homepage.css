@@ -14,9 +14,12 @@
 }
 
 .lasuite-homepage {
-  height: 100dvh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
+}
+
+.lasuite-header {
   border-top: 5px solid #e1000f;
 }
 
