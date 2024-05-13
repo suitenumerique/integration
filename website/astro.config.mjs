@@ -4,6 +4,7 @@ import starlight from "@astrojs/starlight"
 import { rehypeHeadingIds } from "@astrojs/markdown-remark"
 import rehypeAutolinkHeadings from "rehype-autolink-headings"
 import remarkTextr from "remark-textr"
+import compressor from "astro-compressor"
 
 // https://astro.build/config
 export default defineConfig({
@@ -75,6 +76,7 @@ export default defineConfig({
         themes: ["github-dark", "github-light"],
       },
     }),
+    compressor(),
   ],
 })
 
