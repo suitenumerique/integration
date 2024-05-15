@@ -115,7 +115,7 @@ const routes = [
     label: "Gaufre (header DSFR)",
     component: (
       <StylesStandalone type="gaufre">
-        <DsfrHeader actions={[<Gaufre />]} />
+        <DsfrHeader />
         <div className="fr-container fr-p-4w">
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac diam a libero posuere
@@ -157,7 +157,6 @@ const routes = [
       <DarkTheme>
         <StylesGaufre>
           <div
-            data-fr-scheme="dark"
             style={{
               margin: "2rem auto",
               width: 800,
