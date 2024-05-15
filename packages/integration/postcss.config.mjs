@@ -10,6 +10,9 @@ export default {
           ? ["./src/html.tsx", "./src/components/**/*.tsx"]
           : ["./src/**/*.{js,jsx,ts,tsx,html}"],
       css: ["./src/**/*.css"],
+      safelist: {
+        greedy: [/lasuite/],
+      },
       variables: true,
     }),
     autoprefixer(),

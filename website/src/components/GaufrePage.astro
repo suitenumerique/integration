@@ -56,6 +56,10 @@ const { services } = Astro.props
           overflow: hidden !important;
         }
 
+        [data-fr-scheme="dark"] .lagaufre {
+          background-color: #8585f6 !important;
+        }
+
         .lagaufre-sr-only {
           position: absolute !important;
           width: 1px !important;
@@ -83,6 +87,10 @@ const { services } = Astro.props
           background-color: white !important;
           height: 100% !important;
           overflow: auto !important;
+        }
+
+        [data-fr-scheme="dark"] .lagaufre-list {
+          background-color: #1e1e1e !important;
         }
 
         .lagaufre-service {
@@ -123,6 +131,13 @@ const { services } = Astro.props
           border-bottom: 1px solid #8989cd !important;
         }
 
+        [data-fr-scheme="dark"] .lagaufre-service:hover,
+        [data-fr-scheme="dark"] .lagaufre-service:focus-within {
+          background-color: #2d2d2d !important;
+          border-top: 1px solid #8989cd !important;
+          border-bottom: 1px solid #8989cd !important;
+        }
+
         .lagaufre-service__icon {
           display: flex !important;
           align-items: center !important;
@@ -130,10 +145,25 @@ const { services } = Astro.props
           height: 40px !important;
         }
 
+        .lagaufre-service__icon img {
+          max-width: 100% !important;
+          height: auto !important;
+        }
+
+        [data-fr-scheme="dark"] .lagaufre-service__icon {
+          border-radius: 3px !important;
+          padding: 6px !important;
+          background-color: #fff !important;
+        }
+
         .lagaufre-service__name {
           margin-left: 1.5rem !important;
           text-decoration: none !important;
           color: #161616 !important;
+        }
+
+        [data-fr-scheme="dark"] .lagaufre-service__name {
+          color: #cecece !important;
         }
 
         .lagaufre-service__name:focus {
