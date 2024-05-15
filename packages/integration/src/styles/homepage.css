@@ -144,6 +144,10 @@
   font-weight: 700;
 }
 
+.lasuite-homepage__tagline br {
+  display: none;
+}
+
 @media screen and (min-width: 36em) {
   .lasuite-homepage__tagline-container {
     width: fit-content;
@@ -160,6 +164,7 @@
   .lasuite-homepage__tagline {
     font-size: 1.875rem;
   }
+
   .lasuite-homepage__tagline br {
     display: block;
   }
