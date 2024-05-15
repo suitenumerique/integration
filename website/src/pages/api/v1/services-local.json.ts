@@ -9,7 +9,7 @@ export async function GET({ url }: APIContext) {
         .map((service) => ({
           id: service.id,
           name: service.name,
-          url: new URL(`/services/${service.id}`, url).toString(),
+          url: service.url,
         })),
     ),
   )
