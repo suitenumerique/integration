@@ -2,6 +2,8 @@
   const BUTTON_CLASS = "js-lasuite-gaufre-btn"
   let lastFocusedButton = null
 
+  window.document.documentElement.classList.add("lasuite--gaufre-loaded")
+
   if ("requestIdleCallback" in window) {
     requestIdleCallback(() => {
       appendPopup()

@@ -84,3 +84,7 @@
 [data-fr-scheme="dark"] .lasuite-gaufre-btn--vanilla:active {
   background-color: #474747 !important;
 }
+
+html:not(.lasuite--gaufre-loaded) .lasuite-gaufre-btn {
+  visibility: hidden !important;
+}
