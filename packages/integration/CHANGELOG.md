@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.8
+
+- homepage: new "description" prop on `<HomepageContent>` to easily add custom content under the tagline. This matches this HTML: `<div class="lasuite-homepage__desc-container"></div>`.
+- gaufre: new `variant` prop on `<Gaufre>` to impact visuals. Set to `small` or `responsive`. Matches CSS classes `lasuite-gaufre-btn--small` and `lasuite-gaufre-btn--responsive`.
+
 ## 0.1.6
 
 - gaufre: hide the button if the gaufre.js script is not available
