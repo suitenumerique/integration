@@ -10,7 +10,7 @@ import { Header } from "./components/Header"
 import { Gaufre } from "./components/Gaufre"
 
 const customContent = (
-  <div className="fr-p-4w">
+  <div>
     <h2>~~replace~~</h2>
     <p>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis beatae, quia eius

@@ -18,9 +18,11 @@ import { DarkTheme } from "./DarkTheme"
 const serviceHomepage = ({
   id,
   content,
+  description = null,
   styles = "standalone",
 }: {
   content?: ReactNode
+  description?: ReactNode
   id: string
   styles: "standalone" | "full"
 }) => {
@@ -46,6 +48,7 @@ const serviceHomepage = ({
           serviceId={id}
           logo={`/logos/${id}.svg`}
           homepageUrl="/"
+          description={description}
           footerOptions={{
             description: "Un service de la Direction interministérielle du numérique",
             sitemapUrl: "/sitemap",
@@ -89,6 +92,17 @@ const routes = [
           deleniti error eveniet maxime! Consectetur, sint?
         </p>
       </div>
+    ),
+    description: (
+      <p className="fr-mt-1w">
+        <a href="#" className="fr-btn fr-btn--secondary fr-mb-1w fr-mr-1w">
+          Qu'est-ce que France Transfert ?
+        </a>
+        &nbsp; &nbsp;
+        <a href="#" className="fr-btn fr-btn--secondary">
+          Comment utiliser France Transfert ?
+        </a>
+      </p>
     ),
     styles: "standalone",
   }),

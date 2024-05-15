@@ -20,6 +20,13 @@ export type Props = {
   children: ReactNode
 
   /**
+   * Contenu de la page d'accueil affiché dans la partie gauche de la page,
+   * en dessous de la tagline.
+   *
+   */
+  description?: ReactNode
+
+  /**
    * Identifiant du service sur l'API de la suite-integration.
    *
    * Utilisé pour afficher la photo d'arrière-plan correspondant au service, via l'API.
@@ -32,7 +39,13 @@ export type Props = {
   lasuiteApiUrl?: string
 }
 
-export const HomepageContent = ({ tagline, lasuiteApiUrl, serviceId, children }: Props) => {
+export const HomepageContent = ({
+  tagline,
+  lasuiteApiUrl,
+  serviceId,
+  description,
+  children,
+}: Props) => {
   const parsedTagline =
     typeof tagline === "string" ? (
       <>
@@ -73,6 +86,9 @@ export const HomepageContent = ({ tagline, lasuiteApiUrl, serviceId, children }:
                 <div className="lasuite-homepage__tagline-container">
                   <h1 className="lasuite-homepage__tagline">{parsedTagline}</h1>
                 </div>
+                {!!description ? (
+                  <div className="lasuite-homepage__desc-container">{description}</div>
+                ) : null}
               </div>
               <div className="lasuite-homepage__secondary-col">
                 <div className="lasuite-homepage__form-container">

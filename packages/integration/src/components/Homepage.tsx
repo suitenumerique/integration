@@ -65,6 +65,13 @@ export type Props = {
   footerOptions?: Omit<FooterProps, "entity" | "serviceName" | "homepageUrl">
 
   /**
+   * Contenu de la page d'accueil affiché dans la partie gauche de la page,
+   * en dessous de la tagline.
+   *
+   */
+  description?: ReactNode
+
+  /**
    * Contenu de la page d'accueil affiché dans la partie droite de la page.
    *
    * Passez ici le formulaire de connexion au service. Vous pouvez utiliser pour vous aider les composants déjà existants 'HomepageEmail', 'HomepageProconnect' et 'HomepageEmailOrProconnect'.
@@ -82,12 +89,15 @@ export const Homepage = ({
   homepageUrl,
   headerOptions,
   footerOptions,
+  description,
   children,
 }: Props) => {
   return (
     <div className="lasuite lasuite-homepage">
       <Header {...{ entity, serviceName, logo, homepageUrl, ...headerOptions }} />
-      <HomepageContent {...{ serviceId, tagline, lasuiteApiUrl }}>{children}</HomepageContent>
+      <HomepageContent {...{ serviceName, serviceId, tagline, description, lasuiteApiUrl }}>
+        {children}
+      </HomepageContent>
       <Footer {...{ entity, serviceName, homepageUrl, ...footerOptions }} />
     </div>
   )
