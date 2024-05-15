@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.4
+
+- homepage tagline: hide breaklines on mobile devices
+
 ## 0.1.3
 
 Notable thing:
