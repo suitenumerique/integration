@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.6
+
+- gaufre: hide the button if the gaufre.js script is not available
+- gaufre: match DSFR tertiary button styling (gray-ish button border)
+- gaufre: add a "button pressed" style
+- gaufre: support DSFR dark theme via the `html[data-fr-scheme="dark"]` CSS selector
+
 ## 0.1.5
 
 - homepage tagline: hide breaklines on mobile devices
