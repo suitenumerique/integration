@@ -141,15 +141,14 @@ export default function HomepageGenerator() {
       {!!codeData && (
         <>
           <div>
-            <h2 style={{ marginTop: "1.5em" }}>Code React correspondant</h2>
-            <Code language="jsx">{getReactMarkup(codeData)}</Code>
-          </div>
-
-          <div>
             <h2 style={{ marginTop: "1.5em" }}>Code HTML correspondant</h2>
             <Code language="html" fixedHeight>
               {getHTMLMarkup(codeData)}
             </Code>
+          </div>
+          <div>
+            <h2 style={{ marginTop: "1.5em" }}>Code React correspondant</h2>
+            <Code language="jsx">{getReactMarkup(codeData)}</Code>
           </div>
         </>
       )}
