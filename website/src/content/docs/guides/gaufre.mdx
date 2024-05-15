@@ -32,6 +32,16 @@ Ce guide est à suivre pour intégrer la Gaufre sur toute page autre que
 Le bouton Gaufre est destiné à être présent dans le coin supérieur droit de la page de votre page
 web afin d'être toujours placé au même endroit quelque soit le service.
 
+### Sur écran mobile/tablette
+
+Sur petit écran, il est préférable d'afficher le bouton Gaufre en dehors d'un potentiel menu burger
+existant, à gauche du menu burger :
+
+![](./dsfr-gaufre.png)
+
+Si pour quelconque raison ceci n'est pas possible, rajoutez un élément dans votre menu burger pour
+accéder aux services de La Suite (voir section [bouton customisé](#bouton-customisé)).
+
 ## Installation
 
 ### 1. HTML
@@ -48,6 +58,12 @@ function MonComposant() {
 }
 ```
 
+Vous pouvez passer une prop `variant` au composant Gaufre pour changer l'affichage du bouton :
+
+- `variant="responsive"` : le bouton s'affiche plus petit sur écran mobile/tablette
+- `variant="small"` : le bouton s'affiche plus petit, tout le temps. **Ceci est la variante
+  recommandée si vous utilisez une entête DSFR**.
+
 :::note
 
 Même en utilisant React, vous devrez charger le CSS et le JS manuellement. Ce petit travail
@@ -61,6 +77,23 @@ stack technique.
 Si vous n'utilisez pas React, utilisez le HTML présent dans le paquet :
 
 <Code code={gaufreHtml} lang="html" title="@gouvfr-lasuite/integration/dist/html/gaufre.html" />
+
+- ajouter une classe `lasuite-gaufre-btn--responsive` pour afficher le bouton plus petit sur écran
+  mobile/tablette
+- ajouter une classe `lasuite-gaufre-btn--small` pour afficher le bouton plus petit, tout le temps.
+  **Ceci est recommandé si vous utilisez une entête DSFR**.
+
+#### Dans une entête DSFR
+
+Si vous intégrez le bouton Gaufre dans un projet suivant le DSFR :
+
+- rajoutez le bouton en 1er enfant de `div.fr-header__navbar` pour que le bouton s'affiche à gauche
+  du menu burger sur petit écran,
+- puis en dernier élément de la liste `.fr-header__tools > .fr-header__tools-links > .fr-btns-group`
+  pour que le bouton s'affiche en haut à droite de l'écran sur grand écran.
+
+N'oubliez pas d'utiliser la classe `lasuite-gaufre-btn--small` pour que la taille du bouton
+corresponde avec le reste de l'entête.
 
 ### 2. CSS
 
@@ -101,6 +134,23 @@ Pour que le script fonctionne il est nécessaire qu'il ait un id `lasuite-gaufre
 l'enlevez pas en copiant l'exemple !
 
 :::
+
+## Bouton customisé
+
+Si vous ne voulez pas utiliser le bouton Gaufre standard, vous pouvez créer votre propre bouton avec
+vos propres styles.
+
+Cela est nécessaire si vous voulez par exemple avoir une ligne "Services de La Suite" dans un menu
+burger : aucun HTML n'est proposé pour ça, tant il dépend de votre site.
+
+- ⚠ pour que le bouton fonctionne, il doit avoir une classe `js-lasuite-gaufre-btn` pour que le
+  JavaScript d'initialisation détecte votre bouton,
+- parmi les classes CSS fournis, vous pouvez réutiliser `lasuite-gaufre-mask-element` ou
+  `lasuite-gaufre-mask` qui appliquent l'icône de la Gaufre via un `mask-image` à l'instar des
+  icones dans le DSFR,
+- ℹ le bouton standard ne s'affiche que si le script de la Gaufre a réussi à charger. Pour avoir le
+  même comportement sur votre propre implémentation, vous pouvez vous appuyer sur la présence de la
+  classe `lasuite--gaufre-loaded` sur la balise `html`.
 
 ## Exemple
 
