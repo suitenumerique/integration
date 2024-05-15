@@ -80,7 +80,7 @@ const routes = [
   serviceHomepage({
     id: "france-transfert",
     content: (
-      <div className="fr-p-4w">
+      <div className="">
         <h2>Contenu personnalisable</h2>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis beatae, quia eius
