@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.0
+
+Mark stable release!
+
+- new service logos
+- dev: add routes to test all homepage variants
+
 ## 0.1.8
 
 - homepage: new "description" prop on `<HomepageContent>` to easily add custom content under the tagline. This matches this HTML: `<div class="lasuite-homepage__desc-container"></div>`.
