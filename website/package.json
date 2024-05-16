@@ -3,6 +3,9 @@
   "private": true,
   "type": "module",
   "version": "0.1.0",
+  "engines": {
+    "node": "20"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "node ./server.mjs",
