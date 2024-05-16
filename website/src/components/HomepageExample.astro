@@ -1,0 +1,81 @@
+---
+import "@gouvfr-lasuite/integration/dist/css/homepage-full.css"
+import { jsx as _jsx } from "react/jsx-runtime"
+import { renderToStaticMarkup } from "react-dom/server"
+import { Homepage, HomepageProconnect } from "@gouvfr-lasuite/integration"
+import logo from "@/assets/logos/equipes.svg"
+
+const { title, props } = Astro.props
+
+const DefaultHomepage = _jsx(Homepage, {
+  lasuiteApiUrl: import.meta.env.PUBLIC_LASUITE_API_URL,
+  entity: "Gouvernement",
+  tagline:
+    "**Mon service de La Suite**, <br>un outil sécurisé et centralisé <br>pour les agents publics",
+  logo: logo.src,
+  serviceName: "Mon service de La Suite",
+  serviceId: "equipes",
+  homepageUrl: "/",
+  footerOptions: {
+    description: "Un service de la Direction interministérielle du numérique",
+    sitemapUrl: "~~replace~~",
+    a11yUrl: "~~replace~~",
+    a11yLevel: "~~replace~~",
+    termsUrl: "~~replace~~",
+    privacyUrl: "~~replace~~",
+  },
+  children: _jsx(HomepageProconnect, { url: "~~replace~~" }),
+  ...props,
+})
+const html = renderToStaticMarkup(DefaultHomepage)
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Exemple page d'accueil {title} - La Suite numérique</title>
+    <style>
+      body {
+        margin: 0;
+      }
+
+      #example-info {
+        font-family: sans-serif;
+        margin: 1rem;
+        padding: 0.5rem;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+      }
+
+      #example-info p {
+        margin: 0;
+      }
+
+      #example-info ul {
+        margin: 0 0 0.5rem;
+        padding: 0 0 0 2rem;
+      }
+    </style>
+    <script
+      is:inline
+      id="lasuite-gaufre-script"
+      async
+      defer
+      src="https://integration.lasuite.numerique.gouv.fr/api/v1/gaufre.js"></script>
+  </head>
+  <body>
+    <div id="example-info">
+      <p>Notes :</p>
+      <ul>
+        <li>n'oubliez pas de remplacer toutes les occurences de `~~replace~~` dans le code,</li>
+        <li>
+          remplacez le chemin de la photo dans `.lasuite-homepage__bg` avec l'id de votre service
+        </li>
+      </ul>
+      <p><a href="/guides/homepage#exemples">Retour à la documentation</a></p>
+    </div>
+
+    <div set:html={html} />
+  </body>
+</html>

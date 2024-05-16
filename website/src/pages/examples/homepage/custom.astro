@@ -1,0 +1,34 @@
+---
+import { jsx as _jsx } from "react/jsx-runtime"
+import HomepageExample from "@/components/HomepageExample.astro"
+---
+
+<HomepageExample
+  title="contenu additionnel"
+  props={{
+    description: _jsx("div", {
+      children: [
+        _jsx("p", {
+          children: "Il est possible d'ajouter une description en dessous de la tagline.",
+          style: { marginBottom: "0.5rem" },
+        }),
+        _jsx("a", {
+          href: "#",
+          className: "fr-btn fr-btn--secondary",
+          children: "Comment utiliser ce service ?",
+        }),
+      ],
+    }),
+    children: _jsx("div", {
+      children: [
+        _jsx("h2", {
+          children: "Contenu personnalisé",
+        }),
+        _jsx("p", {
+          children:
+            "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis beatae, quia eius voluptatem repudiandae quisquam a magnam obcaecati labore dolor ad vitae, omnis iusto deleniti error eveniet maxime! Consectetur, sint?",
+        }),
+      ],
+    }),
+  }}
+/>

@@ -1,0 +1,14 @@
+---
+import { jsx as _jsx } from "react/jsx-runtime"
+import { HomepageEmail } from "@gouvfr-lasuite/integration"
+import HomepageExample from "@/components/HomepageExample.astro"
+---
+
+<HomepageExample
+  title="connexion email"
+  props={{
+    children: _jsx(HomepageEmail, {
+      action: "~~replace~~",
+    }),
+  }}
+/>

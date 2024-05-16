@@ -1,0 +1,15 @@
+---
+import { jsx as _jsx } from "react/jsx-runtime"
+import { HomepageEmailOrProconnect } from "@gouvfr-lasuite/integration"
+import HomepageExample from "@/components/HomepageExample.astro"
+---
+
+<HomepageExample
+  title="connexion email + proconnect"
+  props={{
+    children: _jsx(HomepageEmailOrProconnect, {
+      proconnectUrl: "~~replace~~",
+      emailForm: { action: "~~replace~~" },
+    }),
+  }}
+/>
