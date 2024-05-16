@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.1
+
+- fix france-transfert/tchap/webconf logos (there were not the correct design)
+
 ## 1.0.0
 
 Mark stable release!
