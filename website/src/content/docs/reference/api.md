@@ -47,7 +47,7 @@ Avec le service Resana :
     src="https://integration.lasuite.numerique.gouv.fr/api/backgrounds/v1/resana.jpg"
     alt=""
     width="1920"
-    height="1080"
+    height="1200"
   />
 </picture>
 ```
@@ -61,7 +61,7 @@ Avec le service Resana :
     src="https://integration.lasuite.numerique.gouv.fr/api/backgrounds/v1/resana.jpg"
     alt=""
     width="1920"
-    height="1080"
+    height="1200"
   />
 </picture>
 
