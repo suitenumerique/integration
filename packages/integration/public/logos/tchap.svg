@@ -1,6 +1,10 @@
-<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M31.0156 0H8.98438C4.02344 0 0 4.02344 0 8.98438V31.0156C0 35.9766 4.02344 40 8.98438 40H31.0156C35.9766 40 40 35.9766 40 31.0156V8.98438C40 4.02344 35.9766 0 31.0156 0Z" fill="#000091"/>
-<path d="M31.8816 26.4702L20 33.3201L8.11841 26.4702V12.7704L20 5.92053L31.8816 12.7704V26.4702Z" fill="white"/>
-<path d="M21.1245 15.2365H19.0781V27.1463H21.1245V15.2365Z" fill="#E1000F"/>
-<path d="M15.3506 19.1888H13.3042V14.212H27.3879V16.262H15.3506V19.1888Z" fill="#E1000F"/>
+<svg width="48" height="48" viewBox="0 0 560 560" fill="none" version="1.1" id="svg2" xmlns="http://www.w3.org/2000/svg">
+  <g clip-path="url(#clip0_3194_4396)" transform="translate(-59.461 -57.508)" id="g1">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M375.808 225.088v299.928h-75.115V225.088H185.124v73.811h-75.116V149.988h458.906v75.1z" fill="#e1000f" id="path1"/>
+  </g>
+  <defs id="defs1">
+    <clipPath id="clip0_3194_4396">
+      <path fill="#fff" transform="translate(110 150)" d="M0 0h460v378H0z" id="path2"/>
+    </clipPath>
+  </defs>
 </svg>
