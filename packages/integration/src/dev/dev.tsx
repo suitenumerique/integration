@@ -18,13 +18,17 @@ import { DarkTheme } from "./DarkTheme"
 const serviceHomepage = ({
   id,
   content,
+  label,
   description = null,
-  styles = "standalone",
+  logoType = "svg",
+  styles = "full",
 }: {
   content?: ReactNode
   description?: ReactNode
   id: string
-  styles: "standalone" | "full"
+  label?: string
+  logoType?: "svg" | "png"
+  styles?: "standalone" | "full"
 }) => {
   const service = services.find(({ id: itemId }) => itemId === id)
   if (!service) {
@@ -37,16 +41,16 @@ const serviceHomepage = ({
 
   return {
     path: `/homepage-template-${id}`,
-    label: `Homepage ${name}`,
+    label: label || `${name}${styles !== "full" ? ` (styles ${styles})` : ""}`,
     component: (
       <StylesProvider>
         <Homepage
           lasuiteApiUrl={import.meta.env.VITE_LASUITE_API_URL}
           entity="Gouvernement"
           tagline={tagline}
-          serviceName={`${name} - styles ${styles}`}
+          serviceName={`${name}`}
           serviceId={id}
-          logo={`/logos/${id}.svg`}
+          logo={`/logos/${id}.${logoType}`}
           homepageUrl="/"
           description={description}
           footerOptions={{
@@ -66,23 +70,11 @@ const serviceHomepage = ({
 }
 
 const routes = [
-  serviceHomepage({
-    id: "resana",
-    content: <EmailOrProconnect proconnectUrl="#" />,
-    styles: "full",
-  }),
-  serviceHomepage({
-    id: "messagerie",
-    content: <Email />,
-    styles: "full",
-  }),
-  serviceHomepage({
-    id: "tchap",
-    content: <Email />,
-    styles: "standalone",
-  }),
+  serviceHomepage({ id: "demarches", styles: "standalone" }),
+  serviceHomepage({ id: "equipes" }),
   serviceHomepage({
     id: "france-transfert",
+    label: "France Transfert (contenu custom)",
     content: (
       <div className="">
         <h2>Contenu personnalisable</h2>
@@ -93,23 +85,41 @@ const routes = [
         </p>
       </div>
     ),
+  }),
+  serviceHomepage({ id: "grist" }),
+  serviceHomepage({
+    id: "messagerie",
+    label: "Messagerie (connexion e-mail)",
+    content: <Email />,
+  }),
+  serviceHomepage({
+    id: "pad",
+    label: "Pad (avec description)",
     description: (
       <p className="fr-mt-1w">
         <a href="#" className="fr-btn fr-btn--secondary fr-mb-1w fr-mr-1w">
-          Qu'est-ce que France Transfert ?
+          Qu'est-ce que le Pad ?
         </a>
         &nbsp; &nbsp;
         <a href="#" className="fr-btn fr-btn--secondary">
-          Comment utiliser France Transfert ?
+          Comment utiliser le Pad ?
         </a>
       </p>
     ),
-    styles: "standalone",
+  }),
+  serviceHomepage({ id: "rdv", styles: "standalone", logoType: "png" }),
+  serviceHomepage({
+    id: "resana",
+    label: "Resana (connexion email + proconnect)",
+    content: <EmailOrProconnect proconnectUrl="#" />,
   }),
   serviceHomepage({
-    id: "equipes",
-    styles: "standalone",
+    id: "tchap",
+    label: "Tchap (connexion email)",
+    content: <Email />,
   }),
+  serviceHomepage({ id: "webconf", styles: "standalone" }),
+  serviceHomepage({ id: "webinaire", styles: "standalone" }),
   {
     path: "/gaufre",
     label: "Gaufre (header DSFR)",
@@ -152,7 +162,7 @@ const routes = [
   },
   {
     path: "/gaufre-custom",
-    label: "Gaufre (header custom)",
+    label: "Gaufre (dark theme header custom)",
     component: (
       <DarkTheme>
         <StylesGaufre>
