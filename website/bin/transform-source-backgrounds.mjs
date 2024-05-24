@@ -23,8 +23,9 @@ async function resizeSourceBackgrounds() {
     const backgrounds = await readdir(sourcesDir)
     backgrounds.forEach((backgroundFile, i) => {
       const srcPath = path.join(sourcesDir, backgroundFile)
-      const jpegPath = path.join(outputDir, `${i}.jpg`)
-      const avifPath = path.join(outputDir, `${i}.avif`)
+      const backgroundName = path.parse(backgroundFile).name
+      const jpegPath = path.join(outputDir, `${backgroundName}.jpg`)
+      const avifPath = path.join(outputDir, `${backgroundName}.avif`)
 
       const image = sharp(srcPath)
         .resize(1920, 1200, { fit: "cover" })
