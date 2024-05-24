@@ -51,7 +51,7 @@
     "tagline": "**Messagerie** de l'État <br>le mail simple, centralisé et sécurisé",
     "homepageType": "email",
     "entity": "Gouvernement",
-    "enabled": true
+    "enabled": false
   },
   {
     "id": "pad",
