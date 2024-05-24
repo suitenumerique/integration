@@ -22,6 +22,9 @@ async function buildStaticBackgrounds() {
       ;[".avif", ".jpg"].forEach(async (ext) => {
         let src = backgrounds[weekOffset + i]
         // if we want, we can check the service id and force a specific src here
+        if (service.id === "france-transfert") {
+          src = "shutterstock_1867822423"
+        }
         const srcPath = path.join(backgroundsDir, `${src}${ext}`)
         const destPath = path.join(outputDir, `${service.id}${ext}`)
         await copyFile(srcPath, destPath)
