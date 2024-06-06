@@ -48,7 +48,7 @@ export default defineConfig({
     starlight({
       title: "La Suite : intégrations",
       social: {
-        github: "https://github.com/withastro/starlight",
+        github: "https://github.com/numerique-gouv/lasuite-integration",
       },
       defaultLocale: "root",
       locales: {
@@ -68,6 +68,12 @@ export default defineConfig({
           label: "Référence",
           autogenerate: {
             directory: "reference",
+          },
+        },
+        {
+          label: "À propos",
+          autogenerate: {
+            directory: "about",
           },
         },
       ],
