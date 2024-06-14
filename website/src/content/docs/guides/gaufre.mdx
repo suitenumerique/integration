@@ -138,6 +138,18 @@ l'enlevez pas en copiant l'exemple !
 
 :::
 
+### 4. Content Security Policy
+
+Si vous utilisez une [stratégie CSP](https://developer.mozilla.org/fr/docs/Web/HTTP/CSP), vous devez
+ajoutez des règles pour ne pas avoir d'erreurs au chargement du bouton Gaufre. Le bouton se connecte
+à l'API d'intégration via un script, charge des images et charge une police de caractères embarquée
+:
+
+- `connect-src https://integration.lasuite.numerique.gouv.fr/`
+- `script-src https://integration.lasuite.numerique.gouv.fr/`
+- `font-src https://integration.lasuite.numerique.gouv.fr/`
+- `img-src https://integration.lasuite.numerique.gouv.fr/`
+
 ## Bouton customisé
 
 Si vous ne voulez pas utiliser le bouton Gaufre standard, vous pouvez créer votre propre bouton avec
