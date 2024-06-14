@@ -1,5 +1,7 @@
 ;(function () {
   const BUTTON_CLASS = "js-lasuite-gaufre-btn"
+  const DIMENSIONS = { width: 304, height: 352, margin: 8 }
+
   let lastFocusedButton = null
 
   window.document.documentElement.classList.add("lasuite--gaufre-loaded")
@@ -42,7 +44,7 @@
     if (!button) {
       return
     }
-    popup.style.cssText = getPopupPositionStyle(button)
+    updatePopupStyle(popup, button)
   })
 
   const appendPopup = () => {
@@ -58,8 +60,6 @@
     }
     const popup = document.createElement("div")
     popup.id = "lasuite-gaufre-popup"
-    popup.width = "304"
-    popup.height = "360"
     popup.style.cssText = "display: none !important"
 
     const { host, protocol, searchParams, origin } = new URL(scriptTag.src)
@@ -79,35 +79,111 @@
       })
   }
 
-  const getPopupPositionStyle = (button) => {
+  const getPopupCoords = (button) => {
     const buttonCoords = button.getBoundingClientRect()
-    const isSmallScreen = window.innerWidth <= 400
-    let leftPos = buttonCoords.right - 304 + document.documentElement.scrollLeft
-    leftPos = leftPos < 5 ? 5 : leftPos
-    return `
-      position: absolute !important;
-      top: ${buttonCoords.top + buttonCoords.height + 8}px;
-      ${
-        isSmallScreen
-          ? `
-        left: 5px;
-        right: 5px;
-        margin: 0 auto;
+
+    const documentWidth = document.body.clientWidth
+    const spaceLeft = buttonCoords.left + window.scrollX
+    const spaceRight = documentWidth - buttonCoords.right + window.scrollX
+    const hasHorizontalSpace = spaceLeft > DIMENSIONS.width || spaceRight > DIMENSIONS.width
+    let modalMode = false
+
+    // by default, the popup is displayed anchored to the right of the button (taking space on the left)
+    let leftPos = buttonCoords.right - DIMENSIONS.width + document.documentElement.scrollLeft
+    let isAnchoredToRight = true
+    // if there is not enough space on the left, or if there is more space on the right,
+    // we anchor it to the left of the button, taking space on the right
+    if (spaceLeft < DIMENSIONS.width || spaceRight > spaceLeft) {
+      leftPos = buttonCoords.left + document.documentElement.scrollLeft
+      isAnchoredToRight = false
+    }
+    // if there is no space at all, we use a "modal" mode, taking all the screen space
+    if (!hasHorizontalSpace) {
+      modalMode = true
+    }
+
+    const spaceTop = buttonCoords.top
+    const spaceBottom = window.innerHeight - buttonCoords.bottom
+    const hasVerticalSpace = spaceTop > DIMENSIONS.height || spaceBottom > DIMENSIONS.height
+    // by default, the popup is displayed anchored to the bottom of the button (taking space on the bottom)
+    let topPos = buttonCoords.bottom + 8 + document.documentElement.scrollTop
+    // if there is not enough space on the bottom, or if there is more space on the top,
+    // we anchor it to the top of the button, taking space on the top
+    if (spaceBottom < DIMENSIONS.height || spaceTop > spaceBottom) {
+      topPos =
+        buttonCoords.top -
+        DIMENSIONS.height -
+        DIMENSIONS.margin +
+        document.documentElement.scrollTop
+    }
+
+    // if there is no space below or above the button, but there is space on the sides,
+    // we show the popup next to the button
+    if (!hasVerticalSpace && window.innerHeight > DIMENSIONS.height) {
+      topPos = (window.innerHeight - DIMENSIONS.height) / 2
+      leftPos = isAnchoredToRight
+        ? leftPos - buttonCoords.width - DIMENSIONS.margin
+        : leftPos + buttonCoords.width + DIMENSIONS.margin
+    }
+
+    // if there is no space at all, we use a "modal" mode, taking all the screen space
+    if (!hasVerticalSpace && window.innerHeight <= DIMENSIONS.height) {
+      modalMode = true
+    }
+
+    return {
+      modalMode,
+      top: !modalMode ? topPos : null,
+      left: !modalMode ? leftPos : null,
+    }
+  }
+
+  const defaultPopupStyle = `
+    border: 0 !important;
+    display: block !important;
+    z-index: 100000;
+    box-sizing: border-box !important;
+  `
+
+  const getPopupPositionStyle = (coords) => {
+    if (coords.modalMode) {
+      return `
+        ${defaultPopupStyle}
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        width: 100vw;
+        height: 100vh;
+        margin: auto;
       `
-          : `
-      left: ${leftPos}px;
-      width: 304px;`
-      }
-      border: 0 !important;
-      display: block !important;
-      z-index: 100000;
-    `
+    }
+    return `
+        ${defaultPopupStyle}
+        position: absolute !important;
+        top: ${coords.top}px !important;
+        left: ${coords.left}px !important;
+        max-width: calc(100vw - 30px);
+        width: ${DIMENSIONS.width}px;
+        height: ${DIMENSIONS.height}px;
+        margin: 0;
+      `
+  }
+
+  const updatePopupStyle = (popup, button) => {
+    const popupCoords = getPopupCoords(button)
+    popup.style.cssText = getPopupPositionStyle(popupCoords)
+    popup.classList[popupCoords.modalMode ? "add" : "remove"]("lasuite--gaufre-modal")
+    window.document.documentElement.classList[popupCoords.modalMode ? "add" : "remove"](
+      "lasuite--gaufre-modal-opened",
+    )
   }
 
   const showPopup = (button) => {
     let popup = document.querySelector(`#lasuite-gaufre-popup`)
     const show = (el) => {
-      el.style.cssText = getPopupPositionStyle(button)
+      updatePopupStyle(popup, button)
       el.classList.add("lasuite--gaufre-opened")
       lastFocusedButton = button
       setTimeout(() => {
@@ -132,5 +208,6 @@
       lastFocusedButton.focus()
       lastFocusedButton = null
     }
+    window.document.documentElement.classList.remove("lasuite--gaufre-modal-opened")
   }
 })()

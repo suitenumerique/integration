@@ -42,22 +42,62 @@ const { services } = Astro.props
         }
 
         .lagaufre {
-          height: 22rem !important;
-          max-height: 22rem !important;
+          --lagaufre-border-color: #01018f !important;
+          --lagaufre-bg-color: #fff !important;
+          height: 100% !important;
+          width: 100% !important;
           font-size: 100% !important;
           font-family: "La Gaufre", "La Gaufre fallback", BlinkMacSystemFont, "Segoe UI",
             "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji" !important;
-          margin: 0 0 0.5rem !important;
-          background-color: #01018fcc !important;
-          padding: 2px !important;
-          width: 100% !important;
-          /* border-radius: 8px !important; */
+          margin: 0 0 8px !important;
+          border: 2px solid var(--lagaufre-border-color) !important;
+          background-color: var(--lagaufre-bg-color) !important;
           filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06)) !important;
           overflow: hidden !important;
+          display: flex !important;
+          flex-direction: column !important;
         }
 
         [data-fr-scheme="dark"] .lagaufre {
-          background-color: #8585f6 !important;
+          --lagaufre-bg-color: #1e1e1e !important;
+          --lagaufre-border-color: #8585f6 !important;
+        }
+
+        .lasuite--gaufre-borderless .lagaufre {
+          border-color: var(--lagaufre-bg-color) !important;
+          filter: none !important;
+          margin-bottom: 0 !important;
+        }
+
+        .lasuite--gaufre-modal-opened body {
+          overflow: hidden !important;
+        }
+
+        .lasuite--gaufre-modal .lagaufre {
+          filter: none !important;
+          border: 0 !important;
+          padding: 0 !important;
+          margin: 0 !important;
+          font-weight: bold !important;
+        }
+
+        .lagaufre-close-button-container {
+          display: flex !important;
+          justify-content: flex-end !important;
+        }
+
+        .lagaufre-close-button {
+          display: none !important;
+          padding: 8px !important;
+          margin: 4px !important;
+          border: 1px solid rgb(221, 221, 221) !important;
+          color: rgb(0, 0, 145) !important;
+          font-weight: bold !important;
+          background: none !important;
+        }
+
+        .lasuite--gaufre-modal .lagaufre-close-button {
+          display: block !important;
         }
 
         .lagaufre-sr-only {
@@ -73,31 +113,20 @@ const { services } = Astro.props
           display: block !important;
         }
 
-        .lagaufre-border {
-          height: 100% !important;
-          /* border-radius: 6px !important; */
-          overflow: hidden !important;
-        }
-
         .lagaufre-list {
           margin: 0 !important;
           padding: 0 !important;
           list-style: none !important;
           /* border-radius: 2px !important; */
-          background-color: white !important;
           height: 100% !important;
           overflow: auto !important;
-        }
-
-        [data-fr-scheme="dark"] .lagaufre-list {
-          background-color: #1e1e1e !important;
         }
 
         .lagaufre-service {
           position: relative !important;
           display: flex !important;
           align-items: center !important;
-          padding: 1rem 2rem !important;
+          padding: 16px 32px !important;
           border-top: 1px solid transparent !important;
           border-bottom: 1px solid transparent !important;
         }
@@ -139,6 +168,7 @@ const { services } = Astro.props
         }
 
         .lagaufre-service__icon {
+          flex-shrink: 0 !important;
           display: flex !important;
           align-items: center !important;
           width: 40px !important;
@@ -157,7 +187,7 @@ const { services } = Astro.props
         }
 
         .lagaufre-service__name {
-          margin-left: 1.5rem !important;
+          margin-left: 24px !important;
           text-decoration: none !important;
           color: #161616 !important;
         }
@@ -197,47 +227,50 @@ const { services } = Astro.props
           background-color: transparent !important;
         }
       </style>
-      <div class="lagaufre-border">
-        <h1 id="lagaufre-title" class="lagaufre-sr-only">
-          Liste des services de La Suite numérique
-        </h1>
-        <ul
-          class="lagaufre-list lagaufre-scrollbars js-lagaufre-keyboard-anchor"
-          aria-labelledby="lagaufre-title"
-          tabindex="-1"
-        >
-          {
-            services
-              .filter(({ enabled }) => !!enabled)
-              .map(({ id, name, url }, i) => {
-                const logo =
-                  logos[`/src/assets/logos/${id}.svg`] ||
-                  logos[`/src/assets/logos/${id}.jpg`] ||
-                  logos[`/src/assets/logos/${id}.png`]
-                return (
-                  <li>
-                    <div class="lagaufre-service lagaufre-enlarge-link">
-                      <div class="lagaufre-service__icon">
-                        {!!logo ? (
-                          <Image src={logo()} width="40" height="40" alt="" loading="eager" />
-                        ) : null}
-                      </div>
-                      <a
-                        target="_parent"
-                        class="lagaufre-service__name"
-                        href={url}
-                        id={`lagaufre-service-${id}`}
-                        {...((i === 0 && { autofocus: true }) || {})}
-                      >
-                        {name}
-                      </a>
-                    </div>
-                  </li>
-                )
-              })
-          }
-        </ul>
+      <h1 id="lagaufre-title" class="lagaufre-sr-only">Liste des services de La Suite numérique</h1>
+      <div class="lagaufre-close-button-container">
+        <button type="button" class="lagaufre-close-button">
+          <span class="lagaufre-sr-only">Fermer la liste des services</span>
+          <span aria-hidden="true">✕</span>
+          <span>Fermer</span>
+        </button>
       </div>
+      <ul
+        class="lagaufre-list lagaufre-scrollbars js-lagaufre-keyboard-anchor"
+        aria-labelledby="lagaufre-title"
+        tabindex="-1"
+      >
+        {
+          services
+            .filter(({ enabled }) => !!enabled)
+            .map(({ id, name, url }, i) => {
+              const logo =
+                logos[`/src/assets/logos/${id}.svg`] ||
+                logos[`/src/assets/logos/${id}.jpg`] ||
+                logos[`/src/assets/logos/${id}.png`]
+              return (
+                <li>
+                  <div class="lagaufre-service lagaufre-enlarge-link">
+                    <div class="lagaufre-service__icon">
+                      {!!logo ? (
+                        <Image src={logo()} width="40" height="40" alt="" loading="eager" />
+                      ) : null}
+                    </div>
+                    <a
+                      target="_parent"
+                      class="lagaufre-service__name"
+                      href={url}
+                      id={`lagaufre-service-${id}`}
+                      {...((i === 0 && { autofocus: true }) || {})}
+                    >
+                      {name}
+                    </a>
+                  </div>
+                </li>
+              )
+            })
+        }
+      </ul>
     </div>
   </body>
 </html>

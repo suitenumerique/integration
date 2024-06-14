@@ -167,6 +167,31 @@ burger : aucun HTML n'est proposé pour ça, tant il dépend de votre site.
   même comportement sur votre propre implémentation, vous pouvez vous appuyer sur la présence de la
   classe `lasuite--gaufre-loaded` sur la balise `html`.
 
+### Popup customisée
+
+Au delà du bouton, suivant votre stack technique, vous voudrez peut-être utiliser un composant de
+popup déjà en place dans votre app. Dans ce cas, une solution est de ne pas charger le script
+proposé, et de gérer vous-même le comportement du bouton.
+
+Le contenu à afficher dans la popup est requêtable directement sur
+[{import.meta.env.PUBLIC_LASUITE_API_URL}/api/v1/gaufre](/api/v1/gaufre). La liste est déjà
+construite pour vous en HTML/CSS car son affichage est amené à évoluer au fil du temps suivant le
+nombre de services. Il n'est pas souhaitable de demander à chaque service de La Suite de devoir se
+mettre à jour régulièrement. L'idée est donc de requêter cette URL, récupérer son `<body>` et de
+l'intégrer dans votre DOM dans le contenu de votre composant de popup.
+
+Appliquez la classe `lasuite--gaufre-borderless` sur votre balise `html` ou `body`. Ceci fera que la
+liste fournie via l'URL ci-dessus, une fois dans votre DOM, n'affichera pas de bordure bleue avec
+une ombre, et s'intégrera mieux dans votre composant de popup.
+
+:::caution
+
+Il est vivement déconseillé de surcharger les CSS du contenu de la popup de la Gaufre, car les
+contenus de la popup et leur disposition visuelle évoluent avec le temps.
+[Contactez-nous](/about/help) si vous avez des besoins particuliers par rapport à votre service.
+
+:::
+
 ## Exemple
 
 [La Gaufre : exemple HTML](/examples/gaufre/html).

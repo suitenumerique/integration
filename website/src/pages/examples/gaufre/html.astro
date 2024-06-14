@@ -7,6 +7,7 @@ import gaufreCssUrl from "@gouvfr-lasuite/integration/dist/css/gaufre.css?url"
   <head>
     <meta charset="UTF-8" />
     <title>Exemple intégration bouton La Gaufre - La Suite numérique</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style is:inline>
       .wrapper {
         margin: 2rem auto;
@@ -29,6 +30,12 @@ import gaufreCssUrl from "@gouvfr-lasuite/integration/dist/css/gaufre.css?url"
       }
       .example > p {
         margin-top: 0;
+      }
+      .example > .footer {
+        display: flex;
+        gap: 1em;
+        justify-content: flex-start;
+        font-style: italic;
       }
     </style>
 
@@ -60,6 +67,13 @@ import gaufreCssUrl from "@gouvfr-lasuite/integration/dist/css/gaufre.css?url"
           </button>
           <!-- fin du code à copier -->
         </div>
+        <button
+          type="button"
+          class="lasuite-gaufre-btn lasuite-gaufre-btn--vanilla js-lasuite-gaufre-btn"
+          title="Les services de La Suite numérique"
+        >
+          Les services de La Suite numérique
+        </button>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac diam a libero posuere
           ornare facilisis in mi. Nullam eu vulputate augue, in auctor nibh. Praesent ac tempus dui.
@@ -88,6 +102,17 @@ import gaufreCssUrl from "@gouvfr-lasuite/integration/dist/css/gaufre.css?url"
           Vestibulum feugiat pulvinar fermentum. Vivamus imperdiet dapibus ornare. Donec venenatis,
           lectus id faucibus tempus, sapien urna molestie augue, at egestas enim lectus quis nisi.
         </p>
+
+        <div class="footer">
+          <button
+            type="button"
+            class="lasuite-gaufre-btn lasuite-gaufre-btn--vanilla js-lasuite-gaufre-btn"
+            title="Les services de La Suite numérique"
+          >
+            Les services de La Suite numérique
+          </button>
+          <p>la popup s'affiche correctement quelque soit la position du bouton dans la fenêtre</p>
+        </div>
       </div>
     </div>
   </body>
