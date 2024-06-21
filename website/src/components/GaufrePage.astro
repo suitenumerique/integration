@@ -38,7 +38,9 @@ const { services } = Astro.props
         }
 
         .lagaufre,
-        :where(.lagaufre) * {
+        :where(.lagaufre) *,
+        :where(.lagaufre) *::before,
+        :where(.lagaufre) *::after {
           all: revert !important;
           box-sizing: border-box !important;
         }
