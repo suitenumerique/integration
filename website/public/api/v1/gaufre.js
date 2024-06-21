@@ -183,7 +183,7 @@
   const showPopup = (button) => {
     let popup = document.querySelector(`#lasuite-gaufre-popup`)
     const show = (el) => {
-      updatePopupStyle(popup, button)
+      updatePopupStyle(el, button)
       el.classList.add("lasuite--gaufre-opened")
       lastFocusedButton = button
       setTimeout(() => {
