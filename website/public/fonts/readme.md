@@ -10,4 +10,9 @@ glyphhanger \
   --whitelist="DeskLaSuiteNumériqueMessagerieTchapResanaFranceTransfertContactsGristLePadWebConférencedel'ÉtatWebinaire  "
 ```
 
+## ⚠
+
+Make sure to also update the `unicode-range` on the `@font-face` CSS rule. You can get it on the
+glyphhanger command output.
+
 Assuming you have the Marianne-Regular.woff2 file (you can take it from the DSFR).
