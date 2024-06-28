@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+
+- new grist logo
+
 ## 1.0.1
 
 - fix france-transfert/tchap/webconf logos (there were not the correct design)
