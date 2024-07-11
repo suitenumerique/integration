@@ -37,9 +37,9 @@
   },
   {
     "id": "grist",
-    "name": "Grist",
+    "name": "Tableur collaboratif (Grist)",
     "url": "https://grist.incubateur.net/",
-    "tagline": "**Grist**, une feuille de calcul simple, <br>flexible, moderne et open source <br>qui va au-delà de la grille.",
+    "tagline": "**Grist**, une feuille de calcul <br>flexible, moderne et open source <br>qui sort des cases.",
     "homepageType": "proconnect",
     "entity": "Gouvernement",
     "enabled": true
