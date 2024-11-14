@@ -60,6 +60,16 @@
     "enabled": true
   },
   {
+    "id": "docs",
+    "name": "Docs",
+    "url": "https://docs.numerique.gouv.fr/",
+    "tagline": "",
+    "homepageType": "proconnect",
+    "entity": "Gouvernement",
+    "beta": true,
+    "enabled": true
+  },
+  {
     "id": "demarches",
     "name": "Démarches simplifiées",
     "url": "https://www.demarches-simplifiees.fr/",
