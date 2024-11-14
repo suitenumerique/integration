@@ -6,6 +6,7 @@
     "tagline": "**Tchap** <br>la messagerie <br>instantanée du Secteur Public",
     "homepageType": "email",
     "entity": "Gouvernement",
+    "beta": false,
     "enabled": true
   },
   {
@@ -15,6 +16,7 @@
     "tagline": "**France Transfert** permet d’envoyer des fichiers <br>volumineux non sensibles de manière sécurisée <br>à un agent de l’Etat ou entre agents",
     "homepageType": "custom",
     "entity": "Gouvernement",
+    "beta": false,
     "enabled": true
   },
   {
@@ -24,6 +26,7 @@
     "tagline": "**Webinaire**. Vous organisez régulièrement <br>des séminaires, vous êtes agent de l’État, <br>créez un compte pour organiser <br>et conserver vos séminaires.",
     "homepageType": "custom",
     "entity": "Gouvernement",
+    "beta": false,
     "enabled": true
   },
   {
@@ -33,6 +36,7 @@
     "tagline": "**Webconférence** de l’État, <br>Audio, vidéo, chat, partage d’écran <br>et de documents",
     "homepageType": "custom",
     "entity": "Gouvernement",
+    "beta": false,
     "enabled": true
   },
   {
@@ -42,6 +46,7 @@
     "tagline": "**Resana** <br>groupes de travail <br>et suite collaborative en ligne",
     "homepageType": "email-or-proconnect",
     "entity": "Gouvernement",
+    "beta": false,
     "enabled": true
   },
   {
@@ -51,6 +56,7 @@
     "tagline": "**Grist**, une feuille de calcul <br>flexible, moderne et open source <br>qui sort des cases.",
     "homepageType": "proconnect",
     "entity": "Gouvernement",
+    "beta": true,
     "enabled": true
   },
   {
@@ -60,6 +66,7 @@
     "tagline": "**Démarches simplifiées**, <br>Effectuer une démarche administrative en ligne",
     "homepageType": "proconnect",
     "entity": "Gouvernement",
+    "beta": false,
     "enabled": true
   },
   {
@@ -69,6 +76,7 @@
     "tagline": "**RDV Service Public** <br>facilitez la gestion <br>et la prise de rendez-vous en ligne",
     "homepageType": "email",
     "entity": "Gouvernement",
+    "beta": false,
     "enabled": true
   },
   {
@@ -78,6 +86,7 @@
     "tagline": "**Notepad de l’État** <br>Le meilleur moyen d’écrire <br> et partager votre savoir <br>en markdown",
     "homepageType": "proconnect",
     "entity": "Gouvernement",
+    "beta": false,
     "enabled": false
   },
   {
@@ -87,6 +96,7 @@
     "tagline": "**AudioConf**, conférences téléphoneiques <br>pour les agents de l'État",
     "homepageType": "custom",
     "entity": "Gouvernement",
+    "beta": false,
     "enabled": false
   },
   {
@@ -96,6 +106,7 @@
     "tagline": "**Equipes**, la gestion de groupes <br>centralisée pour tous vos projets",
     "homepageType": "proconnect",
     "entity": "Gouvernement",
+    "beta": false,
     "enabled": false
   },
   {
@@ -105,6 +116,7 @@
     "tagline": "**Messagerie** de l'État <br>le mail simple, centralisé et sécurisé",
     "homepageType": "email",
     "entity": "Gouvernement",
+    "beta": false,
     "enabled": false
   }
 ]

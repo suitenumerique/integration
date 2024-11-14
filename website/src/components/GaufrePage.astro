@@ -176,11 +176,25 @@ const { services } = Astro.props
           align-items: center !important;
           width: 40px !important;
           height: 40px !important;
+          position: relative !important;
         }
 
         .lagaufre-service__icon img {
           max-width: 100% !important;
           height: auto !important;
+        }
+
+        .lagaufre-service__beta {
+          font-size: 0.5em !important;
+          background: #000091 !important;
+          color: white !important;
+          text-transform: uppercase !important;
+          display: inline-block !important;
+          padding: 2px 4px !important;
+          border-radius: 3px !important;
+          position: absolute !important;
+          bottom: -2ch !important;
+          right: -3ch !important;
         }
 
         [data-fr-scheme="dark"] .lagaufre-service__icon {
@@ -246,11 +260,12 @@ const { services } = Astro.props
         {
           services
             .filter(({ enabled }) => !!enabled)
-            .map(({ id, name, url }, i) => {
+            .map(({ id, name, url, beta }, i) => {
               const logo =
                 logos[`/src/assets/logos/${id}.svg`] ||
                 logos[`/src/assets/logos/${id}.jpg`] ||
                 logos[`/src/assets/logos/${id}.png`]
+              const ariaLabel = `${name} ${!!beta ? '(bêta)' : ''} - nouvelle fenêtre`
               return (
                 <li>
                   <div class="lagaufre-service lagaufre-enlarge-link">
@@ -258,10 +273,12 @@ const { services } = Astro.props
                       {!!logo ? (
                         <Image src={logo()} width="40" height="40" alt="" loading="eager" />
                       ) : null}
+                      {!!beta ? <span class="lagaufre-service__beta" aria-hidden="true">bêta</span> : null}
                     </div>
                     <a
                       target="_blank"
-                      title={`${name} - nouvelle fenêtre`}
+                      title={ariaLabel}
+                      aria-label={ariaLabel}
                       class="lagaufre-service__name"
                       href={url}
                       id={`lagaufre-service-${id}`}
