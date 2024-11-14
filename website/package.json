@@ -11,10 +11,8 @@
     "start": "node ./server.mjs",
     "build-backgrounds": "node ./bin/build-services-backgrounds.mjs",
     "build": "astro check && npm run build-backgrounds && astro build",
-    "copy-logos": "cp -r ./node_modules/@gouvfr-lasuite/integration/dist/logos/* ./src/assets/logos",
     "preview": "astro preview",
-    "astro": "astro",
-    "postinstall": "npm run copy-logos"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",
