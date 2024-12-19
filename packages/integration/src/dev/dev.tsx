@@ -107,7 +107,7 @@ const routes = [
       </p>
     ),
   }),
-  serviceHomepage({ id: "rdv", styles: "standalone", logoType: "png" }),
+  serviceHomepage({ id: "rdv", styles: "standalone" }),
   serviceHomepage({
     id: "resana",
     label: "Resana (connexion email + proconnect)",
