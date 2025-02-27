@@ -20,23 +20,33 @@
     "enabled": true
   },
   {
-    "id": "webinaire",
-    "name": "Webinaire de l'État",
-    "url": "https://webinaire.numerique.gouv.fr/welcome",
-    "tagline": "**Webinaire**. Vous organisez régulièrement <br>des séminaires, vous êtes agent de l’État, <br>créez un compte pour organiser <br>et conserver vos séminaires.",
-    "homepageType": "custom",
+    "id": "grist",
+    "name": "Tableur collaboratif (Grist)",
+    "url": "https://grist.numerique.gouv.fr/",
+    "tagline": "**Grist**, une feuille de calcul <br>flexible, moderne et open source <br>qui sort des cases.",
+    "homepageType": "proconnect",
     "entity": "Gouvernement",
     "beta": false,
     "enabled": true
   },
   {
-    "id": "webconf",
-    "name": "WebConférence de l'État",
-    "url": "https://webconf.numerique.gouv.fr",
-    "tagline": "**Webconférence** de l’État, <br>Audio, vidéo, chat, partage d’écran <br>et de documents",
-    "homepageType": "custom",
+    "id": "docs",
+    "name": "Docs",
+    "url": "https://docs.numerique.gouv.fr/",
+    "tagline": "",
+    "homepageType": "proconnect",
     "entity": "Gouvernement",
-    "beta": false,
+    "beta": true,
+    "enabled": true
+  },
+  {
+    "id": "visio",
+    "name": "Visio",
+    "url": "https://visio.numerique.gouv.fr/",
+    "tagline": "Visioconférences simples et sécurisées",
+    "homepageType": "proconnect",
+    "entity": "Gouvernement",
+    "beta": true,
     "enabled": true
   },
   {
@@ -50,23 +60,13 @@
     "enabled": true
   },
   {
-    "id": "grist",
-    "name": "Tableur collaboratif (Grist)",
-    "url": "https://grist.numerique.gouv.fr/",
-    "tagline": "**Grist**, une feuille de calcul <br>flexible, moderne et open source <br>qui sort des cases.",
-    "homepageType": "proconnect",
+    "id": "webinaire",
+    "name": "Webinaire de l'État",
+    "url": "https://webinaire.numerique.gouv.fr/welcome",
+    "tagline": "**Webinaire**. Vous organisez régulièrement <br>des séminaires, vous êtes agent de l’État, <br>créez un compte pour organiser <br>et conserver vos séminaires.",
+    "homepageType": "custom",
     "entity": "Gouvernement",
-    "beta": true,
-    "enabled": true
-  },
-  {
-    "id": "docs",
-    "name": "Docs",
-    "url": "https://docs.numerique.gouv.fr/",
-    "tagline": "",
-    "homepageType": "proconnect",
-    "entity": "Gouvernement",
-    "beta": true,
+    "beta": false,
     "enabled": true
   },
   {
