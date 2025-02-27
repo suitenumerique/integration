@@ -42,6 +42,13 @@ const useSubsettedFont = import.meta.env.PUBLIC_USE_GAUFRE_SUBSETTED_FONT !== "0
       )}
       <style is:inline>
         @font-face {
+          font-family: "La Gaufre";
+          src: url("/fonts/Marianne-Bold-betabadge-subset.woff2") format("woff2");
+          unicode-range: U+41,U+42,U+45,U+54,U+61,U+62,U+65,U+74;
+          font-weight: 700;
+          font-display: swap;
+        }
+        @font-face {
           font-family: "La Gaufre fallback";
           src: local("Arial");
           ascent-override: 103.16%;
@@ -199,16 +206,23 @@ const useSubsettedFont = import.meta.env.PUBLIC_USE_GAUFRE_SUBSETTED_FONT !== "0
         }
 
         .lagaufre-service__beta {
-          font-size: 0.5em !important;
-          background: #000091 !important;
-          color: white !important;
+          font-weight: 700 !important;
+          font-size: 0.625em !important;
+          background: #e3e3fd !important;
+          color: #000091 !important;
           text-transform: uppercase !important;
           display: inline-block !important;
-          padding: 2px 4px !important;
-          border-radius: 3px !important;
+          padding: 2px 6px !important;
+          border-radius: 99px !important;
           position: absolute !important;
           bottom: -2ch !important;
-          right: -3ch !important;
+          right: -2.5ch !important;
+          line-height: 1.5 !important;
+        }
+
+        [data-fr-scheme="dark"] .lagaufre-service__beta {
+          background: #3737ab !important;
+          color: #e3e3fd !important;
         }
 
         [data-fr-scheme="dark"] .lagaufre-service__icon {
