@@ -39,3 +39,20 @@ Source images are not tracked in the repo. To build images, you must:
   backgrounds in `public/api/backgrounds`. Depending on the offset passed, or the current week of
   the month, the service gets a different background. This is meant to be run in a cronjob to
   generate different backgrounds a few times a month.
+
+### La Gaufre font
+
+For the Gaufre content, we use a subset of Marianne font because we know we use just a few
+characters for our list. This shrinks the font file size noticeably!
+
+When you change the Gaufre content (the services shown), use the `npm run gaufre-glyphhanger-cmd`
+helper. It will show you the [glyphhanger](https://github.com/zachleat/glyphhanger) command you need
+to run locally to generate the new font file before pushing your changes.
+
+:warning: It will also tell you what to do to update the code accordingly, don't miss it :)
+
+If for any reason, you want the Gaufre to use a non-subsetted font, set the env var
+`PUBLIC_USE_GAUFRE_SUBSETTED_FONT` to `0` on the machine building the website.
+
+_This is not really streamlined and a bit error-prone, because Astro kinda gets in a way in that
+specific case. Any contribution on this is welcome._
