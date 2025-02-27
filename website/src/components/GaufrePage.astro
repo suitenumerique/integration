@@ -8,6 +8,8 @@
 import { Image } from "astro:assets"
 const logos = import.meta.glob<{ default: ImageMetadata }>("/src/assets/logos/*.{svg,png,jpg}")
 const { services } = Astro.props
+
+const useSubsettedFont = import.meta.env.PUBLIC_USE_GAUFRE_SUBSETTED_FONT !== "0"
 ---
 
 <!doctype html>
@@ -18,16 +20,27 @@ const { services } = Astro.props
   </head>
   <body>
     <div class="lagaufre">
+      {useSubsettedFont ? (
+        <style is:inline>
+          @font-face {
+            font-family: "La Gaufre";
+            src: url("/fonts/Marianne-Regular-subset-1.woff2") format("woff2");
+            unicode-range: U+20,U+27-29,U+44,U+46,U+47,U+50,U+52-54,U+56,U+57,U+61-66,U+68,U+69,U+6C-70,U+72-76,U+C9,U+E9,U+2715;
+            font-weight: 400;
+            font-display: swap;
+          }
+        </style>
+      ) : (
+        <style is:inline>
+          @font-face {
+            font-family: "La Gaufre";
+            src: url("/fonts/Marianne-Regular.woff2") format("woff2");
+            font-weight: 400;
+            font-display: swap;
+          }
+        </style>
+      )}
       <style is:inline>
-        @font-face {
-          font-family: "La Gaufre";
-          src: url("/fonts/Marianne-Regular.woff2") format("woff2");
-          unicode-range: U+20, U+27, U+43, U+44, U+46, U+47, U+4E, U+50, U+52-54, U+56, U+57,
-            U+61-66, U+68, U+69, U+6C-70, U+72-76, U+A0, U+C9, U+E9, U+2715;
-          font-weight: 400;
-          font-display: swap;
-        }
-
         @font-face {
           font-family: "La Gaufre fallback";
           src: local("Arial");
@@ -51,8 +64,9 @@ const { services } = Astro.props
           height: 100% !important;
           width: 100% !important;
           font-size: 100% !important;
-          font-family: "La Gaufre", "La Gaufre fallback", BlinkMacSystemFont, "Segoe UI",
-            "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji" !important;
+          font-family:
+            "La Gaufre", "La Gaufre fallback", BlinkMacSystemFont, "Segoe UI", "Noto Sans",
+            Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji" !important;
           margin: 0 0 8px !important;
           border: 2px solid var(--lagaufre-border-color) !important;
           background-color: var(--lagaufre-bg-color) !important;
@@ -265,7 +279,7 @@ const { services } = Astro.props
                 logos[`/src/assets/logos/${id}.svg`] ||
                 logos[`/src/assets/logos/${id}.jpg`] ||
                 logos[`/src/assets/logos/${id}.png`]
-              const ariaLabel = `${name} ${!!beta ? '(bêta)' : ''} - nouvelle fenêtre`
+              const ariaLabel = `${name} ${!!beta ? "(bêta)" : ""} - nouvelle fenêtre`
               return (
                 <li>
                   <div class="lagaufre-service lagaufre-enlarge-link">
@@ -273,7 +287,11 @@ const { services } = Astro.props
                       {!!logo ? (
                         <Image src={logo()} width="40" height="40" alt="" loading="eager" />
                       ) : null}
-                      {!!beta ? <span class="lagaufre-service__beta" aria-hidden="true">beta</span> : null}
+                      {!!beta ? (
+                        <span class="lagaufre-service__beta" aria-hidden="true">
+                          beta
+                        </span>
+                      ) : null}
                     </div>
                     <a
                       target="_blank"
