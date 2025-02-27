@@ -29,6 +29,7 @@
     "astro": "^4.3.5",
     "astro-compressor": "^0.4.1",
     "fastify": "^4.26.2",
+    "picocolors": "^1.1.1",
     "prettier": "^3.2.5",
     "prettier-plugin-astro": "^0.13.0",
     "prismjs": "^1.29.0",
