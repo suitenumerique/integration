@@ -217,6 +217,57 @@ const routes = [
         </StylesGaufre>
       </DarkTheme>
     ),
+  },{
+    path: "/gaufre-borderless",
+    label: "Gaufre (mode sans bordure)",
+    component: (
+      <StylesGaufre mode="borderless">
+        <div
+          style={{
+            margin: "2rem auto",
+            width: 800,
+            border: "1px solid #999",
+            padding: "2rem",
+            borderRadius: "0.5rem",
+          }}
+        >
+          <div style={{ display: "flex" }}>
+            <h1>Sans bordure (pour intégrations customisées)</h1>
+            <Gaufre />
+          </div>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac diam a libero
+            posuere ornare facilisis in mi. Nullam eu vulputate augue, in auctor nibh. Praesent ac
+            tempus dui. Integer vel enim non purus facilisis mattis et vel dolor. Aliquam lacinia
+            elit et massa faucibus, at dictum risus ornare. Vivamus ultricies magna et gravida
+            consequat. Donec ac odio finibus, lobortis purus vel, consequat purus. Maecenas
+            convallis vel enim eu malesuada. Vestibulum elementum maximus massa, a porta erat
+            congue quis. Nunc neque quam, euismod et malesuada in, bibendum ac ex. Phasellus felis
+            elit, egestas a convallis nec, malesuada a est. Donec ac urna venenatis lorem aliquet
+            rhoncus in accumsan ipsum.
+          </p>
+          <p>
+            Interdum et malesuada fames ac ante ipsum primis in faucibus. Morbi sed augue
+            elementum, tempus diam in, euismod purus. Fusce interdum, leo nec blandit eleifend,
+            sapien ligula egestas quam, quis aliquam ex turpis ut augue. Nullam a neque
+            consectetur, feugiat eros a, lacinia tortor. Proin imperdiet vehicula justo, eget
+            bibendum tortor gravida a. Pellentesque sit amet fermentum urna. Ut rutrum eros a
+            ligula dapibus pharetra. In porttitor arcu in euismod dictum. Aenean vestibulum mi et
+            dignissim rutrum. Phasellus ultrices ex justo, eu tincidunt metus efficitur non.
+            Curabitur ac lorem ornare, aliquet neque et, tristique elit. Donec quis turpis
+            sodales, interdum massa fermentum, dictum magna.
+          </p>
+          <p>
+            Mauris elit risus, facilisis at magna quis, interdum tempor nulla. Ut ac erat eget
+            tellus ultricies semper. Ut at dictum ante. Lorem ipsum dolor sit amet, consectetur
+            adipiscing elit. Nam placerat lacinia eros ac convallis. Sed ultricies lectus et
+            pharetra aliquet. Vestibulum feugiat pulvinar fermentum. Vivamus imperdiet dapibus
+            ornare. Donec venenatis, lectus id faucibus tempus, sapien urna molestie augue, at
+            egestas enim lectus quis nisi.
+          </p>
+        </div>
+      </StylesGaufre>
+    ),
   },
 ]
 

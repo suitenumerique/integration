@@ -7,7 +7,7 @@ import devStyles from "./dev.css?inline"
  *
  * this helps testing the html when we include the gaufre css
  */
-export const StylesGaufre = ({ children }: { children: ReactNode }) => {
+export const StylesGaufre = ({ children, mode }: { children: ReactNode, mode?: "borderless" }) => {
   useEffect(() => {
     if (document.querySelector("#styles-gaufre")) {
       return
@@ -16,8 +16,12 @@ export const StylesGaufre = ({ children }: { children: ReactNode }) => {
     style.id = "styles-gaufre"
     style.innerHTML = gaufreStyles + devStyles
     document.head.appendChild(style)
+    if (mode === "borderless") {
+      document.body.classList.add("lasuite--gaufre-borderless")
+    }
     return () => {
       document.querySelector("#styles-gaufre")?.remove()
+      document.body.classList.remove("lasuite--gaufre-borderless")
     }
   }, [])
 

@@ -151,8 +151,16 @@ const useSubsettedFont = import.meta.env.PUBLIC_USE_GAUFRE_SUBSETTED_FONT !== "0
           display: flex !important;
           align-items: center !important;
           padding: 16px 32px !important;
+          --gaufre-x-border-width: 0 !important;
           border-top: 1px solid transparent !important;
           border-bottom: 1px solid transparent !important;
+          border-left: var(--gaufre-x-border-width) solid transparent !important;
+          border-right: var(--gaufre-x-border-width) solid transparent !important;
+        }
+
+        .lasuite--gaufre-borderless .lagaufre-service {
+          --gaufre-x-border-width: 1px !important;
+          border-radius: 8px !important;
         }
 
         .lagaufre-service a {
@@ -179,20 +187,17 @@ const useSubsettedFont = import.meta.env.PUBLIC_USE_GAUFRE_SUBSETTED_FONT !== "0
 
         .lagaufre-service:hover {
           background-color: #f0f0fa !important;
-          border-top: 1px solid #8989cd !important;
-          border-bottom: 1px solid #8989cd !important;
+          border-color: #8989cd !important;
         }
         .lagaufre-service:has(:focus-visible) { /* this is like a "has-focus-within" selector */
           background-color: #f0f0fa !important;
-          border-top: 1px solid #8989cd !important;
-          border-bottom: 1px solid #8989cd !important;
+          border-color: #8989cd !important;
         }
         /* fallback for browsers that don't support :has */
         @supports not selector(:has(+ *)) {
           .lagaufre-service:focus-within {
             background-color: #f0f0fa !important;
-            border-top: 1px solid #8989cd !important;
-            border-bottom: 1px solid #8989cd !important;
+            border-color: #8989cd !important;
           }
         }
         .lagaufre-service:active {
@@ -201,19 +206,16 @@ const useSubsettedFont = import.meta.env.PUBLIC_USE_GAUFRE_SUBSETTED_FONT !== "0
 
         [data-fr-scheme="dark"] .lagaufre-service:hover {
           background-color: #2d2d2d !important;
-          border-top-color: #8989cd !important;
-          border-bottom-color: #8989cd !important;
+          border-color: #8989cd !important;
         }
         [data-fr-scheme="dark"] .lagaufre-service:has(:focus-visible) {
           background-color: #2d2d2d !important;
-          border-top-color: #8989cd !important;
-          border-bottom-color: #8989cd !important;
+          border-color: #8989cd !important;
         }
         @supports not selector(:has(+ *)) {
           [data-fr-scheme="dark"] .lagaufre-service:focus-within {
             background-color: #2d2d2d !important;
-            border-top-color: #8989cd !important;
-            border-bottom-color: #8989cd !important;
+            border-color: #8989cd !important;
           }
         }
 
@@ -241,7 +243,7 @@ const useSubsettedFont = import.meta.env.PUBLIC_USE_GAUFRE_SUBSETTED_FONT !== "0
           padding: 2px 6px !important;
           border-radius: 99px !important;
           position: absolute !important;
-          bottom: -2ch !important;
+          bottom: -1.75ch !important;
           right: -2.5ch !important;
           line-height: 1.5 !important;
         }
