@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { renderToStaticMarkup } from "react-dom/server"
 import services from "@/data/services.json"
 import Code from "./Code"
