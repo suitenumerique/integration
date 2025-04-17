@@ -23,6 +23,8 @@ export const Gaufre = ({ variant }: Props) => {
       type="button"
       className={`lasuite-gaufre-btn ${variantClass} lasuite-gaufre-btn--vanilla js-lasuite-gaufre-btn`}
       title={t("gaufre.label")}
+      aria-expanded="false"
+      aria-controls="lasuite-gaufre-popup"
     >
       {t("gaufre.label")}
     </button>
