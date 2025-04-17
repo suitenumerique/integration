@@ -81,7 +81,7 @@
         html = html.replace(/(src=|href=|url\()"\//g, `$1"${origin}/`)
         const parser = new DOMParser()
         const popupDocument = parser.parseFromString(html, "text/html")
-        popup.innerHTML = popupDocument.body.innerHTML
+        popup.innerHTML = addStatisticsParams(popupDocument.body)
         document.body.appendChild(popup)
         return popup
       })
@@ -223,5 +223,26 @@
       lastFocusedButton = null
     }
     window.document.documentElement.classList.remove("lasuite--gaufre-modal-opened")
+  }
+
+  const addStatisticsParams = (popupBody) => {
+    const serviceAnchors = popupBody.querySelectorAll(".lagaufre-service__name")
+    const currentHostname = new URL(window.location.href).hostname
+    const currentHostnameInGaufre = Array.from(serviceAnchors).find(
+      (anchor) => new URL(anchor.href).hostname === currentHostname,
+    )
+    const currentServiceId = currentHostnameInGaufre
+      ? currentHostnameInGaufre.getAttribute("data-gaufre-service-id")
+      : null
+    if (!currentServiceId) {
+      return popupBody.innerHTML
+    }
+    serviceAnchors.forEach((anchor) => {
+      const url = new URL(anchor.href)
+      url.searchParams.set("mtm_campaign", `${currentServiceId}-gaufre`)
+      url.searchParams.set("utm_source", `${currentServiceId}-gaufre`)
+      anchor.href = url.toString()
+    })
+    return popupBody.innerHTML
   }
 })()
