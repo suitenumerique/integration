@@ -1,5 +1,6 @@
 ;(function () {
   const BUTTON_CLASS = "js-lasuite-gaufre-btn"
+  const POPUP_ID = "lasuite-gaufre-popup"
   const DIMENSIONS = { width: 304, height: 352, margin: 8 }
 
   let lastFocusedButton = null
@@ -9,13 +10,20 @@
   if ("requestIdleCallback" in window) {
     requestIdleCallback(() => {
       appendPopup()
+      enhanceButtonsA11y()
+    })
+  }
+
+  const enhanceButtonsA11y = () => {
+    const buttons = document.querySelectorAll(`.${BUTTON_CLASS}`)
+    buttons.forEach((b) => {
+      b.setAttribute("aria-controls", POPUP_ID)
+      b.setAttribute("aria-expanded", "false")
     })
   }
 
   document.body.addEventListener("click", (event) => {
     if (!event.target.classList || !event.target.classList.contains(BUTTON_CLASS)) {
-      const buttons = document.querySelectorAll(`.${BUTTON_CLASS}`)
-      buttons.forEach((b) => b.classList.remove("lasuite--gaufre-opened"))
       hidePopup()
       return
     }
@@ -36,7 +44,7 @@
   })
 
   window.addEventListener("resize", () => {
-    const popup = document.querySelector(`#lasuite-gaufre-popup.lasuite--gaufre-opened`)
+    const popup = document.querySelector(`#${POPUP_ID}.lasuite--gaufre-opened`)
     if (!popup) {
       return
     }
@@ -48,8 +56,8 @@
   })
 
   const appendPopup = () => {
-    if (document.querySelector(`#lasuite-gaufre-popup`)) {
-      return Promise.resolve(document.querySelector(`#lasuite-gaufre-popup`))
+    if (document.getElementById(POPUP_ID)) {
+      return Promise.resolve(document.getElementById(POPUP_ID))
     }
     const scriptTag = document.querySelector(`#lasuite-gaufre-script`)
     if (!scriptTag) {
@@ -59,7 +67,7 @@
       return
     }
     const popup = document.createElement("div")
-    popup.id = "lasuite-gaufre-popup"
+    popup.id = POPUP_ID
     popup.style.cssText = "display: none !important"
 
     const { host, protocol, searchParams, origin } = new URL(scriptTag.src)
@@ -183,10 +191,11 @@
   }
 
   const showPopup = (button) => {
-    let popup = document.querySelector(`#lasuite-gaufre-popup`)
+    let popup = document.getElementById(POPUP_ID)
     const show = (el) => {
       updatePopupStyle(el, button)
       el.classList.add("lasuite--gaufre-opened")
+      button.setAttribute("aria-expanded", "true")
       lastFocusedButton = button
       setTimeout(() => {
         el.querySelector(".js-lagaufre-keyboard-anchor").focus()
@@ -200,13 +209,16 @@
   }
 
   const hidePopup = () => {
-    const popup = document.querySelector(`#lasuite-gaufre-popup`)
+    const popup = document.getElementById(POPUP_ID)
     if (popup) {
       popup.style.cssText = "display: none !important"
       popup.classList.remove("lasuite--gaufre-opened")
     }
+    document.querySelectorAll(`.${BUTTON_CLASS}`).forEach((b) => {
+      b.classList.remove("lasuite--gaufre-opened")
+      b.setAttribute("aria-expanded", "false")
+    })
     if (lastFocusedButton) {
-      lastFocusedButton.classList.remove("lasuite--gaufre-opened")
       lastFocusedButton.focus()
       lastFocusedButton = null
     }
