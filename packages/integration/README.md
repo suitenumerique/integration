@@ -54,3 +54,14 @@ CSS is rendered like that, and not through the main vite config, because CSS ren
 The `html-config` generates the HTML files.
 
 **HTML files are not written by hand**: they are generated from the React components. The html vite config checks the `src/html.tsx` file and renders HTML files for every template listed.
+
+### Publishing a new npm package
+
+- run `npm version` with either `major`, `minor` or `patch` to bump the version. There is no precise versioning strategy for now, but following semver is a good idea. So: breaking changes should be `major` updates, new features should be `minor` updates and bug fixes should be `patch` updates.
+- add a new entry in the `CHANGELOG.md` file to describe the changes.
+- :warning: make sure your local `.env` file uses production values.
+- run `npm pack` to generate a new tarball locally. It's an easy to verify manually that the package is good before publishing it.
+- run `npm publish` to publish the package on npm.
+- commit your changes.
+- create a git tag on this new commit: `integration-vX.X.X`.
+- push the main branch and the new tag on github.
