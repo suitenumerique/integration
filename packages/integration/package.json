@@ -40,7 +40,8 @@
   "devDependencies": {
     "@babel/plugin-syntax-import-attributes": "^7.24.1",
     "@fullhuman/postcss-purgecss": "^6.0.0",
-    "@gouvfr/dsfr": "^1.11.2",
+    "@gouvfr/dsfr": "1.13.0",
+    "@types/node": "^22.14.1",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@vitejs/plugin-react": "^4.2.1",

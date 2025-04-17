@@ -1,17 +1,16 @@
 diff --git a/node_modules/@gouvfr/dsfr/dist/dsfr.css b/node_modules/@gouvfr/dsfr/dist/dsfr.css
-index 9444fd2..6877e96 100644
+index 56d63bf..d77e1cd 100644
 --- a/node_modules/@gouvfr/dsfr/dist/dsfr.css
 +++ b/node_modules/@gouvfr/dsfr/dist/dsfr.css
-@@ -1,8 +1,6 @@
+@@ -1,7 +1,6 @@
  /*!
-  * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+  * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
   */
 -@charset "UTF-8";
--
+ 
  /* ¯¯¯¯¯¯¯¯¯ *\
    CORE
- \* ˍˍˍˍˍˍˍˍˍ */
-@@ -1341,80 +1339,6 @@ audio:not([href]) {
+@@ -1374,80 +1373,6 @@ audio:not([href]) {
    transition: none !important;
  }
  
@@ -93,15 +92,14 @@ index 9444fd2..6877e96 100644
    font-weight: 700;
    font-size: 1.125rem;
 diff --git a/node_modules/@gouvfr/dsfr/dist/utility/utility.css b/node_modules/@gouvfr/dsfr/dist/utility/utility.css
-index 2941a15..1b43d4a 100644
+index a723711..097aad5 100644
 --- a/node_modules/@gouvfr/dsfr/dist/utility/utility.css
 +++ b/node_modules/@gouvfr/dsfr/dist/utility/utility.css
-@@ -1,8 +1,6 @@
+@@ -1,7 +1,6 @@
  /*!
-  * DSFR v1.11.2 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
+  * DSFR v1.13.0 | SPDX-License-Identifier: MIT | License-Filename: LICENSE.md | restricted use (see terms and conditions)
   */
 -@charset "UTF-8";
--
+ 
  .fr-background-default--grey {
    background-color: var(--background-default-grey) !important;
- 
