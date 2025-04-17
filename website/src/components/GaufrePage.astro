@@ -315,7 +315,7 @@ const useSubsettedFont = import.meta.env.PUBLIC_USE_GAUFRE_SUBSETTED_FONT !== "0
         {
           services
             .filter(({ enabled }) => !!enabled)
-            .map(({ id, name, url, beta }, i) => {
+            .map(({ id, name, url, beta }, i: number) => {
               const logo =
                 logos[`/src/assets/logos/${id}.svg`] ||
                 logos[`/src/assets/logos/${id}.jpg`] ||

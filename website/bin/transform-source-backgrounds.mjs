@@ -21,7 +21,7 @@ async function resizeSourceBackgrounds() {
       .toBuffer()
 
     const backgrounds = await readdir(sourcesDir)
-    backgrounds.forEach((backgroundFile, i) => {
+    backgrounds.forEach((backgroundFile) => {
       const srcPath = path.join(sourcesDir, backgroundFile)
       const backgroundName = path.parse(backgroundFile).name
       const jpegPath = path.join(outputDir, `${backgroundName}.jpg`)

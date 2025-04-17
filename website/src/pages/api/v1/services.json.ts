@@ -1,7 +1,6 @@
-import type { APIContext } from "astro"
 import services from "@/data/services.json"
 
-export async function GET({ url }: APIContext) {
+export async function GET() {
   const response = new Response(
     JSON.stringify(
       services
