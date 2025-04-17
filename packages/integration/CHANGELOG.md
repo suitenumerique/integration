@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.3
+
+- new grist, resana, docs, visio, rdv logos
+- Gaufre button styles: add a focus-ring when the button is keyboard-focused. Before that, only the background changed a bit, arguably not an acceptable visual cue on its own.
+- Gaufre button html: add disclosure ARIA design pattern attributes to improve experience for users of assistive technologies
+- use DSFR v1.13.0
+
 ## 1.0.2
 
 - new grist logo
