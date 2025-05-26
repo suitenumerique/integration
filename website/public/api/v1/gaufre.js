@@ -166,7 +166,7 @@
         width: 100svw;
         height: 100%;
         height: 100svh;
-        margin: auto;
+        margin: 0;
       `
     }
     return `
