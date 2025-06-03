@@ -70,11 +70,12 @@
     popup.id = POPUP_ID
     popup.style.cssText = "display: none !important"
 
-    const { host, protocol, searchParams, origin } = new URL(scriptTag.src)
+    const { host, pathname, protocol, searchParams, origin} = new URL(scriptTag.src)
     const local = searchParams.get("type") === "local"
     const lang = ["en"].includes(searchParams.get("lang")) ? searchParams.get("lang") : null
+    const pnNoFile = pathname.substring(0, pathname.lastIndexOf("/") + 1)
     return fetch(
-      `${protocol}//${host}/api/v1/${(!!lang && `${lang}/`) || ""}gaufre${(!!local && "/local") || ""}`,
+      `${protocol}//${host}/${pnNoFile}/${(!!lang && `${lang}/`) || ""}gaufre${(!!local && "/local") || ""}`,
     )
       .then((res) => res.text())
       .then((html) => {
