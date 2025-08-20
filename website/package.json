@@ -27,7 +27,7 @@
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
     "@types/react-syntax-highlighter": "^15.5.11",
-    "astro": "^4.3.5",
+    "astro": "^4.16.19",
     "astro-compressor": "^0.4.1",
     "fastify": "^4.26.2",
     "picocolors": "^1.1.1",
