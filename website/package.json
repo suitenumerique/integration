@@ -7,12 +7,12 @@
     "node": "20"
   },
   "scripts": {
-    "dev": "astro dev",
+    "dev": "astro dev --port 8930 --host 0.0.0.0",
     "start": "node ./server.mjs",
     "build-backgrounds": "node ./bin/build-services-backgrounds.mjs",
     "gaufre-glyphhanger-cmd": "node ./bin/gaufre-font-cmd.mjs",
     "build": "astro check && npm run build-backgrounds && astro build",
-    "preview": "astro preview",
+    "preview": "astro preview --port 8930 --host 0.0.0.0",
     "astro": "astro"
   },
   "dependencies": {

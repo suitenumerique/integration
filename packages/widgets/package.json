@@ -1,0 +1,19 @@
+{
+  "name": "@gouvfr-lasuite/widgets",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 8931",
+    "build": "tsc && node build.js",
+    "preview": "vite preview --host 0.0.0.0 --port 8931",
+    "lint": "prettier --write --print-width=120 src && eslint src && tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "5.9.2",
+    "vite": "7.1.7",
+    "eslint": "9.36.0",
+    "typescript-eslint": "8.45.0",
+    "prettier": "3.6.2"
+  }
+}

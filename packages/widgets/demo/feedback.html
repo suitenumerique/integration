@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback Widget Demo</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        background: #f5f5f5;
+      }
+      * {
+        color: #666;
+        text-align: center;
+      }
+      h1 {
+        color: #333;
+        text-align: center;
+      }
+      .controls {
+        text-align: center;
+        margin: 20px 0;
+      }
+      button {
+        margin: 0 10px;
+        padding: 10px 20px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="/">Back to index</a>
+    <h1>Feedback Widget Demo</h1>
+    
+    <script type="module" src="../src/widgets/feedback/main.ts"></script>
+    <script>
+      window._stmsg_widget = window._stmsg_widget || [];
+      _stmsg_widget.push(["feedback", "init", {
+        "title": "Do you have any feedback?",
+        "api": "http://localhost:8905/demo/api.json?",
+        "channel": "xyz-xyz-xyz",
+        "successText2": "We will get back to you as soon as possible. Let's add some text too to test the widget behaving correctly."
+      }]);
+    </script>
+
+    <button onclick='_stmsg_widget.push(["feedback", "close"]);'>Close</button>
+
+    <button onclick='
+      _stmsg_widget.push(["feedback", "init", {
+        "email": "test@test.com",
+        "title": "Do you have any feedback?",
+        "api": "http://localhost:8905/demo/api.json?",
+        "channel": "xyz-xyz-xyz"
+      }]);
+    '>Re-init with email</button>
+    
+    <br/><br/>
+
+    <button onclick='
+      _stmsg_widget.push(["feedback", "init", {
+        "email": "test@test.com",
+        "title": "Do you have any feedback?",
+        "api": "/error",
+        "channel": "xyz-xyz-xyz"
+      }]);
+    '>Re-init with loading error</button>
+    
+    <button onclick='
+      _stmsg_widget.push(["feedback", "init", {
+        "email": "test@test.com",
+        "title": "Do you have any feedback?",
+        "api": "http://localhost:8905/demo/api-error.json?",
+        "channel": "xyz-xyz-xyz"
+      }]);
+    '>Re-init with submit error</button>
+    
+    <br/><br/>
+
+    <button onclick='
+      _stmsg_widget.push(["feedback", "init", {
+        "title": "With offset",
+        "api": "/demo/api.json?",
+        "channel": "xyz-xyz-xyz",
+        "bottomOffset": 100,
+        "rightOffset": 50
+      }]);
+    '>Re-init with position offset</button>
+    
+  </body>
+</html>

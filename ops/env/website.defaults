@@ -1,2 +1,3 @@
 PUBLIC_LASUITE_API_URL=https://integration.lasuite.numerique.gouv.fr
 PUBLIC_USE_GAUFRE_SUBSETTED_FONT=1
+ASTRO_TELEMETRY_DISABLED=1

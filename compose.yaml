@@ -1,0 +1,31 @@
+name: integration
+
+services:
+
+  website-dev:
+    user: "${DOCKER_USER:-1000}"
+    build:
+      context: ./website
+      dockerfile: Dockerfile
+    env_file:
+      - ops/env/website.defaults
+      - ops/env/website.local
+    command: ["npm", "run", "dev"]
+    volumes:
+      - ./website/:/home/website/
+    ports:
+      - "8930:8930"
+
+  widgets-dev:
+    user: "${DOCKER_USER:-1000}"
+    build:
+      context: ./packages/widgets
+      dockerfile: Dockerfile
+    env_file:
+      - ops/env/widgets.defaults
+      - ops/env/widgets.local
+    command: ["npm", "run", "dev"]
+    volumes:
+      - ./packages/widgets/:/home/widgets/
+    ports:
+      - "8931:8931"
