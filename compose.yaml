@@ -27,5 +27,8 @@ services:
     command: ["npm", "run", "dev"]
     volumes:
       - ./packages/widgets/:/home/widgets/
+      - ./website/:/home/website/
+      - ./website/src/pages/widgets-demo/:/home/widgets/widgets-demo/
+      - ./website/public/widgets/:/home/widgets/widgets/
     ports:
       - "8931:8931"

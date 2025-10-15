@@ -39,7 +39,7 @@
       _stmsg_widget.push(["loader", "init", {
         "params": {
           "title": "Do you have any feedback?",
-          "api": "http://localhost:8905/demo/api.json?",
+          "api": "/widgets/demo/feedback-api.json?",
           "channel": "xyz-xyz-xyz"
         },
         "script": "/error",
@@ -47,19 +47,19 @@
         "widget": "feedback",
         "label": "Feedback Widget"
       }]);
-    '>Re-init with loading error</button>
+    '>Re-init with target loading error</button>
     
-    <script type="module" src="../src/widgets/loader/main.ts"></script>
+    <script type="module" src="/widgets/dist/loader.js"></script>
     <script>
       window._stmsg_widget = window._stmsg_widget || [];
       _stmsg_widget.push(["loader", "init", {
         "params": {
           "title": "Do you have any feedback?",
-          "api": "http://localhost:8905/demo/api.json?",
+          "api": "/widgets/demo/feedback-api.json?",
           "channel": "xyz-xyz-xyz",
           "successText2": "We'll get back to you soon."
         },
-        "script": "../src/widgets/feedback/main.ts",
+        "script": "/widgets/dist/feedback.js",
         "scriptType": "module",
         "widget": "feedback",
         "label": "Feedback Widget"

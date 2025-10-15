@@ -17,7 +17,8 @@ function discoverWidgets() {
 for (const widget of discoverWidgets()) {
     await build({
         build: {
-            emptyOutDir:false,
+            emptyOutDir: false,
+            outDir: join(process.env.WIDGETS_OUTPUT_DIR || "", "dist"),
             rollupOptions: {
                 input: join(widgetsDir, widget, 'main.ts'),
                 output: {

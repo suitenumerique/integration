@@ -65,7 +65,7 @@
             <button onclick="openBasicWidget(this)">Open La Gaufre Widget</button>
             <div class="code-block"><pre>
 _stmsg_widget.push(['lagaufre', 'init', {
-    api: '/demo/lagaufre-data.json',
+    api: '/widgets/demo/lagaufre-data.json',
     open: true
 }]);</pre></div>
         </div>
@@ -103,7 +103,7 @@ _stmsg_widget.push(['lagaufre', 'init', {
             <div class="code-block"><pre>
 // With custom font
 _stmsg_widget.push(['lagaufre', 'init', {
-    api: '/demo/lagaufre-data.json',
+    api: '/widgets/demo/lagaufre-data.json',
     open: true,
     fontFamily: 'Georgia, serif'
 }]);</pre></div>
@@ -117,7 +117,7 @@ _stmsg_widget.push(['lagaufre', 'init', {
             <div class="code-block"><pre>
 // Top Right positioning
 _stmsg_widget.push(['lagaufre', 'init', {
-    api: './lagaufre-data.json',
+    api: '/widgets/demo/lagaufre-data.json',
     open: true,
     title: 'La Gaufre - Top Right',
     position: 'fixed',
@@ -129,7 +129,7 @@ _stmsg_widget.push(['lagaufre', 'init', {
             <div class="code-block"><pre>
 // Bottom Left positioning
 _stmsg_widget.push(['lagaufre', 'init', {
-    api: './lagaufre-data.json',
+    api: '/widgets/demo/lagaufre-data.json',
     open: true,
     title: 'La Gaufre - Bottom Left',
     position: 'fixed',
@@ -142,7 +142,7 @@ _stmsg_widget.push(['lagaufre', 'init', {
 // Absolute positioning, tied to a button
 (button) => {
     _stmsg_widget.push(['lagaufre', 'init', {
-        api: './lagaufre-data.json',
+        api: '/widgets/demo/lagaufre-data.json',
         open: true,
         title: 'La Gaufre - Bottom Left',
         position: 'absolute',
@@ -165,12 +165,12 @@ _stmsg_widget.push(['lagaufre', 'init', {
             {
                 "name": "Authentication Service",
                 "url": "https://example.com/auth",
-                "logo": "./logos/auth.svg",
+                "logo": "/widgets/demo/logos/auth.svg",
             },
             {
                 "name": "Document Portal",
                 "url": "https://example.com/docs",
-                "logo": "./logos/docs.svg",
+                "logo": "/widgets/demo/logos/docs.svg",
             },
         ]
     }
@@ -183,7 +183,7 @@ _stmsg_widget.push(['lagaufre', 'init', {
             <button onclick="openBasicWidget(this)">Open Widget</button>
             <div class="code-block"><pre>
 _stmsg_widget.push(['lagaufre', 'init', {
-    api: '/demo/lagaufre-data.json'
+    api: '/widgets/demo/lagaufre-data.json'
 }]);
 setTimeout(() => {
     _stmsg_widget.push(['lagaufre', 'open']);
@@ -217,7 +217,7 @@ _stmsg_widget.push(['lagaufre', 'toggle']);</pre></div>
     </div>
 
     <!-- Load the La Gaufre widget -->
-    <script type="module" src="../src/widgets/lagaufre/main.ts"></script>
+    <script type="module" src="/widgets/dist/lagaufre.js"></script>
     
     <script>
         // Initialize the widget system

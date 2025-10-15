@@ -40,12 +40,12 @@
     <a href="/">Back to index</a>
     <h1>Feedback Widget Demo</h1>
     
-    <script type="module" src="../src/widgets/feedback/main.ts"></script>
+    <script type="module" src="/widgets/dist/feedback.js"></script>
     <script>
       window._stmsg_widget = window._stmsg_widget || [];
       _stmsg_widget.push(["feedback", "init", {
         "title": "Do you have any feedback?",
-        "api": "http://localhost:8905/demo/api.json?",
+        "api": "/widgets/demo/feedback-api.json?",
         "channel": "xyz-xyz-xyz",
         "successText2": "We will get back to you as soon as possible. Let's add some text too to test the widget behaving correctly."
       }]);
@@ -57,7 +57,7 @@
       _stmsg_widget.push(["feedback", "init", {
         "email": "test@test.com",
         "title": "Do you have any feedback?",
-        "api": "http://localhost:8905/demo/api.json?",
+        "api": "/widgets/demo/feedback-api.json?",
         "channel": "xyz-xyz-xyz"
       }]);
     '>Re-init with email</button>
@@ -77,7 +77,7 @@
       _stmsg_widget.push(["feedback", "init", {
         "email": "test@test.com",
         "title": "Do you have any feedback?",
-        "api": "http://localhost:8905/demo/api-error.json?",
+        "api": "/widgets/demo/feedback-api-error.json?",
         "channel": "xyz-xyz-xyz"
       }]);
     '>Re-init with submit error</button>
@@ -87,7 +87,7 @@
     <button onclick='
       _stmsg_widget.push(["feedback", "init", {
         "title": "With offset",
-        "api": "/demo/api.json?",
+        "api": "/widgets/demo/feedback-api.json?",
         "channel": "xyz-xyz-xyz",
         "bottomOffset": 100,
         "rightOffset": 50

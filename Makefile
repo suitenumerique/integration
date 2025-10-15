@@ -160,6 +160,7 @@ website-shell: ## open a shell in the website container
 
 website-start: ## start the website container
 	$(COMPOSE) up --force-recreate --build -d website-dev --wait
+	@sleep 2
 	@echo "$(BOLD)"
 	@echo "╔══════════════════════════════════════════════════════════════════════════════╗"
 	@echo "║                                                                              ║"
@@ -231,10 +232,10 @@ widgets-restart: \
 .PHONY: widgets-restart
 
 widgets-deploy: ## deploy the widgets to an S3 bucket
-	@## Error if the env vars MESSAGES_WIDGETS_S3_PATH is not set
-	@if [ -z "$$MESSAGES_WIDGETS_S3_PATH" ]; then \
-		echo "Error: MESSAGES_WIDGETS_S3_PATH is not set"; \
+	@## Error if the env vars WIDGETS_S3_PATH is not set
+	@if [ -z "$$WIDGETS_S3_PATH" ]; then \
+		echo "Error: WIDGETS_S3_PATH is not set"; \
 		exit 1; \
 	fi; \
-	docker run --rm -ti -v .aws:/root/.aws -v `pwd`/src/widgets/dist:/aws amazon/aws-cli s3 cp --acl public-read --recursive . s3://$(MESSAGES_WIDGETS_S3_PATH)
+	docker run --rm -ti -v .aws:/root/.aws -v `pwd`/src/widgets/dist:/aws amazon/aws-cli s3 cp --acl public-read --recursive . s3://$(WIDGETS_S3_PATH)
 .PHONY: widgets-deploy

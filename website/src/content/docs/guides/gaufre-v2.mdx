@@ -1,0 +1,62 @@
+---
+title: La Gaufre v2
+sidebar:
+  order: 40
+---
+
+
+<div style="width:400px;margin:auto;">
+![](./gaufre-v2-dinum.png)
+</div>
+
+La Gaufre v2 est une évolution de la [première version](/guides/gaufre) historique, qui ajoute plusieurs fonctionnalités :
+* Un design en accord avec le [UI Kit](https://github.com/suitenumerique/ui-kit) de LaSuite.
+* Un chargement des services à afficher en JSON, qui peut être effectué via une API dynamique ou fichier statique.
+* L'utilisation du "Shadow DOM" qui permet aux styles du widget d'être indépendants de ceux de la page
+
+En configurant la Gaufre v2, il est possible de changer son contenu ou même son apparence. 
+
+Voici par exemple une Gaufre pour la Suite territoriale :
+
+<div style="width:400px;margin:30px auto;">
+![](./gaufre-v2-anct.png)
+</div>
+
+## Intégration
+
+Il y a deux façons principales d'intégrer La Gaufre v2 dans votre service:
+
+### 1. Via le composant React
+
+Ce composant, qui intègre le bouton "Gaufre" ainsi que la pop-in, sera bientôt disponible dans le [UI Kit](https://github.com/suitenumerique/ui-kit).
+
+En attendant, vous pouvez [copier ce composant](https://github.com/suitenumerique/messages/blob/main/src/frontend/src/features/ui/components/lagaufre/index.tsx).
+
+### 2. Via le script JavaScript
+
+Cette option est à privilégier si vous n'utilisez pas React ou si vous ne souhaitez pas intégrer l'UI Kit dans votre application.
+
+Dans ce cas le script gèrera uniquement la pop-in et c'est à vous d'intégrer le bouton "Gaufre" dans votre application.
+
+Voici comment l'intégrer :
+
+```html
+<script src="https://cdn.votresuite.fr/lagaufre.js" async></script>
+<script>
+window._stmsg_widget = window._stmsg_widget || [];
+_stmsg_widget.push(['lagaufre', 'init', {
+    api: 'https://lasuite.numerique.gouv.fr/api/services',
+    open: true
+}]);
+</script>
+```
+
+D'autres exemples d'intégration sont disponibles ci-dessous.
+
+## Exemples
+
+Nous avons une documentation interactive avec plusieurs [exemples de configuration](/widgets-demo/lagaufre).
+
+Vous pouvez aussi tester La Gaufre v2 en ligne sur ces services :
+
+* [Suite territoriale - Messages](https://messages.suite.anct.gouv.fr)
