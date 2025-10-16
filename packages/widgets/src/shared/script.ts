@@ -5,7 +5,7 @@ type WidgetEvent = [string, string, Record<string, unknown> | undefined];
 type EventArray = Array<WidgetEvent> & { _loaded?: Record<string, number> };
 
 declare global {
-  var _stmsg_widget: EventArray;
+  var _lasuite_widget: EventArray;
 }
 
 // This could have been an enum but we want to support erasableSyntaxOnly TS settings
@@ -14,20 +14,20 @@ export const STATE_LOADING = 1;
 export const STATE_LOADED = 2;
 
 export const getLoaded = (widgetName: string) => {
-  return window._stmsg_widget?._loaded?.[widgetName];
+  return window._lasuite_widget?._loaded?.[widgetName];
 };
 
 export const setLoaded = (widgetName: string, status: number) => {
-  if (!window._stmsg_widget?._loaded) return;
-  window._stmsg_widget._loaded[widgetName] = status;
+  if (!window._lasuite_widget?._loaded) return;
+  window._lasuite_widget._loaded[widgetName] = status;
 };
 
-// Replace the push method of the _stmsg_widget array used for communication between the widget and the page
+// Replace the push method of the _lasuite_widget array used for communication between the widget and the page
 export const installHook = (widgetName: string) => {
-  if (!window._stmsg_widget) {
-    window._stmsg_widget = [] as EventArray;
+  if (!window._lasuite_widget) {
+    window._lasuite_widget = [] as EventArray;
   }
-  const W = window._stmsg_widget;
+  const W = window._lasuite_widget;
 
   // Keep track of the loaded state of each widget
   if (!W._loaded) {
@@ -35,7 +35,7 @@ export const installHook = (widgetName: string) => {
   }
 
   if (getLoaded(widgetName) !== STATE_LOADED) {
-    // Replace the push method of the _stmsg_widget array used for communication between the widget and the page
+    // Replace the push method of the _lasuite_widget array used for communication between the widget and the page
     W.push = ((...elts: WidgetEvent[]): number => {
       for (const elt of elts) {
         // If the target widget is loaded, fire the event

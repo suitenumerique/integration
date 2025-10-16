@@ -1,6 +1,6 @@
 // Shared utility for creating shadow DOM widgets
 export function createShadowWidget(widgetName: string, htmlContent: string, cssContent: string): HTMLDivElement {
-  const id = `stmsg-widget-${widgetName}-shadow`;
+  const id = `lasuite-widget-${widgetName}-shadow`;
   // Check if widget already exists
   const existingWidget = document.getElementById(id);
   if (existingWidget) {

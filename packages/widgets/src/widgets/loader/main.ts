@@ -65,7 +65,7 @@ listenEvent(widgetName, "init", null, false, (args: LoaderWidgetArgs) => {
       btn.classList.remove("loading");
       const params = Object.assign({}, args.params);
       params.bottomOffset = btn.offsetHeight + 20;
-      window._stmsg_widget.push([targetWidget, "init", params]);
+      window._lasuite_widget.push([targetWidget, "init", params]);
     };
 
     if (getLoaded(targetWidget) === STATE_LOADED) {

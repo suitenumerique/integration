@@ -64,7 +64,7 @@
             <p>Open the widget with default settings:</p>
             <button onclick="openBasicWidget(this)">Open La Gaufre Widget</button>
             <div class="code-block"><pre>
-_stmsg_widget.push(['lagaufre', 'init', {
+_lasuite_widget.push(['lagaufre', 'init', {
     api: '/widgets/demo/lagaufre-data.json',
     open: true
 }]);</pre></div>
@@ -75,7 +75,7 @@ _stmsg_widget.push(['lagaufre', 'init', {
             <p>Open the widget with ANCT services data:</p>
             <button onclick="openBasicWidget(this)">Open with ANCT Data</button>
             <div class="code-block"><pre>
-_stmsg_widget.push(['lagaufre', 'init', {
+_lasuite_widget.push(['lagaufre', 'init', {
     api: 'https://operateurs.suite.anct.gouv.fr/api/v1.0/lagaufre/services/?operator=9f5624fc-ef99-4d10-ae3f-403a81eb16ef&siret=21870030000013',
     open: true
 }]);</pre></div>
@@ -87,7 +87,7 @@ _stmsg_widget.push(['lagaufre', 'init', {
             <button onclick="openBasicWidget(this)">Open with LaSuite Data</button>
             <div class="code-block"><pre>
 // With gradient background
-_stmsg_widget.push(['lagaufre', 'init', {
+_lasuite_widget.push(['lagaufre', 'init', {
     api: 'https://lasuite.numerique.gouv.fr/api/services',
     open: true,
     background: 'linear-gradient(180deg, #eceffd 0%, #FFFFFF 20%)',
@@ -102,7 +102,7 @@ _stmsg_widget.push(['lagaufre', 'init', {
             <button onclick="openBasicWidget(this)">Open with Custom Font</button>
             <div class="code-block"><pre>
 // With custom font
-_stmsg_widget.push(['lagaufre', 'init', {
+_lasuite_widget.push(['lagaufre', 'init', {
     api: '/widgets/demo/lagaufre-data.json',
     open: true,
     fontFamily: 'Georgia, serif'
@@ -116,7 +116,7 @@ _stmsg_widget.push(['lagaufre', 'init', {
             <button onclick="openBasicWidget(this)">Top Right</button>
             <div class="code-block"><pre>
 // Top Right positioning
-_stmsg_widget.push(['lagaufre', 'init', {
+_lasuite_widget.push(['lagaufre', 'init', {
     api: '/widgets/demo/lagaufre-data.json',
     open: true,
     title: 'La Gaufre - Top Right',
@@ -128,7 +128,7 @@ _stmsg_widget.push(['lagaufre', 'init', {
             <button onclick="openBasicWidget(this)">Bottom Left</button>
             <div class="code-block"><pre>
 // Bottom Left positioning
-_stmsg_widget.push(['lagaufre', 'init', {
+_lasuite_widget.push(['lagaufre', 'init', {
     api: '/widgets/demo/lagaufre-data.json',
     open: true,
     title: 'La Gaufre - Bottom Left',
@@ -141,7 +141,7 @@ _stmsg_widget.push(['lagaufre', 'init', {
             <div class="code-block"><pre>
 // Absolute positioning, tied to a button
 (button) => {
-    _stmsg_widget.push(['lagaufre', 'init', {
+    _lasuite_widget.push(['lagaufre', 'init', {
         api: '/widgets/demo/lagaufre-data.json',
         open: true,
         title: 'La Gaufre - Bottom Left',
@@ -158,7 +158,7 @@ _stmsg_widget.push(['lagaufre', 'init', {
             <p>You can pass static data and avoid any API calls:</p>
             <button onclick="openBasicWidget(this)">Open La Gaufre Widget</button>
             <div class="code-block"><pre>
-_stmsg_widget.push(['lagaufre', 'init', {
+_lasuite_widget.push(['lagaufre', 'init', {
     open: true,
     data: {
         "services": [
@@ -182,19 +182,19 @@ _stmsg_widget.push(['lagaufre', 'init', {
             <p>Close the widget programmatically after 2 seconds:</p>
             <button onclick="openBasicWidget(this)">Open Widget</button>
             <div class="code-block"><pre>
-_stmsg_widget.push(['lagaufre', 'init', {
+_lasuite_widget.push(['lagaufre', 'init', {
     api: '/widgets/demo/lagaufre-data.json'
 }]);
 setTimeout(() => {
-    _stmsg_widget.push(['lagaufre', 'open']);
+    _lasuite_widget.push(['lagaufre', 'open']);
 }, 300);
 setTimeout(() => {
-    _stmsg_widget.push(['lagaufre', 'close']);
+    _lasuite_widget.push(['lagaufre', 'close']);
 }, 2000);</pre></div>
 
             <button onclick="openBasicWidget(this)">Toggle Widget Programmatically</button>
             <div class="code-block"><pre>
-_stmsg_widget.push(['lagaufre', 'toggle']);</pre></div>
+_lasuite_widget.push(['lagaufre', 'toggle']);</pre></div>
 
         </div>
 
@@ -221,7 +221,7 @@ _stmsg_widget.push(['lagaufre', 'toggle']);</pre></div>
     
     <script>
         // Initialize the widget system
-        window._stmsg_widget = window._stmsg_widget || [];
+        window._lasuite_widget = window._lasuite_widget || [];
         
         function openBasicWidget(button) {
             // Find the code block that immediately follows this button

@@ -1,5 +1,5 @@
 /* eslint @typescript-eslint/no-explicit-any:0 */
-const NAMESPACE = `stmsg-widget`;
+const NAMESPACE = `lasuite-widget`;
 
 export const triggerEvent = (
   widgetName: string,

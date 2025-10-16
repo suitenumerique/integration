@@ -42,8 +42,8 @@
     
     <script type="module" src="/widgets/dist/feedback.js"></script>
     <script>
-      window._stmsg_widget = window._stmsg_widget || [];
-      _stmsg_widget.push(["feedback", "init", {
+      window._lasuite_widget = window._lasuite_widget || [];
+      _lasuite_widget.push(["feedback", "init", {
         "title": "Do you have any feedback?",
         "api": "/widgets/demo/feedback-api.json?",
         "channel": "xyz-xyz-xyz",
@@ -51,10 +51,10 @@
       }]);
     </script>
 
-    <button onclick='_stmsg_widget.push(["feedback", "close"]);'>Close</button>
+    <button onclick='_lasuite_widget.push(["feedback", "close"]);'>Close</button>
 
     <button onclick='
-      _stmsg_widget.push(["feedback", "init", {
+      _lasuite_widget.push(["feedback", "init", {
         "email": "test@test.com",
         "title": "Do you have any feedback?",
         "api": "/widgets/demo/feedback-api.json?",
@@ -65,7 +65,7 @@
     <br/><br/>
 
     <button onclick='
-      _stmsg_widget.push(["feedback", "init", {
+      _lasuite_widget.push(["feedback", "init", {
         "email": "test@test.com",
         "title": "Do you have any feedback?",
         "api": "/error",
@@ -74,7 +74,7 @@
     '>Re-init with loading error</button>
     
     <button onclick='
-      _stmsg_widget.push(["feedback", "init", {
+      _lasuite_widget.push(["feedback", "init", {
         "email": "test@test.com",
         "title": "Do you have any feedback?",
         "api": "/widgets/demo/feedback-api-error.json?",
@@ -85,7 +85,7 @@
     <br/><br/>
 
     <button onclick='
-      _stmsg_widget.push(["feedback", "init", {
+      _lasuite_widget.push(["feedback", "init", {
         "title": "With offset",
         "api": "/widgets/demo/feedback-api.json?",
         "channel": "xyz-xyz-xyz",
