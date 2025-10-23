@@ -60,9 +60,9 @@
         <p>This demo shows how to use the La Gaufre widget to display a list of services with subscription status.</p>
 
         <div class="demo-section">
-            <h3>Basic Usage</h3>
+            <h2>Basic Usage</h2>
             <p>Open the widget with default settings:</p>
-            <button onclick="openBasicWidget(this)">Open La Gaufre Widget</button>
+            <button type="button" onclick="openBasicWidget(this)">Open La Gaufre Widget</button>
             <div class="code-block"><pre>
 _lasuite_widget.push(['lagaufre', 'init', {
     api: '/widgets/demo/lagaufre-data.json',
@@ -71,9 +71,9 @@ _lasuite_widget.push(['lagaufre', 'init', {
         </div>
 
         <div class="demo-section">
-            <h3>With ANCT Data</h3>
+            <h2>With ANCT Data</h2>
             <p>Open the widget with ANCT services data:</p>
-            <button onclick="openBasicWidget(this)">Open with ANCT Data</button>
+            <button type="button" onclick="openBasicWidget(this)">Open with ANCT Data</button>
             <div class="code-block"><pre>
 _lasuite_widget.push(['lagaufre', 'init', {
     api: 'https://operateurs.suite.anct.gouv.fr/api/v1.0/lagaufre/services/?operator=9f5624fc-ef99-4d10-ae3f-403a81eb16ef&siret=21870030000013',
@@ -82,9 +82,9 @@ _lasuite_widget.push(['lagaufre', 'init', {
         </div>
 
         <div class="demo-section">
-            <h3>With LaSuite data and style</h3>
+            <h2>With LaSuite data and style</h2>
             <p>Open the widget with gradient background:</p>
-            <button onclick="openBasicWidget(this)">Open with LaSuite Data</button>
+            <button type="button" onclick="openBasicWidget(this)">Open with LaSuite Data</button>
             <div class="code-block"><pre>
 // With gradient background
 _lasuite_widget.push(['lagaufre', 'init', {
@@ -92,14 +92,15 @@ _lasuite_widget.push(['lagaufre', 'init', {
     open: true,
     background: 'linear-gradient(180deg, #eceffd 0%, #FFFFFF 20%)',
     headerLogo: 'https://lasuite.numerique.gouv.fr/_next/static/media/suite-numerique.ebdb6ce9.svg',
-    headerUrl: 'https://lasuite.numerique.gouv.fr'
+    headerUrl: 'https://lasuite.numerique.gouv.fr',
+    showFooter: true
 }]);</pre></div>
         </div>
 
         <div class="demo-section">
-            <h3>With Custom Font</h3>
+            <h2>With Custom Font</h2>
             <p>Open the widget with custom font family:</p>
-            <button onclick="openBasicWidget(this)">Open with Custom Font</button>
+            <button type="button" onclick="openBasicWidget(this)">Open with Custom Font</button>
             <div class="code-block"><pre>
 // With custom font
 _lasuite_widget.push(['lagaufre', 'init', {
@@ -110,53 +111,78 @@ _lasuite_widget.push(['lagaufre', 'init', {
         </div>
 
         <div class="demo-section">
-            <h3>Positioning Options</h3>
+            <h2>Positioning Options</h2>
             <p>Control widget position and behavior:</p>
 
-            <button onclick="openBasicWidget(this)">Top Right</button>
+            <button type="button" onclick="openBasicWidget(this)">Top Right</button>
             <div class="code-block"><pre>
 // Top Right positioning
 _lasuite_widget.push(['lagaufre', 'init', {
     api: '/widgets/demo/lagaufre-data.json',
     open: true,
-    title: 'La Gaufre - Top Right',
+    label: 'La Gaufre - Top Right',
     position: 'fixed',
     top: 20,
     right: 20
 }]);</pre></div>
             
-            <button onclick="openBasicWidget(this)">Bottom Left</button>
+            <button type="button" onclick="openBasicWidget(this)">Bottom Left</button>
             <div class="code-block"><pre>
 // Bottom Left positioning
 _lasuite_widget.push(['lagaufre', 'init', {
     api: '/widgets/demo/lagaufre-data.json',
     open: true,
-    title: 'La Gaufre - Bottom Left',
+    label: 'La Gaufre - Bottom Left',
     position: 'fixed',
     bottom: 20,
     left: 20
 }]);</pre></div>
             
-            <button onclick="openBasicWidget(this)">Below button (absolute)</button>
+            <button type="button" onclick="openBasicWidget(this)">Below button (absolute)</button>
             <div class="code-block"><pre>
 // Absolute positioning, tied to a button
 (button) => {
     _lasuite_widget.push(['lagaufre', 'init', {
         api: '/widgets/demo/lagaufre-data.json',
         open: true,
-        title: 'La Gaufre - Bottom Left',
+        label: 'La Gaufre - Bottom Left',
         position: 'absolute',
         top: button.offsetTop + button.offsetHeight + 10,
         right: window.innerWidth - button.offsetLeft - button.offsetWidth
     }]);
+    window.addEventListener('resize', () => {
+        _lasuite_widget.push(['lagaufre', 'configure', {
+            top: button.offsetTop + button.offsetHeight + 10,
+            right: window.innerWidth - button.offsetLeft - button.offsetWidth
+        }]);
+    });
 }</pre></div>
 
         </div>
 
         <div class="demo-section">
-            <h3>With hardcoded data</h3>
+            <h2>No dialog</h2>
+            <p>You can insert the widget into an existing container:</p>
+            <div id="custom-box" style="width: 100%; max-width: 500px; height: 300px; overflow: hidden; background-color: #f0f0f0; border: 1px solid blue; border-radius: 8px; padding: 10px;"></div>
+            <button type="button" onclick="openBasicWidget(this)">Open inside box</button>
+            
+            <div class="code-block"><pre>
+// No dialog
+_lasuite_widget.push(['lagaufre', 'init', {
+    api: '/widgets/demo/lagaufre-data.json',
+    open: true,
+    dialogElement: document.getElementById('custom-box')
+}]);</pre></div>
+
+            <button type="button" onclick="openBasicWidget(this)">Close widget</button>
+            <div class="code-block"><pre>
+_lasuite_widget.push(['lagaufre', 'close']);</pre></div>
+        </div>
+
+        <div class="demo-section">
+            <h2>With hardcoded data</h2>
             <p>You can pass static data and avoid any API calls:</p>
-            <button onclick="openBasicWidget(this)">Open La Gaufre Widget</button>
+            <button type="button" onclick="openBasicWidget(this)">Open La Gaufre Widget</button>
             <div class="code-block"><pre>
 _lasuite_widget.push(['lagaufre', 'init', {
     open: true,
@@ -178,9 +204,9 @@ _lasuite_widget.push(['lagaufre', 'init', {
         </div>
 
         <div class="demo-section">
-            <h3>Open and close Widget Programmatically</h3>
+            <h2>Open and close Widget Programmatically</h2>
             <p>Close the widget programmatically after 2 seconds:</p>
-            <button onclick="openBasicWidget(this)">Open Widget</button>
+            <button type="button" onclick="openBasicWidget(this)">Open Widget</button>
             <div class="code-block"><pre>
 _lasuite_widget.push(['lagaufre', 'init', {
     api: '/widgets/demo/lagaufre-data.json'
@@ -192,14 +218,33 @@ setTimeout(() => {
     _lasuite_widget.push(['lagaufre', 'close']);
 }, 2000);</pre></div>
 
-            <button onclick="openBasicWidget(this)">Toggle Widget Programmatically</button>
+            <button type="button" onclick="openBasicWidget(this)">Toggle Widget Programmatically</button>
             <div class="code-block"><pre>
 _lasuite_widget.push(['lagaufre', 'toggle']);</pre></div>
 
         </div>
 
         <div class="demo-section">
-            <h3>API Response Format</h3>
+            <h2>Full localization</h2>
+            <p>You can fully localize the widget:</p>
+            <button type="button" onclick="openBasicWidget(this)">Open Widget</button>
+            <div class="code-block"><pre>
+// Full localization
+_lasuite_widget.push(['lagaufre', 'init', {
+    api: '/widgets/demo/lagaufre-data.json',
+    open: true,
+    label: 'La Gaufre',
+    headerLogo: 'https://lasuite.numerique.gouv.fr/_next/static/media/suite-numerique.ebdb6ce9.svg',
+    headerUrl: 'https://lasuite.numerique.gouv.fr',
+    headerLabel: 'A propos de LaSuite',
+    closeLabel: 'Fermer la liste des services',
+    loadingText: 'Chargement des services...',
+    newWindowLabelSuffix: ' (nouvelle fenêtre)'
+}]);</pre></div>
+        </div>
+
+        <div class="demo-section">
+            <h2>API Response Format</h2>
             <p>The widget expects the following API response format:</p>
             <div class="code-block"><pre>
 {
@@ -208,8 +253,7 @@ _lasuite_widget.push(['lagaufre', 'toggle']);</pre></div>
       "name": "Service Name",
       "url": "https://service-url.com",
       "maturity": "stable",
-      "logo": "/path/to.svg",
-      "subscribed": true
+      "logo": "/path/to.svg"
     }
   ]
 }</pre></div>

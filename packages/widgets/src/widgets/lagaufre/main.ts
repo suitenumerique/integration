@@ -9,7 +9,7 @@ const widgetName = "lagaufre";
 type Service = {
   name: string;
   url: string;
-  maturity: string;
+  maturity?: string;
   logo?: string;
 };
 
@@ -40,7 +40,14 @@ type GaufreWidgetArgs = {
   open?: boolean;
   label?: string;
   closeLabel?: string;
+  headerLabel?: string;
+  loadingText?: string;
+  newWindowLabelSuffix?: string;
+  showFooter?: boolean;
+  dialogElement?: HTMLElement;
 };
+
+let loaded = false;
 
 // Initialize widget (load data and prepare shadow DOM)
 listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
@@ -49,31 +56,34 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
     return;
   }
 
-  let isVisible = false;
-
-  let headerHtml = "";
-  if (args.headerLogo && args.headerUrl) {
-    headerHtml =
-      `<a href="${args.headerUrl}" target="_blank">` +
-      `<img src="${args.headerLogo}" alt="Logo" class="header-logo">` +
-      `</a>`;
+  if (loaded) {
+    triggerEvent(widgetName, "destroy");
+    await new Promise((resolve) => setTimeout(resolve, 10));
   }
 
+  const listeners: (() => void)[] = [];
+  let isVisible = false;
+
+  // https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
   /* prettier-ignore */
   const htmlContent =
     `<div id="wrapper" role="dialog" aria-modal="true" tabindex="-1">` +
-        `<div id="header">` +
-            headerHtml +
-            `<button id="close">&times;</button>` +
-        `</div>` +
+        ((args.headerLogo && args.headerUrl) ? (
+          `<div id="header">` +
+            `<a href="${args.headerUrl}" target="_blank">` +
+              `<img src="${args.headerLogo}" id="header-logo">` +
+            `</a>` +
+            `<button type="button" id="close">&times;</button>` +
+          `</div>`
+        ) : "") +
         `<div id="content">` +
-            `<div id="loading" class="loading">Loading services...</div>` +
-            `<div id="services-container" class="services-container" style="display: none;"></div>` +
-            `<div id="error" class="error" style="display: none;"></div>` +
+            `<div id="loading">Loading...</div>` +
+            `<ul role="list" id="services-grid" style="display: none;"></ul>` +
+            `<div id="error" style="display: none;"></div>` +
         `</div>` +
-        `<div id="footer">` +
-            `<button id="ok-button" class="ok-button">OK</button>` +
-        `</div>` +
+        (args.showFooter ? `<div id="footer">` +
+            `<button id="ok-button">OK</button>` +
+        `</div>` : "") +
     `</div>`;
 
   // Create shadow DOM widget
@@ -82,90 +92,112 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
 
   const wrapper = shadowRoot.querySelector<HTMLDivElement>("#wrapper")!;
   const loadingDiv = shadowRoot.querySelector<HTMLDivElement>("#loading")!;
-  const servicesContainer = shadowRoot.querySelector<HTMLDivElement>("#services-container")!;
+  const servicesGrid = shadowRoot.querySelector<HTMLDivElement>("#services-grid")!;
   const errorDiv = shadowRoot.querySelector<HTMLDivElement>("#error")!;
-  const closeBtn = shadowRoot.querySelector<HTMLButtonElement>("#close")!;
+  const closeBtn = shadowRoot.querySelector<HTMLButtonElement>("#close");
   const okBtn = shadowRoot.querySelector<HTMLButtonElement>("#ok-button")!;
+  const headerLogo = shadowRoot.querySelector<HTMLImageElement>("#header-logo");
 
-  // Positioning parameters
-  const position = args.position || "fixed"; // 'fixed' or 'absolute'
-  let top = args.top;
-  const bottom = args.bottom;
-  const left = args.left;
-  let right = args.right;
+  // Configure dynamic properties
+  const configure = (newArgs: GaufreWidgetArgs) => {
+    // Positioning parameters
+    if (newArgs.position) {
+      wrapper.style.position = newArgs.position;
+    }
 
-  if (top === undefined && bottom === undefined && left === undefined && right === undefined) {
-    top = 60;
-    right = 60;
-  }
+    if (
+      newArgs.top != undefined ||
+      newArgs.bottom != undefined ||
+      newArgs.left != undefined ||
+      newArgs.right != undefined
+    ) {
+      const applyPos = (prop: "top" | "bottom" | "left" | "right") => {
+        wrapper.style[prop] = typeof newArgs[prop] === "number" ? `${newArgs[prop]}px` : "unset";
+      };
+      (["top", "bottom", "left", "right"] as const).forEach(applyPos);
+    }
 
-  // Apply positioning styles
-  wrapper.style.position = position;
-  wrapper.style.top = typeof top === "number" ? `${top}px` : "unset";
-  wrapper.style.bottom = typeof bottom === "number" ? `${bottom}px` : "unset";
-  wrapper.style.left = typeof left === "number" ? `${left}px` : "unset";
-  wrapper.style.right = typeof right === "number" ? `${right}px` : "unset";
+    // Apply font family (inherit from parent or use provided)
+    if (newArgs.fontFamily) {
+      wrapper.style.fontFamily = newArgs.fontFamily;
+    }
 
-  // Apply font family (inherit from parent or use provided)
-  if (args.fontFamily) {
-    wrapper.style.fontFamily = args.fontFamily;
-  }
+    // Apply background gradient if requested
+    if (newArgs.background) {
+      wrapper.style.background = newArgs.background;
+    }
 
-  // Apply background gradient if requested
-  if (args.background) {
-    wrapper.style.background = args.background;
-  }
+    // Apply texts
+    const label = newArgs.label || "Services";
+    const closeLabel = newArgs.closeLabel || "Close";
+    loadingDiv.textContent = newArgs.loadingText || "Loading...";
+    wrapper.setAttribute("aria-label", label);
+    if (closeBtn) {
+      closeBtn.setAttribute("aria-label", closeLabel);
+    }
 
-  // Apply texts
-  const label = args.label || "Services";
-  const closeLabel = args.closeLabel || "Close the Services menu";
-  wrapper.setAttribute("aria-labelledby", label);
-  closeBtn.setAttribute("aria-label", closeLabel);
+    if (headerLogo) {
+      headerLogo.alt = (newArgs.headerLabel || "About LaSuite") + (newArgs.newWindowLabelSuffix || "");
+    }
+  };
+
+  configure(args);
 
   // Initially hide the widget
   wrapper.style.display = "none";
 
   const showError = (message: string) => {
     loadingDiv.style.display = "none";
-    servicesContainer.style.display = "none";
+    servicesGrid.style.display = "none";
     errorDiv.style.display = "block";
     errorDiv.textContent = message;
   };
 
   const renderServices = (data: ServicesResponse) => {
-    loadingDiv.style.display = "none";
-    errorDiv.style.display = "none";
-    servicesContainer.style.display = "block";
-
     // Clear previous content
-    servicesContainer.innerHTML = "";
-
-    // Create services grid
-    const servicesGrid = document.createElement("div");
-    servicesGrid.className = "services-grid";
+    servicesGrid.innerHTML = "";
 
     data.services.forEach((service) => {
       if (!service.logo) return;
+      if (service.maturity == "stable") delete service.maturity;
 
-      const serviceCard = document.createElement("div");
+      const serviceCard = document.createElement("li");
       serviceCard.className = `service-card`;
 
       /* prettier-ignore */
       serviceCard.innerHTML =
-        `<a href="${service.url}" target="_blank">` +
-            `<img src="${service.logo}" alt="${service.name} logo" class="service-logo" aria-hidden="true" onerror="this.style.display='none'">` +
-            (service.maturity && service.maturity !== "stable"
-              ? `<div class="maturity-badge">${service.maturity}</div>`
-              : "") +
+        `<a target="_blank">` +
+            `<img alt="" class="service-logo" onerror="this.style.display='none'">` +
             `<div class="service-info">` +
-                `<div class="service-name">${service.name}</div>` +
+                `<div class="service-name"></div>` +
             `</div>` +
         `</a>`;
+
+      const anchor = serviceCard.querySelector<HTMLAnchorElement>("a")!;
+      const img = serviceCard.querySelector<HTMLImageElement>("img")!;
+      const serviceName = serviceCard.querySelector<HTMLDivElement>(".service-name")!;
+
+      if (service.maturity) {
+        const maturityBadge = document.createElement("div");
+        maturityBadge.className = "maturity-badge";
+        maturityBadge.textContent = service.maturity;
+        anchor.insertBefore(maturityBadge, img.nextSibling);
+      }
+
+      anchor.setAttribute(
+        "aria-label",
+        service.name + (service.maturity ? ` (${service.maturity})` : "") + (args.newWindowLabelSuffix || ""),
+      );
+      anchor.href = service.url;
+      img.src = service.logo;
+      serviceName.textContent = service.name;
 
       servicesGrid.appendChild(serviceCard);
     });
 
-    servicesContainer.appendChild(servicesGrid);
+    loadingDiv.style.display = "none";
+    errorDiv.style.display = "none";
+    servicesGrid.style.display = "grid";
   };
 
   // Load data
@@ -193,6 +225,9 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
   }
 
   const handleClickOutside = (event: MouseEvent) => {
+    if (args.dialogElement) {
+      return;
+    }
     if (!shadowContainer.contains(event.target as Node)) {
       triggerEvent(widgetName, "close");
     }
@@ -202,65 +237,94 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
   let untrapEscape: (() => void) | null = null;
 
   // Open widget (show the prepared shadow DOM)
-  listenEvent(widgetName, "open", null, false, () => {
-    wrapper.style.display = "block";
+  listeners.push(
+    listenEvent(widgetName, "open", null, false, () => {
+      wrapper.style.display = "block";
 
-    // Add click outside listener after a short delay to prevent immediate closing or double-clicks.
-    setTimeout(() => {
-      isVisible = true;
-      document.addEventListener("click", handleClickOutside);
-      wrapper.focus();
-    }, 200);
+      // Add click outside listener after a short delay to prevent immediate closing or double-clicks.
+      setTimeout(() => {
+        isVisible = true;
+        document.addEventListener("click", handleClickOutside);
+        wrapper.focus();
+      }, 200);
 
-    untrapFocus = trapFocus(shadowRoot, wrapper, "a,button");
-    untrapEscape = trapEscape(() => {
-      triggerEvent(widgetName, "close");
-    });
+      untrapFocus = trapFocus(shadowRoot, wrapper, "a,button");
 
-    triggerEvent(widgetName, "opened");
-  });
+      if (!args.dialogElement) {
+        untrapEscape = trapEscape(() => {
+          triggerEvent(widgetName, "close");
+        });
+      }
+
+      triggerEvent(widgetName, "opened");
+    }),
+  );
 
   // Close widget (hide the shadow DOM)
-  listenEvent(widgetName, "close", null, false, () => {
-    if (untrapFocus) {
-      untrapFocus();
-    }
-    if (untrapEscape) {
-      untrapEscape();
-    }
+  listeners.push(
+    listenEvent(widgetName, "close", null, false, () => {
+      if (untrapFocus) {
+        untrapFocus();
+      }
+      if (untrapEscape) {
+        untrapEscape();
+      }
 
-    if (!isVisible) {
-      return; // Already closed
-    }
+      if (!isVisible) {
+        return; // Already closed
+      }
 
-    wrapper.style.display = "none";
-    isVisible = false;
+      wrapper.style.display = "none";
+      isVisible = false;
 
-    // Remove click outside listener
-    document.removeEventListener("click", handleClickOutside);
+      // Remove click outside listener
+      document.removeEventListener("click", handleClickOutside);
 
-    triggerEvent(widgetName, "closed");
-  });
+      triggerEvent(widgetName, "closed");
+    }),
+  );
 
   // Toggle widget visibility
-  listenEvent(widgetName, "toggle", null, false, () => {
-    if (isVisible) {
-      triggerEvent(widgetName, "close");
-    } else {
-      triggerEvent(widgetName, "open");
-    }
-  });
+  listeners.push(
+    listenEvent(widgetName, "toggle", null, false, () => {
+      if (isVisible) {
+        triggerEvent(widgetName, "close");
+      } else {
+        triggerEvent(widgetName, "open");
+      }
+    }),
+  );
+
+  listeners.push(listenEvent(widgetName, "configure", null, false, configure));
 
   // Close button click handlers
-  okBtn.addEventListener("click", () => {
-    triggerEvent(widgetName, "close");
-  });
-  closeBtn.addEventListener("click", () => {
-    triggerEvent(widgetName, "close");
-  });
+  if (okBtn) {
+    okBtn.addEventListener("click", () => {
+      triggerEvent(widgetName, "close");
+    });
+  }
+  if (closeBtn) {
+    closeBtn.addEventListener("click", () => {
+      triggerEvent(widgetName, "close");
+    });
+  }
 
   // Add to DOM but keep hidden
-  document.body.appendChild(shadowContainer);
+  if (args.dialogElement) {
+    args.dialogElement.appendChild(shadowContainer);
+  } else {
+    wrapper.className = "wrapper-dialog";
+    document.body.appendChild(shadowContainer);
+  }
+
+  listenEvent(widgetName, "destroy", null, true, () => {
+    triggerEvent(widgetName, "close");
+    loaded = false;
+    shadowContainer.remove();
+    // Unlisten all events
+    listeners.forEach((listener) => listener());
+  });
+  loaded = true;
 
   triggerEvent(widgetName, "initialized");
 

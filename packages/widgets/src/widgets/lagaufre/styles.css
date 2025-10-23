@@ -1,5 +1,11 @@
-/* La Gaufre Widget styles - Clean minimalist design */
+/* La Gaufre Widget styles */
 #wrapper {
+  display: flex;
+  flex-direction: column;
+  font-family: inherit;
+}
+
+.wrapper-dialog {
   position: fixed;
   top: 60px;
   right: 60px;
@@ -10,24 +16,21 @@
   border-radius: 0.25rem;
   box-shadow: 0 0px 6px rgba(0, 0, 145, 0.1);
   border: 1px solid #e5e5e5;
-  display: flex;
-  flex-direction: column;
   overflow: hidden;
-  font-family: inherit;
 }
 
 #header {
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
-  padding: 12px 16px;
+  padding: 4px 16px;
   background: transparent;
   border-bottom: 1px solid #dfe2ea;
   min-height: 48px;
   position: relative;
 }
 
-.header-logo {
+#header-logo {
   height: 25px;
   width: auto;
   object-fit: contain;
@@ -64,14 +67,14 @@
 }
 
 #footer {
-  display: none;
+  display: flex;
   padding: 16px;
   background: transparent;
   border-top: 1px solid #dfe2ea;
   justify-content: flex-end;
 }
 
-.ok-button {
+#ok-button {
   background: #3e5de7;
   color: white;
   border: none;
@@ -84,11 +87,11 @@
   min-width: 60px;
 }
 
-.ok-button:hover {
+#ok-button:hover {
   background: #1d4ed8;
 }
 
-.ok-button:focus {
+#ok-button:focus {
   outline: 2px solid #0a76f6;
 }
 
@@ -102,7 +105,7 @@
 }
 
 /* Loading state */
-.loading {
+#loading {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -112,7 +115,7 @@
 }
 
 /* Error state */
-.error {
+#error {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -123,11 +126,13 @@
 }
 
 /* Services grid */
-.services-grid {
-  display: grid;
+#services-grid {
   grid-template-columns: repeat(3, 1fr);
   gap: 4px;
   justify-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 /* Service cards */
@@ -140,6 +145,9 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .service-card:hover {
@@ -207,6 +215,7 @@
     bottom: 0 !important;
     top: 0 !important;
     max-height: 100vh;
+    position: fixed !important;
   }
 
   #header {
@@ -214,7 +223,7 @@
     display: flex;
   }
 
-  .header-logo {
+  #header-logo {
     height: 35px;
   }
 
@@ -222,7 +231,7 @@
     display: flex;
   }
 
-  .services-grid {
+  #services-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
   }

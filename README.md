@@ -14,18 +14,27 @@ After checking out the repository, run:
 $ make bootstrap
 ```
 
+For both the website and the widgets projects, it will install dependencies, build, and start the development server, respectively at http://localhost:8930 and http://localhost:8931.
+
+To see dev server outputs, run:
+```
+$ make logs
+```
+
+You can view all available commands with:
+```
+$ make help
+```
+
 ### Developing the website
+
+If you want a faster startup than `make bootstrap`, you can run more focused commands. For the website:
 
 ```
 $ make website-start
 ```
 
 This will start the development server at [http://localhost:8930](http://localhost:8930).
-
-View all available commands with:
-```
-$ make help
-```
 
 ### Developing Widgets
 

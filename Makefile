@@ -50,7 +50,7 @@ create-env-files: \
 	ops/env/website.local
 .PHONY: create-env-files
 
-bootstrap: ## Prepare the project for local development
+bootstrap: ## Prepare the project for local development and start the services
 	@echo "$(BOLD)"
 	@echo "╔══════════════════════════════════════════════════════════════════════════════╗"
 	@echo "║                                                                              ║"
@@ -70,7 +70,6 @@ bootstrap: ## Prepare the project for local development
 	@echo "$(GREEN)Starting bootstrap process...$(RESET)"
 	@echo ""
 	@$(MAKE) update
-	@$(MAKE) superuser
 	@$(MAKE) start
 	@echo ""
 	@echo "$(GREEN)🎉 Bootstrap completed successfully!$(RESET)"
