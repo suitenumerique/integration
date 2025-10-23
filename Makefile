@@ -236,5 +236,5 @@ widgets-deploy: ## deploy the widgets to an S3 bucket
 		echo "Error: WIDGETS_S3_PATH is not set"; \
 		exit 1; \
 	fi; \
-	docker run --rm -ti -v .aws:/root/.aws -v `pwd`/src/widgets/dist:/aws amazon/aws-cli s3 cp --acl public-read --recursive . s3://$(WIDGETS_S3_PATH)
+	docker run --rm -ti -v .aws:/root/.aws -v `pwd`/website/public/widgets/dist:/aws amazon/aws-cli s3 cp --acl public-read --recursive . s3://$(WIDGETS_S3_PATH)
 .PHONY: widgets-deploy
