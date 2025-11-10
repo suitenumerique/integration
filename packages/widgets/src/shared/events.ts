@@ -5,7 +5,7 @@ export const triggerEvent = (
   widgetName: string,
   eventName: string,
   detail?: Record<string, any>,
-  root?: Document | HTMLElement | null,
+  root?: Window | Document | HTMLElement | null,
 ) => {
   return (root || document).dispatchEvent(
     new CustomEvent(`${NAMESPACE}-${widgetName}-${eventName}`, detail ? { detail } : undefined),
@@ -15,15 +15,16 @@ export const triggerEvent = (
 export const listenEvent = (
   widgetName: string,
   eventName: string,
-  root: Document | HTMLElement | null,
+  root: Window | Document | HTMLElement | null,
   once: boolean,
   callback: (data: any) => void,
 ) => {
   const cb = (e: any) => callback(e.detail);
-  (root || document).addEventListener(`${NAMESPACE}-${widgetName}-${eventName}`, cb, once ? { once: true } : undefined);
+  const eventFullName = widgetName ? `${NAMESPACE}-${widgetName}-${eventName}` : eventName;
+  (root || document).addEventListener(eventFullName, cb, once ? { once: true } : undefined);
   return () =>
     (root || document).removeEventListener(
-      `${NAMESPACE}-${widgetName}-${eventName}`,
+      eventFullName,
       cb,
       once ? ({ once: true } as EventListenerOptions) : undefined,
     );

@@ -140,22 +140,21 @@ _lasuite_widget.push(['lagaufre', 'init', {
             
             <button type="button" onclick="openBasicWidget(this)">Below button (absolute)</button>
             <div class="code-block"><pre>
-// Absolute positioning, tied to a button
+// Absolute & dynamic positioning, tied to a button
 (button) => {
     _lasuite_widget.push(['lagaufre', 'init', {
         api: '/widgets/demo/lagaufre-data.json',
         open: true,
         label: 'La Gaufre - Bottom Left',
-        position: 'absolute',
-        top: button.offsetTop + button.offsetHeight + 10,
-        right: window.innerWidth - button.offsetLeft - button.offsetWidth
+        position: () => {
+            return {
+                position: 'absolute',
+                top: button.offsetTop + button.offsetHeight + 10,
+                right: window.innerWidth - button.offsetLeft - button.offsetWidth
+            };
+        },
+        buttonElement: button
     }]);
-    window.addEventListener('resize', () => {
-        _lasuite_widget.push(['lagaufre', 'configure', {
-            top: button.offsetTop + button.offsetHeight + 10,
-            right: window.innerWidth - button.offsetLeft - button.offsetWidth
-        }]);
-    });
 }</pre></div>
 
         </div>

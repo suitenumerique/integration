@@ -27,7 +27,7 @@ type ServicesResponse = {
 
 type GaufreWidgetArgs = {
   api?: string;
-  position?: string;
+  position?: string | (() => Record<string, number | string>);
   top?: number;
   bottom?: number;
   left?: number;
@@ -45,6 +45,7 @@ type GaufreWidgetArgs = {
   newWindowLabelSuffix?: string;
   showFooter?: boolean;
   dialogElement?: HTMLElement;
+  buttonElement?: HTMLElement;
 };
 
 let loaded = false;
@@ -100,21 +101,27 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
 
   // Configure dynamic properties
   const configure = (newArgs: GaufreWidgetArgs) => {
-    // Positioning parameters
-    if (newArgs.position) {
-      wrapper.style.position = newArgs.position;
+    const directions = ["top", "bottom", "left", "right"] as const;
+
+    const applyPos = (obj: Record<string, number | string>) => {
+      directions.forEach((prop) => {
+        wrapper.style[prop] = typeof obj[prop] === "number" ? `${obj[prop]}px` : "unset";
+      });
+    };
+
+    if (!directions.every((d) => newArgs[d] === undefined)) {
+      applyPos(newArgs as Record<string, number | string>);
     }
 
-    if (
-      newArgs.top != undefined ||
-      newArgs.bottom != undefined ||
-      newArgs.left != undefined ||
-      newArgs.right != undefined
-    ) {
-      const applyPos = (prop: "top" | "bottom" | "left" | "right") => {
-        wrapper.style[prop] = typeof newArgs[prop] === "number" ? `${newArgs[prop]}px` : "unset";
-      };
-      (["top", "bottom", "left", "right"] as const).forEach(applyPos);
+    // Positioning parameters
+    if (newArgs.position) {
+      if (typeof newArgs.position === "function") {
+        const pos = newArgs.position();
+        wrapper.style.position = pos.position as string;
+        applyPos(pos);
+      } else {
+        wrapper.style.position = newArgs.position;
+      }
     }
 
     // Apply font family (inherit from parent or use provided)
@@ -130,7 +137,7 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
     // Apply texts
     const label = newArgs.label || "Services";
     const closeLabel = newArgs.closeLabel || "Close";
-    loadingDiv.textContent = newArgs.loadingText || "Loading...";
+    loadingDiv.textContent = newArgs.loadingText || "Loading…";
     wrapper.setAttribute("aria-label", label);
     if (closeBtn) {
       closeBtn.setAttribute("aria-label", closeLabel);
@@ -142,6 +149,12 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
   };
 
   configure(args);
+
+  listeners.push(
+    listenEvent("", "resize", window, false, () => {
+      configure(args);
+    }),
+  );
 
   // Initially hide the widget
   wrapper.style.display = "none";
@@ -256,6 +269,10 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
         });
       }
 
+      if (args.buttonElement) {
+        args.buttonElement.setAttribute("aria-expanded", "true");
+      }
+
       triggerEvent(widgetName, "opened");
     }),
   );
@@ -276,6 +293,12 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
 
       wrapper.style.display = "none";
       isVisible = false;
+
+      // Return the focus to the button that opened the widget if any
+      if (args.buttonElement) {
+        args.buttonElement.focus();
+        args.buttonElement.setAttribute("aria-expanded", "false");
+      }
 
       // Remove click outside listener
       document.removeEventListener("click", handleClickOutside);
@@ -307,6 +330,14 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
     closeBtn.addEventListener("click", () => {
       triggerEvent(widgetName, "close");
     });
+  }
+
+  if (args.buttonElement) {
+    listeners.push(
+      listenEvent("", "click", args.buttonElement, false, () => {
+        triggerEvent(widgetName, "toggle");
+      }),
+    );
   }
 
   // Add to DOM but keep hidden
