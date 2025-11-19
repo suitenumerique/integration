@@ -1,0 +1,4 @@
+# Local development overrides for widgets
+# Add your local-specific environment variables below:
+# Example: DJANGO_DEBUG=True
+

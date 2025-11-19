@@ -21,7 +21,6 @@ This is a starlight-based Astro app. Follow the official docs if more info is ne
 
 ```sh
 npm install
-cp .env.example .env
 npm run dev
 ```
 

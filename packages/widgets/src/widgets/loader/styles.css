@@ -1,0 +1,105 @@
+/* Widget styles */
+div {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #000091;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 145, 0.3);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+svg {
+  width: 35px;
+  height: 35px;
+}
+
+button:focus-visible {
+  outline: 3px solid #0a76f6;
+  outline-offset: 2px;
+}
+
+button:hover {
+  background: #1212ff;
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(18, 18, 255, 0.4);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+button.loading {
+  background: #2323ff;
+}
+
+button.loading::after {
+  content: "";
+  width: 25px;
+  height: 25px;
+  border: 3px solid transparent;
+  border-top: 3px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+button.loading svg {
+  display: none;
+}
+
+button.opened svg {
+  display: none;
+}
+
+button.opened::after {
+  content: "+";
+  font-size: 50px;
+  color: white;
+  height: 60px;
+  line-height: 60px;
+  font-family: Arial;
+  transform: rotate(45deg);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 420px) {
+  button {
+    width: 40px;
+    height: 40px;
+  }
+  svg {
+    width: 25px;
+    height: 25px;
+  }
+  div {
+    right: 15px;
+    bottom: 15px;
+  }
+  button.opened::after {
+    font-size: 40px;
+  }
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Gaufre Widget Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .demo-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            float:right;
+            cursor: pointer;
+            display:flex;
+            border: none;
+            background: none;
+            padding: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-container">
+
+        <p>
+            <a href="/">Back to index</a>
+        </p>
+        
+
+<script src="/widgets/dist/lagaufre.js" async type="module"></script>
+
+
+<button type="button" id="gaufre_button" aria-label="Ouvrir la Gaufre" aria-expanded="false">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <path fill="#000091" id="square" d="M2.7959 0.5C3.26483 0.5 3.49956 0.49985 3.68848 0.564453C4.03934 0.684581 4.31542 0.960658 4.43555 1.31152C4.50015 1.50044 4.5 1.73517 4.5 2.2041V2.7959C4.5 3.26483 4.50015 3.49956 4.43555 3.68848C4.31542 4.03934 4.03934 4.31542 3.68848 4.43555C3.49956 4.50015 3.26483 4.5 2.7959 4.5H2.2041C1.73517 4.5 1.50044 4.50015 1.31152 4.43555C0.960658 4.31542 0.684581 4.03934 0.564453 3.68848C0.49985 3.49956 0.5 3.26483 0.5 2.7959V2.2041C0.5 1.73517 0.49985 1.50044 0.564453 1.31152C0.684581 0.960658 0.960658 0.684581 1.31152 0.564453C1.50044 0.49985 1.73517 0.5 2.2041 0.5H2.7959Z" />
+        </defs>
+        <use href="#square" transform="translate(0, 0)"/><use href="#square" transform="translate(6.5, 0)"/><use href="#square" transform="translate(13, 0)"/><use href="#square" transform="translate(0, 6.5)"/><use href="#square" transform="translate(6.5, 6.5)"/><use href="#square" transform="translate(13, 6.5)"/><use href="#square" transform="translate(0, 13)"/><use href="#square" transform="translate(6.5, 13)"/><use href="#square" transform="translate(13, 13)"/>
+    </svg>
+</button>
+  
+<script>
+  
+  const button = document.getElementById("gaufre_button");
+  
+  window._lasuite_widget = window._lasuite_widget || [];
+  _lasuite_widget.push(['lagaufre', 'init', {
+      api: '/widgets/demo/lagaufre-data.json',
+      label: "Services de la Suite numérique",
+      closeLabel: "Fermer le menu",
+      headerLabel: "À propos",
+      loadingText: "Chargement…",
+      newWindowLabelSuffix: " (nouvelle fenêtre)",
+      buttonElement: button,
+      position: () => {
+        return {
+          position: "absolute",
+          top: button.offsetTop + button.offsetHeight + 10,
+          right: window.innerWidth - button.offsetLeft - button.offsetWidth
+        }
+      }
+  }]);
+</script>
+
+
+<h1>La Gaufre - Single Page Demo</h1>
+<p>
+    Try opening the Gaufre by clicking on the button on the top right! You can also use keyboard navigation.
+</p>
+<p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</p>
+<p>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</p>
+
+</body>
+</html>
+</div>

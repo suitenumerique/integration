@@ -27,7 +27,7 @@ This folder is meant to generate the `@gouvfr-lasuite/integration` npm package.
 
 It's a vite app.
 
-To start, `npm install` a first time and copy the example env file: `cp .env.example .env`. Make sure the API env var targets a running API. If you don't want to use the production one, you can run one locally easily: the API is exposed via the `/website` server, go check the README there.
+To start, `npm install` a first time. Make sure the API env var targets a running API. If you don't want to use the production one, you can run one locally easily: the API is exposed via the `/website` server, go check the README there.
 
 Then, run the local dev server with `npm run dev`.
 
