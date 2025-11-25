@@ -1,4 +1,5 @@
 import styles from "./styles.css?inline";
+import chevronDownwardSvg from "./chevron_downward.svg?raw";
 import { createShadowWidget } from "../../shared/shadow-dom";
 import { installHook } from "../../shared/script";
 import { listenEvent, triggerEvent } from "../../shared/events";
@@ -41,11 +42,13 @@ type GaufreWidgetArgs = {
   label?: string;
   closeLabel?: string;
   headerLabel?: string;
+  viewMoreLabel?: string;
+  viewLessLabel?: string;
   loadingText?: string;
   newWindowLabelSuffix?: string;
-  showFooter?: boolean;
   dialogElement?: HTMLElement;
   buttonElement?: HTMLElement;
+  showMoreLimit?: number;
 };
 
 let loaded = false;
@@ -65,26 +68,44 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
   const listeners: (() => void)[] = [];
   let isVisible = false;
 
+  const viewMoreLabel = args.viewMoreLabel || "More apps";
+  const viewLessLabel = args.viewLessLabel || "Fewer apps";
+  const showMoreLimit = args.showMoreLimit || 6;
   // https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/
   /* prettier-ignore */
   const htmlContent =
     `<div id="wrapper" role="dialog" aria-modal="true" tabindex="-1">` +
-        ((args.headerLogo && args.headerUrl) ? (
-          `<div id="header">` +
-            `<a href="${args.headerUrl}" target="_blank">` +
-              `<img src="${args.headerLogo}" id="header-logo">` +
-            `</a>` +
-            `<button type="button" id="close">&times;</button>` +
-          `</div>`
-        ) : "") +
+        `<div id="header">` +
+          (args.headerLogo ? (
+            args.headerUrl ? (
+              `<a href="${args.headerUrl}" target="_blank">` +
+                `<img src="${args.headerLogo}" id="header-logo">` +
+              `</a>`
+            ) : (
+              `<img src="${args.headerLogo}" id="header-logo">`
+            )
+          ) : "") +
+          `<button type="button" id="close">&times;</button>` +
+        `</div>` +
         `<div id="content">` +
             `<div id="loading">Loading...</div>` +
-            `<ul role="list" id="services-grid" style="display: none;"></ul>` +
+            `<div id="main-apps">` +
+                `<ul role="list" id="services-grid" style="display: none;"></ul>` +
+            `</div>` +
+            `<div id="more-apps" style="display: none;">` +
+                `<div id="show-more-container">` +
+                    `<button type="button" id="show-more-button">` +
+                        `<span id="show-more-chevron" aria-hidden="true">${chevronDownwardSvg}</span>` +
+                        `<span id="show-more-text">${viewMoreLabel}</span>` +
+                    `</button>` +
+                `</div>` +
+                `<ul role="list" id="more-services-grid"></ul>` +
+            `</div>` +
             `<div id="error" style="display: none;"></div>` +
         `</div>` +
-        (args.showFooter ? `<div id="footer">` +
+        `<div id="footer">` +
             `<button id="ok-button">OK</button>` +
-        `</div>` : "") +
+        `</div>` +
     `</div>`;
 
   // Create shadow DOM widget
@@ -94,6 +115,11 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
   const wrapper = shadowRoot.querySelector<HTMLDivElement>("#wrapper")!;
   const loadingDiv = shadowRoot.querySelector<HTMLDivElement>("#loading")!;
   const servicesGrid = shadowRoot.querySelector<HTMLDivElement>("#services-grid")!;
+  const moreAppsSection = shadowRoot.querySelector<HTMLDivElement>("#more-apps")!;
+  const moreServicesGrid = shadowRoot.querySelector<HTMLDivElement>("#more-services-grid")!;
+  const showMoreBtn = shadowRoot.querySelector<HTMLButtonElement>("#show-more-button")!;
+  const showMoreChevron = shadowRoot.querySelector<HTMLSpanElement>("#show-more-chevron")!;
+  const showMoreText = shadowRoot.querySelector<HTMLSpanElement>("#show-more-text")!;
   const errorDiv = shadowRoot.querySelector<HTMLDivElement>("#error")!;
   const closeBtn = shadowRoot.querySelector<HTMLButtonElement>("#close");
   const okBtn = shadowRoot.querySelector<HTMLButtonElement>("#ok-button")!;
@@ -153,6 +179,10 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
   listeners.push(
     listenEvent("", "resize", window, false, () => {
       configure(args);
+      // Re-render services on resize to handle mobile/desktop switch
+      if (args.data) {
+        renderServices(args.data);
+      }
     }),
   );
 
@@ -169,9 +199,13 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
   const renderServices = (data: ServicesResponse) => {
     // Clear previous content
     servicesGrid.innerHTML = "";
+    moreServicesGrid.innerHTML = "";
+    const maxInitialServices = showMoreLimit;
+    const hasMoreServices = data.services.length > maxInitialServices;
+    
 
-    data.services.forEach((service) => {
-      if (!service.logo) return;
+    const createServiceCard = (service: Service) => {
+      if (!service.logo) return null;
       if (service.maturity == "stable") delete service.maturity;
 
       const serviceCard = document.createElement("li");
@@ -205,8 +239,50 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
       img.src = service.logo;
       serviceName.textContent = service.name;
 
-      servicesGrid.appendChild(serviceCard);
+      return serviceCard;
+    };
+
+    // Render initial services (first 6)
+    const initialServices = data.services.slice(0, maxInitialServices);
+    initialServices.forEach((service) => {
+      const serviceCard = createServiceCard(service);
+      if (serviceCard) {
+        servicesGrid.appendChild(serviceCard);
+      }
     });
+
+    // Handle additional services if any
+    if (hasMoreServices) {
+      const additionalServices = data.services.slice(maxInitialServices);
+      
+      // Render additional services in the more services grid
+      additionalServices.forEach((service) => {
+        const serviceCard = createServiceCard(service);
+        if (serviceCard) {
+          moreServicesGrid.appendChild(serviceCard);
+        }
+      });
+
+      // Show the more apps section
+      moreAppsSection.style.display = "flex";
+      moreServicesGrid.classList.add("hidden");
+      showMoreChevron.classList.remove("opened");
+
+      // Update button text and handle click
+      const updateButton = () => {
+        moreServicesGrid.classList.toggle("hidden");
+        showMoreChevron.classList.toggle("opened");
+        const isOpened = showMoreChevron.classList.contains("opened");
+        showMoreText.textContent = !isOpened ? viewLessLabel : viewMoreLabel;
+      };
+
+      showMoreBtn.addEventListener("click", () => {
+        updateButton();
+      });
+    } else {
+      // Hide the more apps section if no additional services
+      moreAppsSection.style.display = "none";
+    }
 
     loadingDiv.style.display = "none";
     errorDiv.style.display = "none";
@@ -252,7 +328,7 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
   // Open widget (show the prepared shadow DOM)
   listeners.push(
     listenEvent(widgetName, "open", null, false, () => {
-      wrapper.style.display = "block";
+      wrapper.style.display = "flex";
 
       // Add click outside listener after a short delay to prevent immediate closing or double-clicks.
       setTimeout(() => {
