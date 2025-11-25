@@ -1,5 +1,12 @@
 # Changelog
 
+## [unreleased]
+
+- header and footer are displayed by default in mobile mode, but never in desktop mode.
+- show only the first x (customizable) services and add view_more button
+
+
+
 ## 1.0.3
 
 - new grist, resana, docs, visio, rdv logos
