@@ -273,7 +273,7 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
         moreServicesGrid.classList.toggle("hidden");
         showMoreChevron.classList.toggle("opened");
         const isOpened = showMoreChevron.classList.contains("opened");
-        showMoreText.textContent = !isOpened ? viewLessLabel : viewMoreLabel;
+        showMoreText.textContent = isOpened ? viewLessLabel : viewMoreLabel;
       };
 
       showMoreBtn.addEventListener("click", () => {
