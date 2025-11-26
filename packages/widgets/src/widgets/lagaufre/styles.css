@@ -184,7 +184,7 @@
 
 #show-more-button {
   background: none;
-  color: #64748b;
+  color: #626A80;
   border: none;
   border-radius: 6px;
   padding: 8px 16px;
@@ -192,7 +192,6 @@
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  min-width: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
