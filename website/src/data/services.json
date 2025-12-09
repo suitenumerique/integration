@@ -10,26 +10,6 @@
     "enabled": true
   },
   {
-    "id": "france-transfert",
-    "name": "France Transfert",
-    "url": "https://francetransfert.numerique.gouv.fr/upload",
-    "tagline": "**France Transfert** permet d’envoyer des fichiers <br>volumineux non sensibles de manière sécurisée <br>à un agent de l’Etat ou entre agents",
-    "homepageType": "custom",
-    "entity": "Gouvernement",
-    "beta": false,
-    "enabled": true
-  },
-  {
-    "id": "grist",
-    "name": "Tableur collaboratif (Grist)",
-    "url": "https://grist.numerique.gouv.fr/",
-    "tagline": "**Grist**, une feuille de calcul <br>flexible, moderne et open source <br>qui sort des cases.",
-    "homepageType": "proconnect",
-    "entity": "Gouvernement",
-    "beta": true,
-    "enabled": true
-  },
-  {
     "id": "docs",
     "name": "Docs",
     "url": "https://docs.numerique.gouv.fr/",
@@ -50,31 +30,41 @@
     "enabled": true
   },
   {
-    "id": "resana",
-    "name": "Resana",
-    "url": "https://resana.numerique.gouv.fr/public/",
-    "tagline": "**Resana** <br>groupes de travail <br>et suite collaborative en ligne",
-    "homepageType": "email-or-proconnect",
+    "id": "fichiers",
+    "name": "Fichiers",
+    "url": "https://fichiers.numerique.gouv.fr/",
+    "tagline": "Stocker et partager facilement",
+    "homepageType": "proconnect",
     "entity": "Gouvernement",
-    "beta": false,
+    "beta": true,
     "enabled": true
   },
   {
-    "id": "webinaire",
-    "name": "Webinaire de l'État",
-    "url": "https://webinaire.numerique.gouv.fr/welcome",
-    "tagline": "**Webinaire**. Vous organisez régulièrement <br>des séminaires, vous êtes agent de l’État, <br>créez un compte pour organiser <br>et conserver vos séminaires.",
+    "id": "grist",
+    "name": "Tableur collaboratif (Grist)",
+    "url": "https://grist.numerique.gouv.fr/",
+    "tagline": "**Grist**, une feuille de calcul <br>flexible, moderne et open source <br>qui sort des cases.",
+    "homepageType": "proconnect",
+    "entity": "Gouvernement",
+    "beta": true,
+    "enabled": true
+  },
+  {
+    "id": "france-transfert",
+    "name": "France Transfert",
+    "url": "https://francetransfert.numerique.gouv.fr/upload",
+    "tagline": "**France Transfert** permet d’envoyer des fichiers <br>volumineux non sensibles de manière sécurisée <br>à un agent de l’Etat ou entre agents",
     "homepageType": "custom",
     "entity": "Gouvernement",
     "beta": false,
     "enabled": true
   },
   {
-    "id": "demarches",
-    "name": "Démarches simplifiées",
-    "url": "https://www.demarches-simplifiees.fr/",
-    "tagline": "**Démarches simplifiées**, <br>Effectuer une démarche administrative en ligne",
-    "homepageType": "proconnect",
+    "id": "resana",
+    "name": "Resana",
+    "url": "https://resana.numerique.gouv.fr/public/",
+    "tagline": "**Resana** <br>groupes de travail <br>et suite collaborative en ligne",
+    "homepageType": "email-or-proconnect",
     "entity": "Gouvernement",
     "beta": false,
     "enabled": true
@@ -88,6 +78,26 @@
     "entity": "Gouvernement",
     "beta": false,
     "enabled": true
+  },
+  {
+    "id": "demarches",
+    "name": "Démarche",
+    "url": "https://demarche.numerique.gouv.fr/",
+    "tagline": "**Démarches simplifiées**, <br>Effectuer une démarche administrative en ligne",
+    "homepageType": "proconnect",
+    "entity": "Gouvernement",
+    "beta": false,
+    "enabled": true
+  },
+  {
+    "id": "webinaire",
+    "name": "Webinaire de l'État",
+    "url": "https://webinaire.numerique.gouv.fr/welcome",
+    "tagline": "**Webinaire**. Vous organisez régulièrement <br>des séminaires, vous êtes agent de l’État, <br>créez un compte pour organiser <br>et conserver vos séminaires.",
+    "homepageType": "custom",
+    "entity": "Gouvernement",
+    "beta": false,
+    "enabled": false
   },
   {
     "id": "pad",
