@@ -36,7 +36,7 @@
     "tagline": "Stocker et partager facilement",
     "homepageType": "proconnect",
     "entity": "Gouvernement",
-    "beta": true,
+    "beta": false,
     "enabled": true
   },
   {
