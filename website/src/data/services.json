@@ -26,7 +26,7 @@
     "tagline": "Visioconférences simples et sécurisées",
     "homepageType": "proconnect",
     "entity": "Gouvernement",
-    "beta": true,
+    "beta": false,
     "enabled": true
   },
   {
@@ -36,7 +36,7 @@
     "tagline": "Stocker et partager facilement",
     "homepageType": "proconnect",
     "entity": "Gouvernement",
-    "beta": false,
+    "beta": true,
     "enabled": true
   },
   {
