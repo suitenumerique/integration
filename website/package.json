@@ -40,7 +40,7 @@
     "react-syntax-highlighter": "^15.5.0",
     "rehype-autolink-headings": "^7.1.0",
     "remark-textr": "^6.1.0",
-    "sharp": "^0.33.3",
+    "sharp": "^0.34.5",
     "svg-gradient": "^1.0.3",
     "typescript": "^5.4.5"
   }
