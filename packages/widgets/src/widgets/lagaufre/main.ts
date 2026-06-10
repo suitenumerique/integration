@@ -331,9 +331,11 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
       wrapper.style.display = "flex";
 
       // Add click outside listener after a short delay to prevent immediate closing or double-clicks.
+      // Use the capture phase so the listener still fires when a sibling popover trigger (language
+      // picker, feedback, settings menu) calls stopPropagation() in the bubble phase to drive its own menu.
       setTimeout(() => {
         isVisible = true;
-        document.addEventListener("click", handleClickOutside);
+        document.addEventListener("click", handleClickOutside, true);
         wrapper.focus();
       }, 200);
 
@@ -376,8 +378,8 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
         args.buttonElement.setAttribute("aria-expanded", "false");
       }
 
-      // Remove click outside listener
-      document.removeEventListener("click", handleClickOutside);
+      // Remove click outside listener (must match the capture flag used when adding it)
+      document.removeEventListener("click", handleClickOutside, true);
 
       triggerEvent(widgetName, "closed");
     }),
