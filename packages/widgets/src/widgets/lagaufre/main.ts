@@ -9,6 +9,7 @@ const widgetName = "lagaufre";
 
 type Service = {
   name: string;
+  accessibleName?: string;
   url: string;
   maturity?: string;
   logo?: string;
@@ -233,7 +234,9 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
 
       anchor.setAttribute(
         "aria-label",
-        service.name + (service.maturity ? ` (${service.maturity})` : "") + (args.newWindowLabelSuffix || ""),
+        (service.accessibleName || service.name) +
+          (service.maturity ? ` (${service.maturity})` : "") +
+          (args.newWindowLabelSuffix || ""),
       );
       anchor.href = service.url;
       img.src = service.logo;
