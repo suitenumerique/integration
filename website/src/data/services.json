@@ -52,6 +52,7 @@
   {
     "id": "france-transfert",
     "name": "France Transfert",
+    "accessibleName": "France Transfert",
     "url": "https://francetransfert.numerique.gouv.fr/upload",
     "tagline": "**France Transfert** permet d’envoyer des fichiers <br>volumineux non sensibles de manière sécurisée <br>à un agent de l’Etat ou entre agents",
     "homepageType": "custom",
