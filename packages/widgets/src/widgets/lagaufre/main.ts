@@ -9,6 +9,11 @@ const widgetName = "lagaufre";
 
 type Service = {
   name: string;
+  /**
+   * String to use as aria-label if the visible name is not self-explanatory enough.
+   * It should start with the visible name or at least include it
+   * (see https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html)
+   */
   accessibleName?: string;
   url: string;
   maturity?: string;
