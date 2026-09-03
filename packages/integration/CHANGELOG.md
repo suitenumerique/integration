@@ -4,8 +4,7 @@
 
 - header and footer are displayed by default in mobile mode, but never in desktop mode.
 - show only the first x (customizable) services and add view_more button
-
-
+- lagaufre: use optional `accessibleName` for service `aria-label` when present (must include the visible name)
 
 ## 1.0.3
 
