@@ -341,6 +341,11 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
     if (args.dialogElement) {
       return;
     }
+    // The toggle button has its own listener. We listen in the capture phase, so we would close
+    // the widget before that listener runs and it would immediately reopen it.
+    if (args.buttonElement?.contains(event.target as Node)) {
+      return;
+    }
     if (!shadowContainer.contains(event.target as Node)) {
       triggerEvent(widgetName, "close");
     }
