@@ -243,6 +243,27 @@ _lasuite_widget.push(['lagaufre', 'init', {
         </div>
 
         <div class="demo-section">
+            <h2>Concurrent inits</h2>
+            <p>Consumers (e.g. the LaGaufreV2 component) push an init on every mount of their button, so a
+               header remount sends a second init while the first one is still fetching its services.
+               Only one widget must survive: the counter logged below has to be 1, and a click on the button
+               must open exactly one popover.</p>
+            <button type="button" onclick="openBasicWidget(this)">Double init</button>
+            <div class="code-block"><pre>
+(button) => {
+    const init = () => _lasuite_widget.push(['lagaufre', 'init', {
+        api: '/widgets/demo/lagaufre-data.json',
+        buttonElement: button
+    }]);
+    init();
+    setTimeout(init, 20);
+    setTimeout(() => {
+        console.log('shadow hosts:', document.querySelectorAll('#lasuite-widget-lagaufre-shadow').length);
+    }, 1500);
+}</pre></div>
+        </div>
+
+        <div class="demo-section">
             <h2>API Response Format</h2>
             <p>The widget expects the following API response format:</p>
             <div class="code-block"><pre>

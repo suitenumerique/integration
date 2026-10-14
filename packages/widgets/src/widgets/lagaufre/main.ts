@@ -57,7 +57,17 @@ type GaufreWidgetArgs = {
   showMoreLimit?: number;
 };
 
-let loaded = false;
+// Generation token of the most recent init. Consumers push an init on every mount of their
+// gaufre button, so a header remount during a route redirect sends a second init while the first
+// one is still awaiting its services fetch. Without this guard both inits complete their
+// installation and leave two shadow hosts and two sets of listeners behind, hence two stacked
+// popovers on a single click. Last init wins: an older one bails out after each await.
+let currentInitId = 0;
+
+// Teardown of the current generation. It lives at module level and is set before any await so
+// that a new init can replace an instance that is still initializing, i.e. whose own "destroy"
+// listener is not registered yet.
+let destroyCurrentInstance: (() => void) | null = null;
 
 // Initialize widget (load data and prepare shadow DOM)
 listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
@@ -66,13 +76,14 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
     return;
   }
 
-  if (loaded) {
-    triggerEvent(widgetName, "destroy");
-    await new Promise((resolve) => setTimeout(resolve, 10));
-  }
+  const initId = ++currentInitId;
+
+  destroyCurrentInstance?.();
 
   const listeners: (() => void)[] = [];
+  const abortController = new AbortController();
   let isVisible = false;
+  let closeInstance: (() => void) | null = null;
 
   const viewMoreLabel = args.viewMoreLabel || "More apps";
   const viewLessLabel = args.viewLessLabel || "Fewer apps";
@@ -117,6 +128,23 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
   // Create shadow DOM widget
   const shadowContainer = createShadowWidget(widgetName, htmlContent, styles);
   const shadowRoot = shadowContainer.shadowRoot!;
+
+  const destroy = () => {
+    if (currentInitId === initId) {
+      // Invalidate this generation so that an init still awaiting its fetch bails out.
+      currentInitId++;
+      destroyCurrentInstance = null;
+    }
+    abortController.abort();
+    closeInstance?.();
+    shadowContainer.remove();
+    // Unlisten all events
+    listeners.forEach((unlisten) => unlisten());
+    listeners.length = 0;
+  };
+
+  destroyCurrentInstance = destroy;
+  listeners.push(listenEvent(widgetName, "destroy", null, false, destroy));
 
   const wrapper = shadowRoot.querySelector<HTMLDivElement>("#wrapper")!;
   const loadingDiv = shadowRoot.querySelector<HTMLDivElement>("#loading")!;
@@ -208,7 +236,6 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
     moreServicesGrid.innerHTML = "";
     const maxInitialServices = showMoreLimit;
     const hasMoreServices = data.services.length > maxInitialServices;
-    
 
     const createServiceCard = (service: Service) => {
       if (!service.logo) return null;
@@ -262,7 +289,7 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
     // Handle additional services if any
     if (hasMoreServices) {
       const additionalServices = data.services.slice(maxInitialServices);
-      
+
       // Render additional services in the more services grid
       additionalServices.forEach((service) => {
         const serviceCard = createServiceCard(service);
@@ -305,6 +332,7 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
     try {
       const response = await fetch(args.api!, {
         method: "GET",
+        signal: abortController.signal,
       });
 
       const data = (await response.json()) as ServicesResponse;
@@ -321,6 +349,13 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
     }
   }
 
+  // A newer init (or a "destroy") took over while we were fetching: drop what we installed
+  // instead of inserting our shadow host next to the winner's one.
+  if (initId !== currentInitId) {
+    destroy();
+    return;
+  }
+
   const handleClickOutside = (event: MouseEvent) => {
     if (args.dialogElement) {
       return;
@@ -332,6 +367,7 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
 
   let untrapFocus: (() => void) | null = null;
   let untrapEscape: (() => void) | null = null;
+  let showTimeout: ReturnType<typeof setTimeout> | undefined;
 
   // Open widget (show the prepared shadow DOM)
   listeners.push(
@@ -341,7 +377,7 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
       // Add click outside listener after a short delay to prevent immediate closing or double-clicks.
       // Use the capture phase so the listener still fires when a sibling popover trigger (language
       // picker, feedback, settings menu) calls stopPropagation() in the bubble phase to drive its own menu.
-      setTimeout(() => {
+      showTimeout = setTimeout(() => {
         isVisible = true;
         document.addEventListener("click", handleClickOutside, true);
         wrapper.focus();
@@ -364,34 +400,40 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
   );
 
   // Close widget (hide the shadow DOM)
-  listeners.push(
-    listenEvent(widgetName, "close", null, false, () => {
-      if (untrapFocus) {
-        untrapFocus();
-      }
-      if (untrapEscape) {
-        untrapEscape();
-      }
+  const handleClose = () => {
+    if (untrapFocus) {
+      untrapFocus();
+    }
+    if (untrapEscape) {
+      untrapEscape();
+    }
 
-      if (!isVisible) {
-        return; // Already closed
-      }
+    // Undone even when already closed: "open" may have been called less than 200ms ago, leaving
+    // a pending timeout that would register the click outside listener after the fact.
+    clearTimeout(showTimeout);
+    // Remove click outside listener (must match the capture flag used when adding it)
+    document.removeEventListener("click", handleClickOutside, true);
 
-      wrapper.style.display = "none";
-      isVisible = false;
+    if (!isVisible) {
+      return; // Already closed
+    }
 
-      // Return the focus to the button that opened the widget if any
-      if (args.buttonElement) {
-        args.buttonElement.focus();
-        args.buttonElement.setAttribute("aria-expanded", "false");
-      }
+    wrapper.style.display = "none";
+    isVisible = false;
 
-      // Remove click outside listener (must match the capture flag used when adding it)
-      document.removeEventListener("click", handleClickOutside, true);
+    // Return the focus to the button that opened the widget if any
+    if (args.buttonElement) {
+      args.buttonElement.focus();
+      args.buttonElement.setAttribute("aria-expanded", "false");
+    }
 
-      triggerEvent(widgetName, "closed");
-    }),
-  );
+    triggerEvent(widgetName, "closed");
+  };
+
+  // destroy() calls it directly rather than triggering the "close" event, which would also reach
+  // the instance that replaced this one.
+  closeInstance = handleClose;
+  listeners.push(listenEvent(widgetName, "close", null, false, handleClose));
 
   // Toggle widget visibility
   listeners.push(
@@ -433,15 +475,6 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
     wrapper.className = "wrapper-dialog";
     document.body.appendChild(shadowContainer);
   }
-
-  listenEvent(widgetName, "destroy", null, true, () => {
-    triggerEvent(widgetName, "close");
-    loaded = false;
-    shadowContainer.remove();
-    // Unlisten all events
-    listeners.forEach((listener) => listener());
-  });
-  loaded = true;
 
   triggerEvent(widgetName, "initialized");
 
