@@ -9,6 +9,7 @@ const widgetName = "feedback";
 type ConfigData = {
   title?: string;
   placeholder?: string;
+  messageLabel?: string;
   emailPlaceholder?: string;
   submitText?: string;
   successText?: string;
@@ -27,6 +28,7 @@ type ConfigResponse = {
 type FeedbackWidgetArgs = {
   title?: string;
   placeholder?: string;
+  messageLabel?: string;
   emailPlaceholder?: string;
   submitText?: string;
   successText?: string;
@@ -65,6 +67,7 @@ listenEvent(widgetName, "init", null, false, async (args: FeedbackWidgetArgs) =>
 
   const title = args.title || configData?.title || "Feedback";
   const placeholder = args.placeholder || configData?.placeholder || "Share your feedback...";
+  const messageLabel = args.messageLabel || configData?.messageLabel || "Message";
   const emailPlaceholder = args.emailPlaceholder || configData?.emailPlaceholder || "Your email...";
   const submitText = args.submitText || configData?.submitText || "Send Feedback";
   const successText = args.successText || configData?.successText || "Thank you for your feedback!";
@@ -80,6 +83,7 @@ listenEvent(widgetName, "init", null, false, async (args: FeedbackWidgetArgs) =>
       `</div>` +
       `<div id="content">` +
         `<form>` +
+          `<label id="feedback-label" for="feedback-text"></label>` +
           `<textarea id="feedback-text" autocomplete="off" required></textarea>` +
           `<input type="email" id="email" autocomplete="email" required>` +
           `<button type="submit" id="submit"></button>` +
@@ -101,6 +105,7 @@ listenEvent(widgetName, "init", null, false, async (args: FeedbackWidgetArgs) =>
   const wrapper = $<HTMLDivElement>("#wrapper")!;
   const titleSpan = $<HTMLHeadingElement>("#title")!;
   const submitBtn = $<HTMLButtonElement>("#submit")!;
+  const feedbackLabel = $<HTMLLabelElement>("#feedback-label")!;
   const feedbackText = $<HTMLTextAreaElement>("#feedback-text")!;
   const errorDiv = $<HTMLDivElement>("#error")!;
   const closeBtn = $<HTMLButtonElement>("#close")!;
@@ -114,6 +119,7 @@ listenEvent(widgetName, "init", null, false, async (args: FeedbackWidgetArgs) =>
   wrapper.style.right = 20 + (args.rightOffset || 0) + "px";
 
   titleSpan.textContent = title;
+  feedbackLabel.textContent = messageLabel;
   feedbackText.placeholder = placeholder;
   emailInput.placeholder = emailPlaceholder;
   submitBtn.textContent = submitText;

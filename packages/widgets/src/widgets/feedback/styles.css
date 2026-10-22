@@ -64,6 +64,15 @@ form {
   font-size: 14px;
 }
 
+#feedback-label {
+  flex: 0 0 auto;
+  margin: 0;
+  color: #161616;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
 #feedback-text {
   flex: 1;
   border: 1px solid #e0e0e0;
