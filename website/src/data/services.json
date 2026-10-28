@@ -72,9 +72,9 @@
   {
     "id": "rdv",
     "name": "RDV Service Public",
-    "url": "https://rdv.anct.gouv.fr/",
+    "url": "https://rdv.numerique.gouv.fr/",
     "tagline": "**RDV Service Public** <br>facilitez la gestion <br>et la prise de rendez-vous en ligne",
-    "homepageType": "email",
+    "homepageType": "email-or-proconnect",
     "entity": "Gouvernement",
     "beta": false,
     "enabled": true
