@@ -57,8 +57,6 @@ type GaufreWidgetArgs = {
   showMoreLimit?: number;
 };
 
-let loaded = false;
-
 // Initialize widget (load data and prepare shadow DOM)
 listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
   if (!args.api && !args.data) {
@@ -66,10 +64,11 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
     return;
   }
 
-  if (loaded) {
-    triggerEvent(widgetName, "destroy");
-    await new Promise((resolve) => setTimeout(resolve, 10));
-  }
+  // Consumers push an init on every mount of their gaufre button, so a header remount sends a
+  // second init while the first one is still awaiting its services fetch. Destroy the previous
+  // instance synchronously, even if it is still fetching: this init has not registered its own
+  // listeners yet, so only the previous instance receives this event.
+  triggerEvent(widgetName, "destroy");
 
   const listeners: (() => void)[] = [];
   let isVisible = false;
@@ -117,6 +116,18 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
   // Create shadow DOM widget
   const shadowContainer = createShadowWidget(widgetName, htmlContent, styles);
   const shadowRoot = shadowContainer.shadowRoot!;
+
+  // Registered before any await so that a newer init can destroy this instance while it fetches.
+  let destroyed = false;
+  listeners.push(
+    listenEvent(widgetName, "destroy", null, false, () => {
+      destroyed = true;
+      triggerEvent(widgetName, "close");
+      shadowContainer.remove();
+      // Unlisten all events
+      listeners.forEach((listener) => listener());
+    }),
+  );
 
   const wrapper = shadowRoot.querySelector<HTMLDivElement>("#wrapper")!;
   const loadingDiv = shadowRoot.querySelector<HTMLDivElement>("#loading")!;
@@ -321,8 +332,18 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
     }
   }
 
+  // Destroyed while fetching: do not install a second shadow host next to the newer instance one.
+  if (destroyed) {
+    return;
+  }
+
   const handleClickOutside = (event: MouseEvent) => {
     if (args.dialogElement) {
+      return;
+    }
+    // The toggle button has its own listener. We listen in the capture phase, so we would close
+    // the widget before that listener runs and it would immediately reopen it.
+    if (args.buttonElement?.contains(event.target as Node)) {
       return;
     }
     if (!shadowContainer.contains(event.target as Node)) {
@@ -433,15 +454,6 @@ listenEvent(widgetName, "init", null, false, async (args: GaufreWidgetArgs) => {
     wrapper.className = "wrapper-dialog";
     document.body.appendChild(shadowContainer);
   }
-
-  listenEvent(widgetName, "destroy", null, true, () => {
-    triggerEvent(widgetName, "close");
-    loaded = false;
-    shadowContainer.remove();
-    // Unlisten all events
-    listeners.forEach((listener) => listener());
-  });
-  loaded = true;
 
   triggerEvent(widgetName, "initialized");
 
