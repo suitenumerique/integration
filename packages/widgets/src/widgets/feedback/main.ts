@@ -146,7 +146,14 @@ listenEvent(widgetName, "init", null, false, async (args: FeedbackWidgetArgs) =>
     errorDiv.textContent = "";
     const message = feedbackText.value.trim();
     const email = args.email || emailInput.value.trim();
-    
+    const file = fileInput.files?.[0];
+    const attachments = file
+      ? [{
+          type: file.type || "application/octet-stream",
+          name: file.name,
+          disposition: "attachment",
+          content: await fileToBase64(file),
+        }] : [];
 
     try {
       if (!message) {
@@ -210,20 +217,6 @@ listenEvent(widgetName, "init", null, false, async (args: FeedbackWidgetArgs) =>
   removeCloseListener = listenEvent(widgetName, "close", null, false, closeWidget);
 
   document.body.appendChild(shadowContainer);
-
-  fileInput.addEventListener("change", async () => {
-    const file = fileInput.files?.[0];
-    if (!file) return;
-    const b64 = await fileToBase64(file);
-    attachments = [
-      {
-      "type": "image/jpeg",
-      "name": file.name,
-      "disposition": "attachment",
-      "content": b64
-    }
-  ]
-  });
 
   feedbackText.focus();
 
