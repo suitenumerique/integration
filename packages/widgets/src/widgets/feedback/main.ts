@@ -116,7 +116,7 @@ listenEvent(widgetName, "init", null, false, async (args: FeedbackWidgetArgs) =>
   wrapper.style.bottom = 20 + (args.bottomOffset || 0) + "px";
   wrapper.style.right = 20 + (args.rightOffset || 0) + "px";
   
-  let attachment: object = {};
+  let attachments: object = {};
 
   titleSpan.textContent = title;
   feedbackText.placeholder = placeholder;
@@ -164,7 +164,7 @@ listenEvent(widgetName, "init", null, false, async (args: FeedbackWidgetArgs) =>
           "Content-Type": "application/json",
           "X-Channel-ID": args.channel,
         },
-        body: JSON.stringify({ textBody: message, attachments : attachment, email }),
+        body: JSON.stringify({ textBody: message, attachments : attachments, email }),
       });
       let retData;
       try {
@@ -215,12 +215,14 @@ listenEvent(widgetName, "init", null, false, async (args: FeedbackWidgetArgs) =>
     const file = fileInput.files?.[0];
     if (!file) return;
     const b64 = await fileToBase64(file);
-    attachment = {
-      "type": "application/jpg",
-      "name": "screenshot_user.jpg",
+    attachments = [
+      {
+      "type": "image/jpeg",
+      "name": file.name,
       "disposition": "attachment",
       "content": b64
     }
+  ]
   });
 
   feedbackText.focus();
