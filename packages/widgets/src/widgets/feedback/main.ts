@@ -54,7 +54,6 @@ listenEvent(widgetName, "init", null, false, async (args: FeedbackWidgetArgs) =>
       },
     });
     const configResponse = (await config.json()) as ConfigResponse;
-    console.log(configResponse)
     if (!configResponse.success) throw new Error(configResponse.detail || "Unknown error");
     if (configResponse.captcha) throw new Error("Captcha is not supported yet");
     configData = configResponse.config;
