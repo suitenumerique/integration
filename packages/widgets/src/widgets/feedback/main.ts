@@ -86,6 +86,7 @@ listenEvent(widgetName, "init", null, false, async (args: FeedbackWidgetArgs) =>
           `<label id="feedback-label" for="feedback-text"></label>` +
           `<textarea id="feedback-text" autocomplete="off" required></textarea>` +
           `<input type="email" id="email" autocomplete="email" required>` +
+          `<input type="file" id="file">` +
           `<button type="submit" id="submit"></button>` +
         `</form>` +
         `<div id="error" aria-live="polite" role="status"></div>` +
@@ -101,6 +102,7 @@ listenEvent(widgetName, "init", null, false, async (args: FeedbackWidgetArgs) =>
   const shadowContainer = createShadowWidget(widgetName, htmlContent, styles);
   const shadowRoot = shadowContainer.shadowRoot!;
   const $ = shadowRoot.querySelector.bind(shadowRoot);
+  const fileInput = $<HTMLInputElement>("#file")!;
 
   const wrapper = $<HTMLDivElement>("#wrapper")!;
   const titleSpan = $<HTMLHeadingElement>("#title")!;
@@ -129,11 +131,33 @@ listenEvent(widgetName, "init", null, false, async (args: FeedbackWidgetArgs) =>
     emailInput.remove();
   }
 
+
+  function fileToBase64(file: File | Blob): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result as string; // readAsDataURL always yields a string
+        resolve(result.slice(result.indexOf(",") + 1)); // drop "data:<mime>;base64,"
+      };
+      reader.onerror = () => reject(reader.error);
+      reader.readAsDataURL(file);
+    });
+  }
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     errorDiv.textContent = "";
     const message = feedbackText.value.trim();
     const email = args.email || emailInput.value.trim();
+    const file = fileInput.files?.[0];
+    const attachments = file
+      ? [{
+          type: file.type || "application/octet-stream",
+          name: file.name,
+          disposition: "attachment",
+          content: await fileToBase64(file),
+        }] : [];
+
     try {
       if (!message) {
         feedbackText.focus();
@@ -150,7 +174,7 @@ listenEvent(widgetName, "init", null, false, async (args: FeedbackWidgetArgs) =>
           "Content-Type": "application/json",
           "X-Channel-ID": args.channel,
         },
-        body: JSON.stringify({ textBody: message, email }),
+        body: JSON.stringify({ textBody: message, attachments : attachments, email }),
       });
       let retData;
       try {
