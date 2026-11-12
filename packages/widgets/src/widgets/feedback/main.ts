@@ -111,11 +111,9 @@ listenEvent(widgetName, "init", null, false, async (args: FeedbackWidgetArgs) =>
   const successDiv = $<HTMLDivElement>("#success")!;
   const successTextP = $<HTMLParagraphElement>("#success-text")!;
   const successText2P = $<HTMLParagraphElement>("#success-text2")!;
-  
+
   wrapper.style.bottom = 20 + (args.bottomOffset || 0) + "px";
   wrapper.style.right = 20 + (args.rightOffset || 0) + "px";
-  
-  let attachments: object = {};
 
   titleSpan.textContent = title;
   feedbackText.placeholder = placeholder;
@@ -163,7 +161,7 @@ listenEvent(widgetName, "init", null, false, async (args: FeedbackWidgetArgs) =>
         emailInput.focus();
         throw new Error("Missing value");
       }
-      
+
       const ret = await fetch(configData?.submitUrl || `${args.api}deliver/`, {
         method: "POST",
         headers: {
